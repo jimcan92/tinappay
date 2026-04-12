@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Login | The Artisanal Ledger</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=Manrope:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-highest": "#dfddd8",
+                    "on-secondary-fixed": "#483d35",
+                    "outline-variant": "#afada9",
+                    "on-tertiary-fixed-variant": "#686259",
+                    "on-error": "#ffefec",
+                    "tertiary-container": "#f7ece1",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-high": "#e5e2de",
+                    "primary-fixed": "#fe8848",
+                    "on-tertiary": "#fcf1e6",
+                    "on-secondary": "#fff0e7",
+                    "primary": "#9b4000",
+                    "surface": "#f9f6f2",
+                    "on-primary-fixed-variant": "#5a2200",
+                    "on-primary-container": "#4b1b00",
+                    "inverse-on-surface": "#9e9d99",
+                    "on-surface": "#2f2f2c",
+                    "on-primary-fixed": "#1b0600",
+                    "background": "#f9f6f2",
+                    "on-secondary-fixed-variant": "#665950",
+                    "error-container": "#f95630",
+                    "on-tertiary-fixed": "#4b453d",
+                    "surface-variant": "#dfddd8",
+                    "surface-dim": "#d6d4cf",
+                    "on-secondary-container": "#5c4f47",
+                    "tertiary-fixed": "#f7ece1",
+                    "on-background": "#2f2f2c",
+                    "tertiary-fixed-dim": "#e8ded3",
+                    "on-error-container": "#520c00",
+                    "on-primary": "#fff0ea",
+                    "inverse-primary": "#fe8848",
+                    "error-dim": "#b92902",
+                    "surface-bright": "#f9f6f2",
+                    "secondary-fixed": "#f1dfd4",
+                    "tertiary": "#615a52",
+                    "primary-dim": "#883700",
+                    "secondary": "#665950",
+                    "error": "#b02500",
+                    "tertiary-dim": "#554f46",
+                    "surface-container-low": "#f3f0ec",
+                    "primary-fixed-dim": "#ee7c3d",
+                    "on-surface-variant": "#5c5b59",
+                    "outline": "#787774",
+                    "secondary-container": "#f1dfd4",
+                    "on-tertiary-container": "#5e574f",
+                    "primary-container": "#fe8848",
+                    "surface-tint": "#9b4000",
+                    "surface-container": "#eae8e3",
+                    "inverse-surface": "#0e0e0c",
+                    "secondary-fixed-dim": "#e3d1c6",
+                    "secondary-dim": "#594d45"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Plus Jakarta Sans"],
+                    "body": ["Manrope"],
+                    "label": ["Manrope"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Manrope', sans-serif;
+            background-color: #f9f6f2;
+        }
+        .signature-gradient {
+            background: linear-gradient(135deg, #9b4000 0%, #fe8848 100%);
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(175, 173, 169, 0.15);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="text-on-surface flex flex-col min-h-screen">
+<!-- Main Content Canvas -->
+<main class="flex-grow flex flex-col items-center justify-center px-8 relative overflow-hidden">
+<!-- Decorative Background Element (Asymmetric Editorial Style) -->
+<div class="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-secondary-container/30 blur-3xl"></div>
+<div class="absolute -bottom-24 -left-24 w-80 h-80 rounded-full bg-primary-container/10 blur-3xl"></div>
+<!-- Brand Identity Section -->
+<div class="z-10 text-center mb-12">
+<div class="inline-flex items-center justify-center w-20 h-20 mb-6 rounded-xl bg-surface-container-lowest shadow-sm">
+<span class="material-symbols-outlined text-primary text-4xl" style="font-variation-settings: 'FILL' 1;">bakery_dining</span>
+</div>
+<h1 class="font-headline text-3xl font-extrabold tracking-tighter text-primary">
+                The Artisanal Ledger
+            </h1>
+<p class="font-body text-on-surface-variant mt-2 text-sm font-medium tracking-tight">
+                Crafted for Excellence in Every Batch
+            </p>
+</div>
+<!-- Login Form Section -->
+<div class="w-full max-w-sm z-10">
+<div class="space-y-6">
+<!-- Email Field -->
+<div class="space-y-2">
+<label class="font-label text-xs font-semibold uppercase tracking-widest text-on-surface-variant ml-1">Email Address</label>
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">mail</span>
+<input class="w-full pl-12 pr-4 py-4 bg-surface-container-lowest border-none rounded-xl text-on-surface placeholder:text-outline/50 focus:ring-2 focus:ring-primary-container transition-all" placeholder="baker@ledger.com" type="email"/>
+</div>
+</div>
+<!-- Password Field -->
+<div class="space-y-2">
+<label class="font-label text-xs font-semibold uppercase tracking-widest text-on-surface-variant ml-1">Password</label>
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">lock</span>
+<input class="w-full pl-12 pr-12 py-4 bg-surface-container-lowest border-none rounded-xl text-on-surface placeholder:text-outline/50 focus:ring-2 focus:ring-primary-container transition-all" placeholder="••••••••" type="password"/>
+<button class="absolute right-4 top-1/2 -translate-y-1/2 text-outline-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">visibility</span>
+</button>
+</div>
+</div>
+<!-- Forgot Password -->
+<div class="flex justify-end mt-2">
+<a class="font-label text-xs font-semibold text-primary hover:text-primary-dim transition-colors" href="#">Forgot Password?</a>
+</div>
+<!-- Sign In Action -->
+<button class="w-full signature-gradient text-on-primary py-4 rounded-full font-headline font-bold text-lg shadow-lg active:scale-[0.98] transition-transform duration-150">
+                    Sign In
+                </button>
+</div>
+</div>
+<!-- Support Link Section -->
+<div class="z-10 mt-12 text-center">
+<p class="font-body text-sm text-on-surface-variant">
+                Need help accessing your kiln? 
+                <a class="text-primary font-semibold underline decoration-primary-container underline-offset-4 ml-1" href="#">Contact Support</a>
+</p>
+</div>
+<!-- Artistic Footer Image (Asymmetric Placement) -->
+<div class="absolute bottom-10 right-0 w-40 h-40 opacity-20 pointer-events-none">
+<img alt="artisan-bread" class="w-full h-full object-cover rounded-l-full grayscale contrast-125" data-alt="close-up of artisan sourdough bread with flour dusting on a rustic dark surface with high contrast lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_5v3S0B0W9r3INVtNtVZaZvlMObZk7lHSGM4snYe0m9ppR3DmYADuTNbJmmUyiOmKoypswa8gJzYlG-_ZSyig3Viwpjb0FMSySmer3YcaoOOp4WrDKrZrCRcAF1Dyc3mveAq3pgeQCw_zu2zCnOxVzGD5aFt_XgsCjNWbSscodvkJSZ8q1jNrjsXO0G5UgabMa5x5JE7SG8_T2RB8pNXbKTOzUtLL74MLKwxwGDctzPJWtsiMXns3OVgaC5k14Sr-9lQrQqdEaww"/>
+</div>
+</main>
+<!-- Footer Component from Shared Components JSON -->
+<footer class="flex flex-col md:flex-row justify-between items-center px-8 py-6 w-full mt-auto bg-stone-100 dark:bg-stone-900 border-t border-stone-200/20">
+<div class="text-stone-500 dark:text-stone-500 font-manrope text-xs tracking-wide mb-4 md:mb-0">
+            © 2024 The Artisanal Ledger. Crafted for Excellence.
+        </div>
+<div class="flex gap-6">
+<a class="text-stone-500 dark:text-stone-500 font-manrope text-xs tracking-wide hover:text-orange-800 dark:hover:text-orange-200 transition-opacity duration-300" href="#">Privacy Policy</a>
+<a class="text-stone-500 dark:text-stone-500 font-manrope text-xs tracking-wide hover:text-orange-800 dark:hover:text-orange-200 transition-opacity duration-300" href="#">Terms of Service</a>
+<a class="text-stone-500 dark:text-stone-500 font-manrope text-xs tracking-wide hover:text-orange-800 dark:hover:text-orange-200 transition-opacity duration-300" href="#">Contact Support</a>
+</div>
+</footer>
+</body></html>

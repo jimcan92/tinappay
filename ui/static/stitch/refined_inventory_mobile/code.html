@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Artisan Ledger | Inventory</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container": "#eae8e3",
+                        "surface": "#f9f6f2",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-dim": "#594d45",
+                        "primary-container": "#fe8848",
+                        "primary-dim": "#883700",
+                        "outline": "#787774",
+                        "on-error-container": "#520c00",
+                        "tertiary-container": "#f7ece1",
+                        "secondary-container": "#f1dfd4",
+                        "on-secondary-fixed": "#483d35",
+                        "error-container": "#f95630",
+                        "surface-variant": "#dfddd8",
+                        "secondary-fixed-dim": "#e3d1c6",
+                        "surface-container-low": "#f3f0ec",
+                        "surface-container-high": "#e5e2de",
+                        "on-secondary-container": "#5c4f47",
+                        "on-surface-variant": "#5c5b59",
+                        "tertiary-fixed-dim": "#e8ded3",
+                        "secondary-fixed": "#f1dfd4",
+                        "primary-fixed": "#fe8848",
+                        "tertiary-dim": "#554f46",
+                        "error": "#b02500",
+                        "error-dim": "#b92902",
+                        "inverse-on-surface": "#9e9d99",
+                        "on-secondary-fixed-variant": "#665950",
+                        "inverse-primary": "#fe8848",
+                        "tertiary": "#615a52",
+                        "surface-bright": "#f9f6f2",
+                        "on-primary-fixed-variant": "#5a2200",
+                        "secondary": "#665950",
+                        "on-surface": "#2f2f2c",
+                        "on-background": "#2f2f2c",
+                        "on-error": "#ffefec",
+                        "primary-fixed-dim": "#ee7c3d",
+                        "on-primary-container": "#4b1b00",
+                        "primary": "#9b4000",
+                        "on-tertiary-fixed": "#4b453d",
+                        "outline-variant": "#afada9",
+                        "on-tertiary": "#fcf1e6",
+                        "on-primary": "#fff0ea",
+                        "on-tertiary-fixed-variant": "#686259",
+                        "inverse-surface": "#0e0e0c",
+                        "background": "#f9f6f2",
+                        "surface-container-highest": "#dfddd8",
+                        "tertiary-fixed": "#f7ece1",
+                        "on-primary-fixed": "#1b0600"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Plus Jakarta Sans"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Manrope', sans-serif; }
+        h1, h2, h3 { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .glass-effect {
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface min-h-screen pb-12">
+<!-- TopAppBar -->
+<header class="w-full top-0 sticky z-40 bg-[#f9f6f2] dark:bg-stone-900 flex items-center justify-between px-6 py-4 w-full">
+<div class="flex items-center gap-4">
+<button class="text-[#9b4000] dark:text-[#fe8848] active:scale-95 duration-150 hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<h1 class="text-xl font-bold tracking-tight text-[#2f2f2c] dark:text-[#dfddd8] font-['Plus_Jakarta_Sans']">Artisan Ledger</h1>
+</div>
+<div class="flex items-center gap-3">
+<button class="text-[#2f2f2c] dark:text-[#afada9] active:scale-95 duration-150 transition-opacity">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-surface-container-highest overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="close up portrait of a professional head baker wearing a white apron in a sunlit bakery" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3j7YvHsOCT9nlElsWcC_j-_6QqHn7uJnOjk2hvu7U3kXQIgtrO_I4Y0_Cz8nrfvxCf2Mv-3T1nu3cCpf1M-PzXPdZ_IR3xr-vqnFt_odr_hST9lZ43uIJ-Oh9o4ivLRl-9N6qIStk5D8zzd1I3DWeJwt-ZhxV_L1IIszqC7eBm4MRySsDav3xzzDk6RjL-LPt27zbWP3sqmJUSP5iiH07e3n2kyVaU14fuxonq4ZQWGPMbaEpPZDREflCBiTJ1oiMs3K8qjMT8Ms"/>
+</div>
+</div>
+</header>
+<!-- Sidebar Overlay (Hidden by default, simulated as open for visual purposes if requested but standardly hidden) -->
+<aside class="hidden fixed inset-y-0 left-0 z-50 flex flex-col bg-[#f3f0ec]/90 dark:bg-stone-900/90 backdrop-blur-xl h-full w-72 rounded-r-[2rem] shadow-[0px_12px_32px_rgba(47,47,44,0.06)]">
+<div class="p-8 flex flex-col gap-1">
+<div class="flex items-center gap-4 mb-6">
+<div class="w-12 h-12 rounded-2xl bg-primary overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="top view of artisan bread loaves on a wooden table with dusting of flour" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMldlpVS-4HH08_KmZl31uykzPeJ1VsNgaWhY-J8Nd6dqEb0L2xCZRG1KP0KEtq-d1pwLCzmmWGSGW-iURT0WShCrNLNmA84Iks9CtId52NwlwUqE-FXPGwF48MVFbuUY0bBrAb-ot0lh7SMn7q8tuL1eZqtSn7v9O6yJ1rIzOlpRarcxb8K_FHAolgVLLxZ9y9JMVKbPRoA43HAoKxrYQlZGN3gTiXZiBrJU78kzYl_IAUBace2YEeVcekN0JCjvcS9OflkiqJnI"/>
+</div>
+<div>
+<h2 class="font-['Plus_Jakarta_Sans'] font-bold text-lg text-[#2f2f2c]">Master Baker</h2>
+<p class="text-xs text-on-surface-variant/70 font-['Manrope']">The Sourdough Suite</p>
+</div>
+</div>
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-3 text-[#2f2f2c]/70 dark:text-[#dfddd8]/70 py-3 px-6 hover:bg-[#dfddd8] transition-colors font-['Manrope'] text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="book_5">book_5</span> Bake Ledger
+                </a>
+<a class="flex items-center gap-3 text-[#2f2f2c]/70 dark:text-[#dfddd8]/70 py-3 px-6 hover:bg-[#dfddd8] transition-colors font-['Manrope'] text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="schedule">schedule</span> Oven Schedule
+                </a>
+<!-- Active Tab: Flour Inventory (Maps to current search/stock view) -->
+<a class="flex items-center gap-3 bg-[#fe8848]/10 text-[#9b4000] dark:text-[#fe8848] rounded-r-full border-l-4 border-[#9b4000] py-3 px-6 font-['Manrope'] text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="bakery_dining">bakery_dining</span> Flour Inventory
+                </a>
+<a class="flex items-center gap-3 text-[#2f2f2c]/70 dark:text-[#dfddd8]/70 py-3 px-6 hover:bg-[#dfddd8] transition-colors font-['Manrope'] text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="groups">groups</span> Staff Portal
+                </a>
+<a class="flex items-center gap-3 text-[#2f2f2c]/70 dark:text-[#dfddd8]/70 py-3 px-6 hover:bg-[#dfddd8] transition-colors font-['Manrope'] text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span> Settings
+                </a>
+</nav>
+</div>
+</aside>
+<main class="px-6 py-4 max-w-lg mx-auto">
+<!-- Header & Search -->
+<div class="mb-8">
+<h2 class="text-3xl font-extrabold tracking-tight mb-2">Inventory</h2>
+<p class="text-on-surface-variant text-sm mb-6">Real-time stock of artisanal batches and raw supplies.</p>
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline-variant" data-icon="search">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-2xl py-4 pl-12 pr-4 text-on-surface placeholder:text-outline-variant focus:ring-2 focus:ring-primary-container transition-all" placeholder="Search flour, yeast, or loaves..." type="text"/>
+</div>
+</div>
+<!-- Tabbed Switcher -->
+<div class="flex gap-2 p-1.5 bg-surface-container-high rounded-2xl mb-8">
+<button class="flex-1 py-2.5 rounded-xl text-sm font-bold bg-surface-container-lowest shadow-sm text-primary transition-all">
+                Products
+            </button>
+<button class="flex-1 py-2.5 rounded-xl text-sm font-bold text-on-surface-variant hover:text-on-surface transition-all">
+                Ingredients
+            </button>
+</div>
+<!-- Quick Stock Overview (Bento Style) -->
+<div class="grid grid-cols-2 gap-4 mb-10">
+<div class="col-span-2 bg-primary rounded-3xl p-6 text-on-primary relative overflow-hidden">
+<div class="relative z-10">
+<span class="material-symbols-outlined text-3xl mb-2" data-icon="warning">warning</span>
+<h3 class="text-xl font-bold mb-1">Restock Alert</h3>
+<p class="text-sm opacity-90 leading-tight">3 varieties of Rye Flour are below critical threshold.</p>
+</div>
+<div class="absolute -right-8 -bottom-8 opacity-20 transform rotate-12">
+<span class="material-symbols-outlined text-9xl" data-icon="bakery_dining">bakery_dining</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-3xl p-5 border border-outline-variant/10">
+<p class="text-[10px] uppercase tracking-widest text-on-surface-variant font-bold mb-2">Total Value</p>
+<div class="flex items-baseline gap-1">
+<span class="text-lg font-headline font-bold">$4.2k</span>
+</div>
+</div>
+<div class="bg-tertiary-container rounded-3xl p-5 border border-outline-variant/10">
+<p class="text-[10px] uppercase tracking-widest text-on-tertiary-container font-bold mb-2">Daily Flux</p>
+<div class="flex items-baseline gap-1">
+<span class="text-lg font-headline font-bold">+12%</span>
+</div>
+</div>
+</div>
+<!-- Product List (Editorial Style) -->
+<section class="space-y-6">
+<div class="flex items-center justify-between">
+<h3 class="font-bold text-lg">Main Stage Items</h3>
+<button class="text-primary text-xs font-bold flex items-center gap-1">
+                    See All <span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+<!-- Inventory Card 1 -->
+<div class="bg-surface-container-low rounded-[2rem] p-4 flex gap-4 items-center">
+<div class="w-20 h-20 rounded-2xl overflow-hidden bg-surface-container shrink-0">
+<img class="w-full h-full object-cover" data-alt="close up of a crusty country loaf on a linen towel with morning sun rays" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFUSWv5783DDUlhk5LSnDJIv0tV4w3h7yDHVdxZC2-M_dYAYmOZ1u11PtKhfAmp2opBCJJadRJflVZNN_R_ZeoUOeTZE3BdWXoXlDU75QZXZXg3XZ_aFNYVgjbI071TBh4CgX9VzIwDmiEzBREQKEE9qmXzkXbVitKCl16lbYi7-SRDHeZ7Olms07dqmxB3GdOZRk_9UTIle1xth2wWUGLbbAqNki-2lPzmX4cuVwfLVNiGNa2HpAUiQBdUnPXiZu7f_EjmaaRHsg"/>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-1">
+<h4 class="font-bold text-base leading-tight">Country Sourdough</h4>
+<span class="bg-tertiary-container text-on-tertiary-container px-2 py-0.5 rounded-md text-[10px] font-bold">STABLE</span>
+</div>
+<p class="text-xs text-on-surface-variant mb-2">24 units in stock</p>
+<div class="w-full bg-surface-container-highest h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 75%"></div>
+</div>
+</div>
+</div>
+<!-- Inventory Card 2 -->
+<div class="bg-surface-container-low rounded-[2rem] p-4 flex gap-4 items-center">
+<div class="w-20 h-20 rounded-2xl overflow-hidden bg-surface-container shrink-0">
+<img class="w-full h-full object-cover" data-alt="artisanal dark rye bread loaf sliced on a dark wooden board" src="https://lh3.googleusercontent.com/aida-public/AB6AXuApwB_TK18kh7TmjfaqxiqgE714OraZsGLHPB-4UqTjCgbWqYyW19bDe247XK83JiawFyeb7JH1OLA7qimGQyAgQL08V5ayWdsUEdvx0izPULXzymcYO4vlZA7GljkdgBhpPmTROJ-HRfI5Qt9B72ZZ6KY-jySb_sxyTSoUsYoq-Ap7ytMIC9BZRHEHfJrGQd1d8tl0hZZPSAddgvmD4ZEzavF4dzLyp76a6m0mm1CcGMMABmAtS46hSMcF3miSzVWdBw15HDUBI1Y"/>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-1">
+<h4 class="font-bold text-base leading-tight">Dark Rye Batch</h4>
+<span class="bg-error-container text-on-error-container px-2 py-0.5 rounded-md text-[10px] font-bold">LOW</span>
+</div>
+<p class="text-xs text-on-surface-variant mb-2">4 units in stock</p>
+<div class="w-full bg-surface-container-highest h-1.5 rounded-full overflow-hidden">
+<div class="bg-error h-full rounded-full" style="width: 15%"></div>
+</div>
+</div>
+</div>
+<!-- Inventory Card 3 -->
+<div class="bg-surface-container-low rounded-[2rem] p-4 flex gap-4 items-center">
+<div class="w-20 h-20 rounded-2xl overflow-hidden bg-surface-container shrink-0">
+<img class="w-full h-full object-cover" data-alt="french style buttery croissants stacked on a wire cooling rack" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtVicvt6rq-CfJ1NFfZ1zDtL8iwrl-SoUwBXZ5ZvEqvhWPhKYnzbWhDB-hqCRYKp67hhwX4gK2yjob-3zTY--BcFRz3H4jLGJlHQ_RzyMFvQmsPDgtD7e5QjOKipUnXuuZs2qa0ASvjxPv3jCwWOE5QOPjZAmmmjC_cotd50grN8WArZUAgK2AwTyiWDdGvuThtj70IeDgaXFMsipLxItWsIyfdczAEPrrIgUrPP4X3FJDhCCLjKeleZbyIuTHR1iW9BKcEB75CKg"/>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-1">
+<h4 class="font-bold text-base leading-tight">Classic Croissants</h4>
+<span class="bg-tertiary-container text-on-tertiary-container px-2 py-0.5 rounded-md text-[10px] font-bold">STABLE</span>
+</div>
+<p class="text-xs text-on-surface-variant mb-2">42 units in stock</p>
+<div class="w-full bg-surface-container-highest h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary-container h-full rounded-full" style="width: 90%"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Floating Quick Action (Mobile Only FAB) -->
+<button class="fixed bottom-8 right-6 w-14 h-14 rounded-full bg-gradient-to-br from-primary to-primary-container text-on-primary shadow-xl flex items-center justify-center active:scale-95 transition-transform z-40">
+<span class="material-symbols-outlined text-2xl" data-icon="add">add</span>
+</button>
+</main>
+<!-- Bottom Navigation Suppressed as per instructions -->
+</body></html>

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Artisan Ledger | Dashboard</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container": "#eae8e3",
+                    "surface": "#f9f6f2",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary-dim": "#594d45",
+                    "primary-container": "#fe8848",
+                    "primary-dim": "#883700",
+                    "outline": "#787774",
+                    "on-error-container": "#520c00",
+                    "tertiary-container": "#f7ece1",
+                    "secondary-container": "#f1dfd4",
+                    "on-secondary-fixed": "#483d35",
+                    "error-container": "#f95630",
+                    "surface-variant": "#dfddd8",
+                    "secondary-fixed-dim": "#e3d1c6",
+                    "surface-dim": "#d6d4cf",
+                    "on-tertiary-container": "#5e574f",
+                    "on-secondary": "#fff0e7",
+                    "surface-tint": "#9b4000",
+                    "surface-container-low": "#f3f0ec",
+                    "surface-container-high": "#e5e2de",
+                    "on-secondary-container": "#5c4f47",
+                    "on-surface-variant": "#5c5b59",
+                    "tertiary-fixed-dim": "#e8ded3",
+                    "secondary-fixed": "#f1dfd4",
+                    "primary-fixed": "#fe8848",
+                    "tertiary-dim": "#554f46",
+                    "error": "#b02500",
+                    "error-dim": "#b92902",
+                    "inverse-on-surface": "#9e9d99",
+                    "on-secondary-fixed-variant": "#665950",
+                    "inverse-primary": "#fe8848",
+                    "tertiary": "#615a52",
+                    "surface-bright": "#f9f6f2",
+                    "on-primary-fixed-variant": "#5a2200",
+                    "secondary": "#665950",
+                    "on-surface": "#2f2f2c",
+                    "on-background": "#2f2f2c",
+                    "on-error": "#ffefec",
+                    "primary-fixed-dim": "#ee7c3d",
+                    "on-primary-container": "#4b1b00",
+                    "primary": "#9b4000",
+                    "on-tertiary-fixed": "#4b453d",
+                    "outline-variant": "#afada9",
+                    "on-tertiary": "#fcf1e6",
+                    "on-primary": "#fff0ea",
+                    "on-tertiary-fixed-variant": "#686259",
+                    "inverse-surface": "#0e0e0c",
+                    "background": "#f9f6f2",
+                    "surface-container-highest": "#dfddd8",
+                    "tertiary-fixed": "#f7ece1",
+                    "on-primary-fixed": "#1b0600"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Plus Jakarta Sans"],
+                    "body": ["Manrope"],
+                    "label": ["Manrope"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .editorial-gradient {
+            background: linear-gradient(135deg, #9b4000 0%, #fe8848 100%);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container">
+<!-- Navigation Drawer (Hidden by default, shown for structure visualization) -->
+<!-- In a real implementation, this would toggle based on the menu button -->
+<div class="fixed inset-y-0 left-0 z-50 flex flex-col bg-[#f3f0ec]/90 dark:bg-stone-900/90 backdrop-blur-xl h-full w-72 rounded-r-[2rem] shadow-[0px_12px_32px_rgba(47,47,44,0.06)] -translate-x-full transition-transform duration-300">
+<div class="p-8 flex flex-col gap-2">
+<div class="w-12 h-12 rounded-xl bg-surface-variant overflow-hidden mb-2">
+<img class="w-full h-full object-cover" data-alt="Close up of a professional head baker wearing a clean white apron in a sunlit artisanal kitchen" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB62aHrgswN-3-UfeyDOv6WF9BnY_rYFPNPuY38xpbV5jz5ZVbnjhbUz7r1nVxPVswWMfnsTEIVXIlj1w7Xsj4vOrivz9kGNuxF9nxvz2ef2JilOQAckHAPbyhj4gbimKV1TmGvjx0ebQJr0YL3zPg2SA3vvmCcE1Bz4YHEOwijf8EcXIwvaTukzSuJn4GyBDbSN94QZM5hKwRp1i557gjNLuEtRgAuD5ZV9ya68BgybXmhSPOluttz4Y0CxsdGk_qIY6dJ4UOZ2pE"/>
+</div>
+<h2 class="font-headline font-bold text-lg text-[#2f2f2c]">Master Baker</h2>
+<p class="text-xs font-medium text-on-surface-variant">The Sourdough Suite</p>
+</div>
+<nav class="flex flex-col gap-1 pr-4">
+<a class="flex items-center gap-3 bg-[#fe8848]/10 text-[#9b4000] dark:text-[#fe8848] rounded-r-full border-l-4 border-[#9b4000] py-3 px-6 font-['Manrope'] text-sm font-medium transition-transform duration-200 Active:translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="book_5">book_5</span>
+                Bake Ledger
+            </a>
+<a class="flex items-center gap-3 text-[#2f2f2c]/70 dark:text-[#dfddd8]/70 py-3 px-6 font-['Manrope'] text-sm font-medium hover:bg-[#dfddd8] dark:hover:bg-stone-800 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="schedule">schedule</span>
+                Oven Schedule
+            </a>
+<a class="flex items-center gap-3 text-[#2f2f2c]/70 dark:text-[#dfddd8]/70 py-3 px-6 font-['Manrope'] text-sm font-medium hover:bg-[#dfddd8] dark:hover:bg-stone-800 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="bakery_dining">bakery_dining</span>
+                Flour Inventory
+            </a>
+<a class="flex items-center gap-3 text-[#2f2f2c]/70 dark:text-[#dfddd8]/70 py-3 px-6 font-['Manrope'] text-sm font-medium hover:bg-[#dfddd8] dark:hover:bg-stone-800 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="groups">groups</span>
+                Staff Portal
+            </a>
+<a class="flex items-center gap-3 text-[#2f2f2c]/70 dark:text-[#dfddd8]/70 py-3 px-6 font-['Manrope'] text-sm font-medium hover:bg-[#dfddd8] dark:hover:bg-stone-800 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+                Settings
+            </a>
+</nav>
+</div>
+<!-- Top App Bar -->
+<header class="w-full top-0 sticky z-40 bg-[#f9f6f2] dark:bg-stone-900 transition-opacity">
+<div class="flex items-center justify-between px-6 py-4 w-full">
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-[#9b4000] dark:text-[#fe8848] active:scale-95 duration-150" data-icon="menu">menu</button>
+<h1 class="text-xl font-bold tracking-tight text-[#2f2f2c] dark:text-[#dfddd8] font-headline">Artisan Ledger</h1>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center">
+<span class="material-symbols-outlined text-sm" data-icon="notifications">notifications</span>
+</div>
+</div>
+</div>
+</header>
+<main class="px-6 py-6 pb-24 space-y-8">
+<!-- Hero Summary Section -->
+<section class="space-y-4">
+<div class="flex justify-between items-end">
+<div>
+<span class="text-xs font-bold tracking-widest text-primary uppercase font-label">Daily Briefing</span>
+<h2 class="text-3xl font-headline font-extrabold text-on-surface leading-tight mt-1">Baker's Stage</h2>
+</div>
+<div class="text-right">
+<p class="text-xs text-on-surface-variant font-medium">Temp: 72°F</p>
+<p class="text-xs text-on-surface-variant font-medium">Humidity: 65%</p>
+</div>
+</div>
+<!-- Urgent Alert Card -->
+<div class="bg-error-container/10 p-5 rounded-2xl border border-error-container/20 flex gap-4 items-start">
+<div class="bg-error-container text-on-error-container w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined" data-icon="warning">warning</span>
+</div>
+<div class="space-y-1">
+<h3 class="font-bold text-on-error-container text-sm">Critical Low Stock</h3>
+<p class="text-xs text-on-error-container/80 leading-relaxed">French T55 Flour is below 15kg. Immediate restock required for tomorrow's baguette batch.</p>
+</div>
+</div>
+</section>
+<!-- Metrics Bento Grid -->
+<section class="grid grid-cols-2 gap-4">
+<!-- Active Proofing Card -->
+<div class="col-span-2 bg-surface-container-lowest p-6 rounded-[2rem] shadow-[0px_4px_12px_rgba(47,47,44,0.03)] relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-32 h-32 editorial-gradient opacity-10 rounded-bl-full -mr-8 -mt-8 transition-transform group-hover:scale-110"></div>
+<div class="relative z-10 flex flex-col h-full justify-between">
+<span class="text-[0.65rem] font-bold tracking-[0.2em] text-primary uppercase mb-2">Live Status</span>
+<div class="flex items-center justify-between">
+<div>
+<p class="text-4xl font-headline font-extrabold text-on-surface">14</p>
+<p class="text-sm font-medium text-on-surface-variant">Batches Proofing</p>
+</div>
+<div class="w-12 h-12 rounded-full border-4 border-primary/20 border-t-primary animate-spin" style="animation-duration: 3s;"></div>
+</div>
+</div>
+</div>
+<!-- Revenue Metric -->
+<div class="bg-surface-container-low p-5 rounded-[1.5rem] flex flex-col justify-between">
+<span class="material-symbols-outlined text-primary mb-3" data-icon="payments">payments</span>
+<div>
+<p class="text-2xl font-headline font-bold text-on-surface">$2,482</p>
+<p class="text-[0.65rem] font-bold text-on-surface-variant/60 uppercase tracking-wider">Today's Sales</p>
+</div>
+</div>
+<!-- Efficiency Metric -->
+<div class="bg-surface-container-low p-5 rounded-[1.5rem] flex flex-col justify-between">
+<span class="material-symbols-outlined text-tertiary mb-3" data-icon="energy_savings_leaf">energy_savings_leaf</span>
+<div>
+<p class="text-2xl font-headline font-bold text-on-surface">94%</p>
+<p class="text-[0.65rem] font-bold text-on-surface-variant/60 uppercase tracking-wider">Oven Efficiency</p>
+</div>
+</div>
+</section>
+<!-- Upcoming Schedule Section -->
+<section class="space-y-4">
+<div class="flex justify-between items-center">
+<h3 class="font-headline font-bold text-lg">Next in Oven</h3>
+<button class="text-xs font-bold text-primary hover:opacity-80">Full Schedule</button>
+</div>
+<div class="space-y-3">
+<!-- Schedule Item 1 -->
+<div class="flex items-center gap-4 bg-surface-container-lowest p-4 rounded-xl">
+<div class="w-12 h-12 rounded-lg bg-surface-container-high overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Freshly scored sourdough loaves ready for the oven on a wooden peel with flour dusting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAiwuohuogK4BAveYHsQ2-Fd-4uSvhFWfh2gcgQvRILODoSLNfvesZa7hRm8dwQBJSPJSyl-Rqhkbt7n7VOCgr-spwPGcaOEbOp447uxE2y6lh0jHmPKk7WP_Vq0nFSgfzCPKUJ2VoLnL066IMFm9a-sMp_KxggL1u4G8V84Airj3IawPOFS_0Oa5jMyYDcoHE_wCVj-4419q5XgpswKjeazokNWlzdu3F0UtneqboKah9bBYr9YlJOc41nW6V2gWiInCgck1vU-pw"/>
+</div>
+<div class="flex-1">
+<h4 class="text-sm font-bold text-on-surface">Wild Yeast Boules</h4>
+<p class="text-xs text-on-surface-variant">Rack 3 &amp; 4 • 24 Units</p>
+</div>
+<div class="text-right">
+<p class="text-sm font-extrabold text-primary">04:15</p>
+<p class="text-[0.6rem] font-bold text-on-surface-variant/60 uppercase">AM</p>
+</div>
+</div>
+<!-- Schedule Item 2 -->
+<div class="flex items-center gap-4 bg-surface-container-lowest p-4 rounded-xl">
+<div class="w-12 h-12 rounded-lg bg-surface-container-high overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Golden brown buttery croissants layered on a cooling rack in an artisan bakery" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-qGjoJbO50JjWU_R1BTG9SdYavoeqm-7F-XqmA8o_hFMO8AZdMLdyx34_PJBtR087OLxIblSkcHvyyaBwNXC1Qgv9tmzeMn2TFHAlFmrzMVa734OqV9KKu849dllOUu3EGgdXtORiyhz4n-pWchnwg3lgvfPgAO_M6aNGBQDlPKagEpkJ-jrsaLxd2T8_tZEuXjRXQprt9NnV3Th71gHedXMKtS5aw2kpiTlhDI_jOYzAJk_M5kqtjlJzbiT-i7xN84xJzCEwlPA"/>
+</div>
+<div class="flex-1">
+<h4 class="text-sm font-bold text-on-surface">Laminated Pastry</h4>
+<p class="text-xs text-on-surface-variant">Rack 1 • 48 Units</p>
+</div>
+<div class="text-right">
+<p class="text-sm font-extrabold text-on-surface">05:00</p>
+<p class="text-[0.6rem] font-bold text-on-surface-variant/60 uppercase">AM</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Inventory Heatmap (Asymmetric Layout) -->
+<section class="space-y-4">
+<h3 class="font-headline font-bold text-lg">Stock Pulse</h3>
+<div class="flex gap-4 overflow-x-auto pb-4 -mx-6 px-6 no-scrollbar">
+<!-- Stock Card 1 -->
+<div class="min-w-[140px] bg-tertiary-container/30 p-4 rounded-2xl flex flex-col gap-4 border border-tertiary-container/50">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-tertiary" data-icon="opacity">opacity</span>
+<span class="bg-tertiary-container text-on-tertiary-container text-[0.6rem] px-2 py-0.5 rounded font-bold uppercase">Optimal</span>
+</div>
+<div>
+<p class="text-xs font-medium text-on-tertiary-container">Organic Rye</p>
+<p class="text-lg font-headline font-bold">142 kg</p>
+</div>
+</div>
+<!-- Stock Card 2 -->
+<div class="min-w-[140px] bg-secondary-container/30 p-4 rounded-2xl flex flex-col gap-4 border border-secondary-container/50">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-secondary" data-icon="egg">egg</span>
+<span class="bg-secondary-container text-on-secondary-container text-[0.6rem] px-2 py-0.5 rounded font-bold uppercase">Stable</span>
+</div>
+<div>
+<p class="text-xs font-medium text-on-secondary-container">Pasture Eggs</p>
+<p class="text-lg font-headline font-bold">320 qty</p>
+</div>
+</div>
+<!-- Stock Card 3 -->
+<div class="min-w-[140px] bg-error-container/10 p-4 rounded-2xl flex flex-col gap-4 border border-error-container/20">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-error" data-icon="grain">grain</span>
+<span class="bg-error-container text-on-error-container text-[0.6rem] px-2 py-0.5 rounded font-bold uppercase">Low</span>
+</div>
+<div>
+<p class="text-xs font-medium text-on-error-container">T55 Flour</p>
+<p class="text-lg font-headline font-bold">12 kg</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Contextual Floating Action Button -->
+<button class="fixed bottom-8 right-6 editorial-gradient text-on-primary w-14 h-14 rounded-full shadow-2xl flex items-center justify-center active:scale-95 transition-transform">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+</button>
+</body></html>

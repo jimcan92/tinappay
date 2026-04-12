@@ -1,0 +1,83 @@
+@import 'tailwindcss';
+@import "tw-animate-css";
+@import "shadcn-svelte/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+	--font-sans: 'Manrope', sans-serif;
+	--font-serif: 'Plus Jakarta Sans', sans-serif;
+	
+    /* Brand Colors from Stitch */
+    --color-primary: #9b4000;
+    --color-primary-container: #fe8848;
+    --color-on-primary: #fff0ea;
+    --color-background: #f9f6f2;
+    --color-surface: #f9f6f2;
+    --color-on-surface: #2f2f2c;
+    --color-on-surface-variant: #5c5b59;
+    --color-surface-container-lowest: #ffffff;
+    --color-surface-container-low: #f3f0ec;
+    --color-surface-container: #eae8e3;
+    --color-surface-container-high: #e5e2de;
+    --color-surface-container-highest: #dfddd8;
+    --color-outline-variant: #afada9;
+    --color-error: #b02500;
+    --color-on-error: #ffffff;
+    --color-error-container: #f95630;
+    --color-on-error-container: #520c00;
+    --color-secondary-container: #f1dfd4;
+    --color-on-secondary-container: #5c4f47;
+    --color-tertiary-container: #f7ece1;
+    --color-on-tertiary-container: #5e574f;
+
+    /* Base System Colors for Tailwind v4 / Shadcn */
+    --color-border: var(--color-surface-container-highest);
+    --color-input: var(--color-surface-container-high);
+    --color-ring: var(--color-primary);
+    --color-muted: var(--color-surface-container-low);
+    --color-muted-foreground: var(--color-on-surface-variant);
+    --color-accent: var(--color-surface-container-low);
+    --color-accent-foreground: var(--color-on-surface);
+    --color-destructive: var(--color-error);
+    --color-destructive-foreground: var(--color-on-error);
+
+	--radius-lg: 0.5rem;
+	--radius-xl: 0.75rem;
+    --radius-2xl: 1rem;
+    --radius-3xl: 1.5rem;
+    --radius-4xl: 2rem;
+}
+
+@layer base {
+	* {
+		@apply border-border outline-ring/50;
+	}
+
+	body {
+		@apply bg-background text-on-surface transition-colors duration-300 font-sans;
+	}
+
+	h1, h2, h3, h4, h5, h6, .editorial-font {
+		@apply font-serif;
+	}
+
+    .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        vertical-align: middle;
+    }
+
+    .glass-panel {
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+    }
+
+    /* Hide scrollbars but keep functionality */
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+    .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+}

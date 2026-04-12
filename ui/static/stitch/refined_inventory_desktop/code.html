@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container": "#eae8e3",
+                    "surface": "#f9f6f2",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary-dim": "#594d45",
+                    "primary-container": "#fe8848",
+                    "primary-dim": "#883700",
+                    "outline": "#787774",
+                    "on-error-container": "#520c00",
+                    "tertiary-container": "#f7ece1",
+                    "secondary-container": "#f1dfd4",
+                    "on-secondary-fixed": "#483d35",
+                    "error-container": "#f95630",
+                    "surface-variant": "#dfddd8",
+                    "secondary-fixed-dim": "#e3d1c6",
+                    "surface-container-low": "#f3f0ec",
+                    "surface-container-high": "#e5e2de",
+                    "on-secondary-container": "#5c4f47",
+                    "on-surface-variant": "#5c5b59",
+                    "tertiary-fixed-dim": "#e8ded3",
+                    "secondary-fixed": "#f1dfd4",
+                    "primary-fixed": "#fe8848",
+                    "tertiary-dim": "#554f46",
+                    "error": "#b02500",
+                    "error-dim": "#b92902",
+                    "inverse-on-surface": "#9e9d99",
+                    "on-secondary-fixed-variant": "#665950",
+                    "inverse-primary": "#fe8848",
+                    "tertiary": "#615a52",
+                    "surface-bright": "#f9f6f2",
+                    "on-primary-fixed-variant": "#5a2200",
+                    "secondary": "#665950",
+                    "on-surface": "#2f2f2c",
+                    "on-background": "#2f2f2c",
+                    "on-error": "#ffefec",
+                    "primary-fixed-dim": "#ee7c3d",
+                    "on-primary-container": "#4b1b00",
+                    "primary": "#9b4000",
+                    "on-tertiary-fixed": "#4b453d",
+                    "outline-variant": "#afada9",
+                    "on-tertiary": "#fcf1e6",
+                    "on-primary": "#fff0ea",
+                    "on-tertiary-fixed-variant": "#686259",
+                    "inverse-surface": "#0e0e0c",
+                    "background": "#f9f6f2",
+                    "surface-container-highest": "#dfddd8",
+                    "tertiary-fixed": "#f7ece1",
+                    "on-primary-fixed": "#1b0600"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Plus Jakarta Sans"],
+                    "body": ["Manrope"],
+                    "label": ["Manrope"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Manrope', sans-serif; }
+        h1, h2, h3 { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen">
+<!-- SideNavBar (Shared Component) -->
+<aside class="h-screen w-64 fixed left-0 top-0 z-40 bg-[#f3f0ec] dark:bg-[#1f1f1d] flex flex-col py-8 px-4 space-y-2">
+<div class="mb-10 px-4">
+<h1 class="font-['Plus_Jakarta_Sans'] font-bold text-[#9b4000] text-2xl tracking-tight">The Artisanal Ledger</h1>
+<p class="text-xs text-on-surface-variant font-medium mt-1">Premium Bakery ERP</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-[#2f2f2c]/70 dark:text-[#f9f6f2]/70 hover:bg-[#dfddd8] dark:hover:bg-[#2f2f2c] transition-all group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">dashboard</span>
+<span class="font-['Manrope'] text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-[#2f2f2c]/70 dark:text-[#f9f6f2]/70 hover:bg-[#dfddd8] dark:hover:bg-[#2f2f2c] transition-all group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">point_of_sale</span>
+<span class="font-['Manrope'] text-sm font-medium">POS</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-[#fe8848]/10 text-[#9b4000] border-l-4 border-[#9b4000] transition-all group" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+<span class="font-['Manrope'] text-sm font-semibold">Inventory</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-[#2f2f2c]/70 dark:text-[#f9f6f2]/70 hover:bg-[#dfddd8] dark:hover:bg-[#2f2f2c] transition-all group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">group</span>
+<span class="font-['Manrope'] text-sm font-medium">Users</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-[#2f2f2c]/70 dark:text-[#f9f6f2]/70 hover:bg-[#dfddd8] dark:hover:bg-[#2f2f2c] transition-all group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">settings</span>
+<span class="font-['Manrope'] text-sm font-medium">Settings</span>
+</a>
+</nav>
+<div class="mt-auto px-4 pt-6 border-t border-outline-variant/10">
+<button class="w-full bg-gradient-to-r from-primary to-primary-container text-on-primary py-3 rounded-full font-bold flex items-center justify-center gap-2 shadow-[0px_12px_32px_rgba(155,64,0,0.2)] hover:scale-[1.02] active:scale-95 transition-all">
+<span class="material-symbols-outlined">add</span>
+                New Order
+            </button>
+</div>
+</aside>
+<!-- TopNavBar (Shared Component) -->
+<header class="fixed top-0 right-0 left-64 h-16 bg-[#f9f6f2]/80 backdrop-blur-xl z-50 flex justify-between items-center px-8 border-none shadow-[0px_12px_32px_rgba(47,47,44,0.06)]">
+<div class="flex items-center gap-4 flex-1">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-xl">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-full py-2 pl-10 pr-4 text-sm focus:ring-2 focus:ring-primary/20 placeholder:text-on-surface-variant/60" placeholder="Search inventory items..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<button class="relative p-2 rounded-full hover:bg-[#dfddd8]/50 transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<div class="flex items-center gap-3 pl-6 border-l border-outline-variant/20">
+<div class="text-right">
+<p class="text-sm font-bold text-on-surface leading-tight">Master Baker</p>
+<p class="text-xs text-on-surface-variant">Head of Operations</p>
+</div>
+<div class="w-10 h-10 rounded-full bg-tertiary-container flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="portrait of a professional male baker in a white chef coat and black apron smiling warmly" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6sClaQhCes-irNa6wAdG5RkwfxhMbC7S7iEwh66IlKHak9tX9ZJZW9pWdLH-GOJIbpqVP_fP51QxBrYJKmfBejU3YPkvMQgLYK-TPx6exiedhqMxxaHVs7poGOlXgKOIBK8rZOkI3wC4cPdAVv7z8BualXlC8g7BBDhEH1lyuPn3vs5djJPeGFqZYaryNovrexi3njEXoEnlZmyD2_GT1IdcTRuwEwOLJ3bkprVO5XUrWjNCxb0oEwuqwPvJZcZh8fSclMX8tzh0"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Stage -->
+<main class="ml-64 pt-24 px-8 pb-12 min-h-screen">
+<!-- Dashboard Header -->
+<div class="flex justify-between items-end mb-10">
+<div>
+<h2 class="text-4xl font-extrabold text-on-surface tracking-tight mb-2">Inventory Control</h2>
+<p class="text-on-surface-variant font-medium">Manage your premium goods and raw materials.</p>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 px-6 py-3 bg-surface-container-lowest border border-outline-variant/20 rounded-full text-on-surface font-semibold hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-xl">file_download</span>
+                    Export PDF
+                </button>
+<button class="flex items-center gap-2 px-6 py-3 bg-primary text-on-primary rounded-full font-bold shadow-lg hover:shadow-primary/20 transition-all">
+<span class="material-symbols-outlined">add_circle</span>
+                    New Item
+                </button>
+</div>
+</div>
+<!-- Bento Grid: Stats & Alerts -->
+<div class="grid grid-cols-12 gap-6 mb-12">
+<!-- Asymmetric Large Card -->
+<div class="col-span-8 bg-surface-container-lowest p-8 rounded-[2rem] shadow-[0px_12px_32px_rgba(47,47,44,0.03)] flex flex-col justify-between overflow-hidden relative">
+<div class="absolute top-0 right-0 w-64 h-64 bg-primary-container/5 rounded-full -mr-20 -mt-20 blur-3xl"></div>
+<div class="relative">
+<div class="flex justify-between items-start mb-8">
+<div>
+<span class="px-3 py-1 bg-tertiary-container text-on-tertiary-container rounded-md text-xs font-bold uppercase tracking-wider">Operational Health</span>
+<h3 class="text-2xl font-bold mt-4">Stock Utilization Trend</h3>
+</div>
+<div class="text-right">
+<p class="text-3xl font-extrabold text-primary leading-none">94%</p>
+<p class="text-xs text-on-surface-variant font-medium">Efficiency Rate</p>
+</div>
+</div>
+<div class="h-48 flex items-end gap-2 px-4">
+<div class="flex-1 bg-surface-container-high rounded-t-xl h-[40%] transition-all hover:bg-primary-container/40"></div>
+<div class="flex-1 bg-surface-container-high rounded-t-xl h-[65%] transition-all hover:bg-primary-container/40"></div>
+<div class="flex-1 bg-surface-container-high rounded-t-xl h-[55%] transition-all hover:bg-primary-container/40"></div>
+<div class="flex-1 bg-surface-container-high rounded-t-xl h-[85%] transition-all hover:bg-primary-container/40"></div>
+<div class="flex-1 bg-primary rounded-t-xl h-[95%] transition-all hover:bg-primary/80 shadow-[0_-8px_16px_rgba(155,64,0,0.1)]"></div>
+<div class="flex-1 bg-surface-container-high rounded-t-xl h-[70%] transition-all hover:bg-primary-container/40"></div>
+<div class="flex-1 bg-surface-container-high rounded-t-xl h-[60%] transition-all hover:bg-primary-container/40"></div>
+</div>
+</div>
+</div>
+<!-- Small Status Card -->
+<div class="col-span-4 bg-error-container p-8 rounded-[2rem] text-on-error-container flex flex-col justify-between">
+<div>
+<span class="material-symbols-outlined text-4xl mb-4" style="font-variation-settings: 'FILL' 1;">warning</span>
+<h3 class="text-xl font-bold mb-2 leading-tight">Critical Reorder Required</h3>
+<p class="text-sm opacity-80 leading-relaxed">4 core ingredients are below the 15% threshold for the morning shift.</p>
+</div>
+<button class="w-full mt-6 py-4 bg-surface-container-lowest text-error font-bold rounded-2xl hover:scale-[1.02] active:scale-95 transition-all">
+                    View Shortages
+                </button>
+</div>
+</div>
+<!-- Inventory Tab Section -->
+<div class="bg-surface-container-low rounded-[2.5rem] p-8 shadow-inner">
+<div class="flex items-center gap-8 mb-8 border-b border-outline-variant/10">
+<button class="pb-4 px-2 border-b-2 border-primary text-primary font-bold text-lg flex items-center gap-2">
+<span class="material-symbols-outlined">bakery_dining</span>
+                    Finished Products
+                </button>
+<button class="pb-4 px-2 border-b-2 border-transparent text-on-surface-variant font-medium text-lg flex items-center gap-2 hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined">egg</span>
+                    Ingredients &amp; Supplies
+                </button>
+<button class="pb-4 px-2 border-b-2 border-transparent text-on-surface-variant font-medium text-lg flex items-center gap-2 hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined">category</span>
+                    Categories
+                </button>
+</div>
+<!-- Table Container (No Dividers, Tonal Layering) -->
+<div class="bg-surface-container-lowest rounded-3xl overflow-hidden shadow-[0px_8px_24px_rgba(47,47,44,0.02)]">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container text-on-surface-variant text-xs font-bold uppercase tracking-widest">
+<th class="px-8 py-5">Product Details</th>
+<th class="px-8 py-5">Category</th>
+<th class="px-8 py-5">Current Stock</th>
+<th class="px-8 py-5">Unit Price</th>
+<th class="px-8 py-5">Status</th>
+<th class="px-8 py-5 text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-none">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors group">
+<td class="px-8 py-6">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl bg-surface-container-low overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="close up of artisan sourdough bread loaf with scored pattern on wooden board" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJEJTNJvDvrXmzNL1RF1b_s56hTZ_1WUVKuxNcWXcmbyXEEhnEzMjfIkS36M6tYSGN_jZcS3gY306VfOSB5FNb96iwYaPVW27vBj6n32BNx3FhpxWWIROypFugjem22Um4G_xoDXfWwLPME3LSYSMmaQAWuCl9fnTIgnUsb5oEE3UoZjLv_RJGMzujdxPbTGxVV7TCF-PULKMyCtWl6pLtf2wcKBdyZDdvMIDWnzGUIvmWem3xcafr1EzKXooFjP0JZrnSnd3T5Hw"/>
+</div>
+<div>
+<p class="font-bold text-on-surface">Artisan Sourdough</p>
+<p class="text-xs text-on-surface-variant">Batch Ref: #SD-0942</p>
+</div>
+</div>
+</td>
+<td class="px-8 py-6 text-sm font-medium text-on-surface-variant">Breads</td>
+<td class="px-8 py-6">
+<p class="font-['Plus_Jakarta_Sans'] font-bold text-on-surface">42 Units</p>
+<div class="w-24 h-1.5 bg-surface-container rounded-full mt-2 overflow-hidden">
+<div class="h-full bg-primary w-[70%]"></div>
+</div>
+</td>
+<td class="px-8 py-6 font-['Plus_Jakarta_Sans'] font-bold">$12.50</td>
+<td class="px-8 py-6">
+<span class="px-3 py-1 bg-tertiary-container text-on-tertiary-container text-xs font-bold rounded-md">Available</span>
+</td>
+<td class="px-8 py-6 text-right">
+<div class="flex justify-end gap-2">
+<button class="p-2 rounded-xl hover:bg-primary/10 text-primary transition-colors">
+<span class="material-symbols-outlined">edit</span>
+</button>
+<button class="p-2 rounded-xl hover:bg-surface-container text-on-surface-variant transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="bg-surface-container-low/20 hover:bg-surface-container-low/50 transition-colors group">
+<td class="px-8 py-6">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl bg-surface-container-low overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="french butter croissants golden brown and flaky on a marble surface" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-0-uexXXNk4vzoXZ_i79eCIfhvsc-aqqdswG2kIZjmfANSdeDAo2rHBB27yv1PhNunSPovXwFDgdtKIIt68pkY85cIKMCj8u0ftw0JQKz6b--llWTGpbn72H_b-8qZes-q-2-kAUaQLbVZKe2T7D3h-DdeUlQp4Ka66Pn4T3qdi13lNUa9QKpDHPr5PaznbE1fj-nYE5A6iF35Sbmq6RL1OExoJP0F5iE7W3HGUPfID-O-b8PHOEHa0JQkHMiw_p5uD1BwQJpMTw"/>
+</div>
+<div>
+<p class="font-bold text-on-surface">French Butter Croissant</p>
+<p class="text-xs text-on-surface-variant">Batch Ref: #CR-8821</p>
+</div>
+</div>
+</td>
+<td class="px-8 py-6 text-sm font-medium text-on-surface-variant">Pastries</td>
+<td class="px-8 py-6">
+<p class="font-['Plus_Jakarta_Sans'] font-bold text-error">8 Units</p>
+<div class="w-24 h-1.5 bg-surface-container rounded-full mt-2 overflow-hidden">
+<div class="h-full bg-error w-[15%]"></div>
+</div>
+</td>
+<td class="px-8 py-6 font-['Plus_Jakarta_Sans'] font-bold">$4.75</td>
+<td class="px-8 py-6">
+<span class="px-3 py-1 bg-error-container text-on-error-container text-xs font-bold rounded-md">Low Stock</span>
+</td>
+<td class="px-8 py-6 text-right">
+<div class="flex justify-end gap-2">
+<button class="flex items-center gap-1 px-4 py-2 bg-primary-container/20 text-on-primary-container font-bold rounded-xl text-sm hover:bg-primary-container/30 transition-all">
+                                        Restock
+                                    </button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors group">
+<td class="px-8 py-6">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl bg-surface-container-low overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="selection of colorful french macarons in a neat row" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCyTEiatHhuZBIxNpTKR8nLM6Y-XU-2x22RRyM7poiwNJy4P6lu5XI4HvIJhff7ldAH6XqECIkVxQdS26OGDmXzNpSyfjVRovSqirvDNwIhGQRneaje_Nfvt2sGAl4R_4uUpN4HsMhvnF2UqegwChLWIGHnO2TkNqWZ097YDi9mO9mLGVyOOqQFMRhbgkmorl9OGfvoJCc_U9e7g7jkrgiDRwL8Zu1ohT3SuFi9WbLLlNll5wsvqWVGGo6lA3NACNl98VUSOqaor2k"/>
+</div>
+<div>
+<p class="font-bold text-on-surface">Pistachio Macarons</p>
+<p class="text-xs text-on-surface-variant">Batch Ref: #MC-4410</p>
+</div>
+</div>
+</td>
+<td class="px-8 py-6 text-sm font-medium text-on-surface-variant">Confections</td>
+<td class="px-8 py-6">
+<p class="font-['Plus_Jakarta_Sans'] font-bold text-on-surface">120 Units</p>
+<div class="w-24 h-1.5 bg-surface-container rounded-full mt-2 overflow-hidden">
+<div class="h-full bg-primary w-[90%]"></div>
+</div>
+</td>
+<td class="px-8 py-6 font-['Plus_Jakarta_Sans'] font-bold">$2.50</td>
+<td class="px-8 py-6">
+<span class="px-3 py-1 bg-tertiary-container text-on-tertiary-container text-xs font-bold rounded-md">Optimal</span>
+</td>
+<td class="px-8 py-6 text-right">
+<div class="flex justify-end gap-2">
+<button class="p-2 rounded-xl hover:bg-primary/10 text-primary transition-colors">
+<span class="material-symbols-outlined">edit</span>
+</button>
+<button class="p-2 rounded-xl hover:bg-surface-container text-on-surface-variant transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Footer/Pagination -->
+<div class="mt-8 flex justify-between items-center">
+<p class="text-sm text-on-surface-variant font-medium">Showing <span class="text-on-surface font-bold">1-10</span> of <span class="text-on-surface font-bold">84</span> items</p>
+<div class="flex gap-2">
+<button class="w-10 h-10 rounded-xl bg-surface-container-lowest border border-outline-variant/10 flex items-center justify-center text-on-surface-variant hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="w-10 h-10 rounded-xl bg-primary text-on-primary font-bold flex items-center justify-center">1</button>
+<button class="w-10 h-10 rounded-xl bg-surface-container-lowest border border-outline-variant/10 flex items-center justify-center font-bold text-on-surface hover:bg-surface-container transition-colors">2</button>
+<button class="w-10 h-10 rounded-xl bg-surface-container-lowest border border-outline-variant/10 flex items-center justify-center font-bold text-on-surface hover:bg-surface-container transition-colors">3</button>
+<button class="w-10 h-10 rounded-xl bg-surface-container-lowest border border-outline-variant/10 flex items-center justify-center text-on-surface-variant hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Quick Restock Shortcuts (Asymmetric Layout) -->
+<div class="mt-12 grid grid-cols-4 gap-6">
+<div class="col-span-1 bg-gradient-to-br from-tertiary-container to-surface-container-low p-6 rounded-[1.5rem] border border-outline-variant/5">
+<h4 class="font-bold text-on-tertiary-container mb-4">Top Suppliers</h4>
+<div class="space-y-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-surface-container-lowest flex items-center justify-center font-bold text-xs text-primary">GH</div>
+<span class="text-sm font-semibold">Golden Harvest</span>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-surface-container-lowest flex items-center justify-center font-bold text-xs text-primary">AV</div>
+<span class="text-sm font-semibold">Alpine Valley Dairy</span>
+</div>
+</div>
+</div>
+<div class="col-span-3 bg-surface-container-low p-6 rounded-[1.5rem] flex items-center justify-between">
+<div class="flex gap-12">
+<div class="flex flex-col">
+<span class="text-xs uppercase tracking-widest font-bold text-on-surface-variant mb-1">Total Valuation</span>
+<span class="text-2xl font-['Plus_Jakarta_Sans'] font-extrabold">$24,842.00</span>
+</div>
+<div class="flex flex-col">
+<span class="text-xs uppercase tracking-widest font-bold text-on-surface-variant mb-1">Active Batches</span>
+<span class="text-2xl font-['Plus_Jakarta_Sans'] font-extrabold">12</span>
+</div>
+<div class="flex flex-col">
+<span class="text-xs uppercase tracking-widest font-bold text-on-surface-variant mb-1">Items In Transit</span>
+<span class="text-2xl font-['Plus_Jakarta_Sans'] font-extrabold">4</span>
+</div>
+</div>
+<div class="flex items-center gap-2 text-primary font-bold hover:gap-3 transition-all cursor-pointer">
+<span>Advanced Reports</span>
+<span class="material-symbols-outlined">arrow_forward</span>
+</div>
+</div>
+</div>
+</main>
+</body></html>

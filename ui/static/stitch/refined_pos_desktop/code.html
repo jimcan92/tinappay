@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Artisanal Ledger | Refined POS</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container": "#eae8e3",
+                        "surface": "#f9f6f2",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-dim": "#594d45",
+                        "primary-container": "#fe8848",
+                        "primary-dim": "#883700",
+                        "outline": "#787774",
+                        "on-error-container": "#520c00",
+                        "tertiary-container": "#f7ece1",
+                        "secondary-container": "#f1dfd4",
+                        "on-secondary-fixed": "#483d35",
+                        "error-container": "#f95630",
+                        "surface-variant": "#dfddd8",
+                        "secondary-fixed-dim": "#e3d1c6",
+                        "secondary-fixed": "#f1dfd4",
+                        "primary-fixed": "#fe8848",
+                        "tertiary-dim": "#554f46",
+                        "error": "#b02500",
+                        "error-dim": "#b92902",
+                        "inverse-on-surface": "#9e9d99",
+                        "on-secondary-fixed-variant": "#665950",
+                        "inverse-primary": "#fe8848",
+                        "tertiary": "#615a52",
+                        "surface-bright": "#f9f6f2",
+                        "on-primary-fixed-variant": "#5a2200",
+                        "secondary": "#665950",
+                        "on-surface": "#2f2f2c",
+                        "on-background": "#2f2f2c",
+                        "on-error": "#ffefec",
+                        "primary-fixed-dim": "#ee7c3d",
+                        "on-primary-container": "#4b1b00",
+                        "primary": "#9b4000",
+                        "on-tertiary-fixed": "#4b453d",
+                        "outline-variant": "#afada9",
+                        "on-tertiary": "#fcf1e6",
+                        "on-primary": "#fff0ea",
+                        "on-tertiary-fixed-variant": "#686259",
+                        "inverse-surface": "#0e0e0c",
+                        "background": "#f9f6f2",
+                        "surface-container-highest": "#dfddd8",
+                        "tertiary-fixed": "#f7ece1",
+                        "on-primary-fixed": "#1b0600"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Plus Jakarta Sans"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; }
+        .font-headline { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #dfddd8; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface flex min-h-screen overflow-hidden">
+<!-- SideNavBar Component (Shared Anchor) -->
+<aside class="h-screen w-64 fixed left-0 top-0 z-40 bg-[#f3f0ec] dark:bg-[#1f1f1d] flex flex-col py-8 px-4 space-y-2">
+<div class="px-4 mb-8">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-primary-container flex items-center justify-center text-on-primary-container shadow-sm overflow-hidden">
+<img alt="Bakery Logo" class="w-full h-full object-cover" data-alt="minimalist logo of a golden wheat stalk inside a soft orange square with rounded corners" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCs1Ft9ox2UvR3QSG_UtmnvN3pEfFF_-Lh9UqyOdguKKQ25q1e-NiYbsxqJL6__OqaOd--wF4A9KRmp04imJfNBa9IN7O7n6R1TzxWIMaqBiPuHBjXdGJgeEDBxAU4X7l7uSurAdI4Lgo-gniZT_5nxVJ5z1OrI9Fgj8mzI9S0seysR0T-_SfQX518_-L-C54Rdc6w_NUb3G9iqYq7lQtxPH8IBMp1xSXo7Mbv0OWPq5eR0LYV-wUnjpTiAr8N8zXr6wsJMt-FpH6s"/>
+</div>
+<div>
+<h1 class="font-headline font-bold text-[#9b4000] text-sm leading-tight">The Artisanal Ledger</h1>
+<p class="text-[10px] text-on-surface-variant font-medium uppercase tracking-widest">Premium Bakery ERP</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<!-- Dashboard Tab (Inactive) -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-[#2f2f2c]/70 dark:text-[#f9f6f2]/70 hover:bg-[#dfddd8] dark:hover:bg-[#2f2f2c] transition-all group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary" data-icon="dashboard">dashboard</span>
+<span class="font-medium">Dashboard</span>
+</a>
+<!-- POS Tab (Active) -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-[#fe8848]/10 text-[#9b4000] border-l-4 border-[#9b4000] transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="point_of_sale" style="font-variation-settings: 'FILL' 1;">point_of_sale</span>
+<span class="font-medium">POS</span>
+</a>
+<!-- Inventory Tab (Inactive) -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-[#2f2f2c]/70 dark:text-[#f9f6f2]/70 hover:bg-[#dfddd8] dark:hover:bg-[#2f2f2c] transition-all group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary" data-icon="inventory_2">inventory_2</span>
+<span class="font-medium">Inventory</span>
+</a>
+<!-- Users Tab (Inactive) -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-[#2f2f2c]/70 dark:text-[#f9f6f2]/70 hover:bg-[#dfddd8] dark:hover:bg-[#2f2f2c] transition-all group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary" data-icon="group">group</span>
+<span class="font-medium">Users</span>
+</a>
+<!-- Settings Tab (Inactive) -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-[#2f2f2c]/70 dark:text-[#f9f6f2]/70 hover:bg-[#dfddd8] dark:hover:bg-[#2f2f2c] transition-all group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary" data-icon="settings">settings</span>
+<span class="font-medium">Settings</span>
+</a>
+</nav>
+<div class="mt-auto px-2">
+<button class="w-full bg-primary text-on-primary py-3 rounded-full font-headline font-bold text-sm shadow-[0px_8px_20px_rgba(155,64,0,0.2)] hover:scale-[1.02] active:scale-95 transition-all">
+                New Order
+            </button>
+</div>
+</aside>
+<!-- Main POS Canvas -->
+<main class="ml-64 flex-1 flex h-screen overflow-hidden">
+<!-- Left Section: Category & Item Grid -->
+<section class="flex-1 flex flex-col p-8 overflow-hidden">
+<!-- Top Bar -->
+<header class="flex justify-between items-center mb-8">
+<div>
+<h2 class="font-headline text-3xl font-extrabold tracking-tight text-on-surface">Daily Selection</h2>
+<p class="text-on-surface-variant font-medium">Station: Front Counter • Cashier: Elena</p>
+</div>
+<div class="relative w-80">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline-variant" data-icon="search">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-full py-3 pl-12 pr-4 focus:ring-2 focus:ring-primary/20 text-on-surface placeholder:text-outline-variant font-medium transition-all" placeholder="Search menu items..." type="text"/>
+</div>
+</header>
+<!-- Category Pills -->
+<div class="flex gap-3 mb-8 overflow-x-auto pb-2 scrollbar-hide">
+<button class="px-6 py-2.5 rounded-full bg-primary text-on-primary font-bold shadow-lg transition-all flex items-center gap-2 whitespace-nowrap">
+<span class="material-symbols-outlined text-[20px]" data-icon="grid_view">grid_view</span>
+                    All
+                </button>
+<button class="px-6 py-2.5 rounded-full bg-surface-container-highest/30 text-on-surface font-semibold hover:bg-surface-container-highest transition-all flex items-center gap-2 whitespace-nowrap">
+<span class="material-symbols-outlined text-[20px]" data-icon="bakery_dining">bakery_dining</span>
+                    Pastries
+                </button>
+<button class="px-6 py-2.5 rounded-full bg-surface-container-highest/30 text-on-surface font-semibold hover:bg-surface-container-highest transition-all flex items-center gap-2 whitespace-nowrap">
+<span class="material-symbols-outlined text-[20px]" data-icon="coffee">coffee</span>
+                    Hot Drinks
+                </button>
+<button class="px-6 py-2.5 rounded-full bg-surface-container-highest/30 text-on-surface font-semibold hover:bg-surface-container-highest transition-all flex items-center gap-2 whitespace-nowrap">
+<span class="material-symbols-outlined text-[20px]" data-icon="lunch_dining">lunch_dining</span>
+                    Sandwiches
+                </button>
+<button class="px-6 py-2.5 rounded-full bg-surface-container-highest/30 text-on-surface font-semibold hover:bg-surface-container-highest transition-all flex items-center gap-2 whitespace-nowrap">
+<span class="material-symbols-outlined text-[20px]" data-icon="cake">cake</span>
+                    Specialty
+                </button>
+</div>
+<!-- Item Grid -->
+<div class="flex-1 overflow-y-auto pr-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+<!-- Item Card 1 -->
+<button class="group bg-surface-container-lowest rounded-2xl p-4 flex flex-col text-left transition-all hover:shadow-[0px_12px_24px_rgba(47,47,44,0.08)] active:scale-95 border border-transparent hover:border-primary-container/20">
+<div class="h-36 w-full rounded-xl mb-4 overflow-hidden bg-surface-container">
+<img alt="Artisan Croissant" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="close-up of a perfectly golden, flaky artisan croissant on a neutral stone plate with soft morning light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCNY4UQ-c-BOvnyTTWAaTKaLL_nTXwk9ZNksxeLjX6Xd339ILjufeaDrcREgaL9xXUJQx9qshOiH_w2Wkhx7Av404W6xNU3H62ECyOwMVdKCBxo768Enu2pqVSeIB3_UhjVhOuCWo_BM1aOX1KeIgA-XHIbZhee65LLWkcWFAiBcUSbbYSnHDGc9Du_-B6uZOL03rdvLQSTH3dhUun7vfGJdQtRLHcm7DIiG9mUDmyRpitS1z-CAgWSl-986dsvTB6xiEAxHcR3N-c"/>
+</div>
+<div class="flex justify-between items-start mb-1">
+<span class="font-headline font-bold text-lg text-on-surface leading-tight">Artisan Croissant</span>
+<span class="font-headline font-bold text-primary">$4.50</span>
+</div>
+<p class="text-sm text-on-surface-variant font-medium line-clamp-2">Laminated dough with organic French butter.</p>
+<div class="mt-auto pt-3 flex items-center justify-between">
+<span class="px-2 py-0.5 bg-tertiary-container text-tertiary font-bold text-[10px] rounded uppercase tracking-wider">In Stock</span>
+<div class="w-8 h-8 rounded-full bg-primary-container/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="add">add</span>
+</div>
+</div>
+</button>
+<!-- Item Card 2 -->
+<button class="group bg-surface-container-lowest rounded-2xl p-4 flex flex-col text-left transition-all hover:shadow-[0px_12px_24px_rgba(47,47,44,0.08)] active:scale-95 border border-transparent hover:border-primary-container/20">
+<div class="h-36 w-full rounded-xl mb-4 overflow-hidden bg-surface-container">
+<img alt="Pain au Chocolat" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="freshly baked pain au chocolat with dark chocolate pools peeking out from golden pastry layers on a linen napkin" src="https://lh3.googleusercontent.com/aida-public/AB6AXuADvzFhCjb53YjFNQzxfNHVjR8eFeV8Cr-9ALymNNdf4YmYxtix_br3Xf7Lmtg1LhhxKFwZzRvsIovB-RilwBI4RMMp58qe860DlwvpxFQvxKQMa9urx4p1riP4hQhnXcEZ73ZQvrKTe2FteSZ7VucXJbfoWJ0ZVHp67EloYqFR9TqbR918GnP50kOyUu8EKFji5Ouw_D76gIXcBDJiWB3X22SHIgWmvILQDkOqyFvAJ2IsrNGdUdlPgGdZFMJo6egdwijtoYc8qBE"/>
+</div>
+<div class="flex justify-between items-start mb-1">
+<span class="font-headline font-bold text-lg text-on-surface leading-tight">Pain au Chocolat</span>
+<span class="font-headline font-bold text-primary">$5.25</span>
+</div>
+<p class="text-sm text-on-surface-variant font-medium line-clamp-2">Double-fold Valrhona chocolate centers.</p>
+<div class="mt-auto pt-3 flex items-center justify-between">
+<span class="px-2 py-0.5 bg-tertiary-container text-tertiary font-bold text-[10px] rounded uppercase tracking-wider">In Stock</span>
+<div class="w-8 h-8 rounded-full bg-primary-container/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="add">add</span>
+</div>
+</div>
+</button>
+<!-- Item Card 3 -->
+<button class="group bg-surface-container-lowest rounded-2xl p-4 flex flex-col text-left transition-all hover:shadow-[0px_12px_24px_rgba(47,47,44,0.08)] active:scale-95 border border-transparent hover:border-primary-container/20">
+<div class="h-36 w-full rounded-xl mb-4 overflow-hidden bg-surface-container">
+<img alt="Pistachio Danishes" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="elegant round pistachio danish with vibrant green nut topping and light honey glaze drizzle" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAh32fFzOGDvaYJhUCQtXVvwC_dxtLQsIzWifBadBUR24L9EAa6EUj5z4XEJkIbyPtcs75V0OBxLmTWys_wNvmQJZUeLGsOt9O__ttXB9pho2fB-gZhwN6O5edRmy5fFBUbjfP-NmXlosWzE4rFyxURyf8Upp8UjfgoW1sPsiWmLrK3IqVUDFVQz3snU1BUNa0She09NtBxhGJJuNT9bSRazkHFKa4xNscrhMEcJmMYGrqXfg8-N-On4xA4blx1n9N2M4Ezx774oC4"/>
+</div>
+<div class="flex justify-between items-start mb-1">
+<span class="font-headline font-bold text-lg text-on-surface leading-tight">Pistachio Danish</span>
+<span class="font-headline font-bold text-primary">$6.00</span>
+</div>
+<p class="text-sm text-on-surface-variant font-medium line-clamp-2">Sicilian pistachio cream and roasted crumbs.</p>
+<div class="mt-auto pt-3 flex items-center justify-between">
+<span class="px-2 py-0.5 bg-error-container text-on-error-container font-bold text-[10px] rounded uppercase tracking-wider">Low Stock</span>
+<div class="w-8 h-8 rounded-full bg-primary-container/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="add">add</span>
+</div>
+</div>
+</button>
+<!-- Item Card 4 -->
+<button class="group bg-surface-container-lowest rounded-2xl p-4 flex flex-col text-left transition-all hover:shadow-[0px_12px_24px_rgba(47,47,44,0.08)] active:scale-95 border border-transparent hover:border-primary-container/20">
+<div class="h-36 w-full rounded-xl mb-4 overflow-hidden bg-surface-container">
+<img alt="Flat White" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="classic flat white with expert latte art in a ceramic cup sitting on a rustic wood table with soft bokeh" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZHPhtR7PfoU_65XC9G3EXgtTHsI8YoWfS7XHwr3kMkWkq7hTyA4KrtgQSmzqBma0CS_OsKz1AZ5-OQL8dFBIrcVlq_fl9ZmnLl7MXJLFkw1Z7H06ku5HRyE_wXlTpbUeCXjInxxdYap20nQVHRZ4iLp0x-FObYwk-cPUVd4FW3jILD2zabGfd6p1FkNgmbLNjuIjAfA_MuN8wPc2EWO9JS68kH0KCW6wP5cKFztymJCR9Kf8aRWPyZPM2PXi_wxZ-BaivUY9GQxY"/>
+</div>
+<div class="flex justify-between items-start mb-1">
+<span class="font-headline font-bold text-lg text-on-surface leading-tight">Flat White</span>
+<span class="font-headline font-bold text-primary">$4.75</span>
+</div>
+<p class="text-sm text-on-surface-variant font-medium line-clamp-2">Double shot with velvety micro-foam.</p>
+<div class="mt-auto pt-3 flex items-center justify-between">
+<span class="px-2 py-0.5 bg-tertiary-container text-tertiary font-bold text-[10px] rounded uppercase tracking-wider">In Stock</span>
+<div class="w-8 h-8 rounded-full bg-primary-container/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="add">add</span>
+</div>
+</div>
+</button>
+<!-- Item Card 5 -->
+<button class="group bg-surface-container-lowest rounded-2xl p-4 flex flex-col text-left transition-all hover:shadow-[0px_12px_24px_rgba(47,47,44,0.08)] active:scale-95 border border-transparent hover:border-primary-container/20">
+<div class="h-36 w-full rounded-xl mb-4 overflow-hidden bg-surface-container">
+<img alt="Sourdough Loaf" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="large rustic sourdough loaf with deep score marks and a dusted flour crust on a dark wood board" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCEkdBuHmcnbqbqoRhYYO8QSD2EfPF42gF1O1N98dQxIAjJXJzF11rL69DwZ-40D5ex4NePRp8YM9ZdfNE0H57ofYDTY6m64tLKl3BEsqFeKsdgYHnwrACqeWasN2R6veEQ189FdlZ1mgMaeioW5phEmcah1zVOWbP9ZaWGQM9Yo6ObXZrSpdV-BJlolgskHX-blElWpfn62r5_GNpddszmoUbUefz6BzxIjLOBuYaDj8lJG7mxHuZRGiS020xrdJKhKQvwfsVbiOE"/>
+</div>
+<div class="flex justify-between items-start mb-1">
+<span class="font-headline font-bold text-lg text-on-surface leading-tight">Heritage Loaf</span>
+<span class="font-headline font-bold text-primary">$8.50</span>
+</div>
+<p class="text-sm text-on-surface-variant font-medium line-clamp-2">48-hour fermentation with heritage grains.</p>
+<div class="mt-auto pt-3 flex items-center justify-between">
+<span class="px-2 py-0.5 bg-tertiary-container text-tertiary font-bold text-[10px] rounded uppercase tracking-wider">In Stock</span>
+<div class="w-8 h-8 rounded-full bg-primary-container/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="add">add</span>
+</div>
+</div>
+</button>
+</div>
+</section>
+<!-- Right Section: Checkout Sidebar -->
+<aside class="w-[400px] bg-surface-container-low flex flex-col shadow-[-12px_0px_32px_rgba(47,47,44,0.04)]">
+<!-- Customer Details -->
+<div class="p-6 bg-surface-container-highest/10">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline font-extrabold text-xl">Current Order</h3>
+<button class="w-10 h-10 rounded-full hover:bg-surface-variant transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface" data-icon="delete_outline">delete_outline</span>
+</button>
+</div>
+<button class="w-full py-4 px-4 bg-surface-container-lowest rounded-2xl flex items-center justify-between border border-dashed border-outline-variant hover:bg-white transition-all group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="person_add">person_add</span>
+<span class="font-bold text-sm text-on-surface-variant group-hover:text-on-surface">Add Customer to Order</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+<!-- Cart Items -->
+<div class="flex-1 overflow-y-auto px-6 space-y-4 py-4">
+<!-- Cart Item 1 -->
+<div class="flex gap-4 items-center">
+<div class="w-16 h-16 rounded-xl overflow-hidden bg-surface-container flex-shrink-0">
+<img alt="Croissant" class="w-full h-full object-cover" data-alt="macro shot of croissant texture with light dusting of sugar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkfqCYbS35-fT7nf67xkQF94kihXrAQOUfCiZ9x78wLX9GNghtHfU1pk9iPf5mVT_mMv6EBxO8sOGGAh1NpEIU2FkFSuAnnd7x5T9KZIccdbBG6VmuADipfJEq6XRz3qPoGrJXhxe4Le8nSWEGovJUPEnpCSeybzX-Ur5by3QW8kqke6z7fsQzHpXz69poovIe3m1jgp2izir4TiL24WZyarDla_U6DCY7SddhdtUT46ZR5WATu09ci1w3J3NkuF5a-l-YnEbSNoE"/>
+</div>
+<div class="flex-1">
+<div class="flex justify-between">
+<span class="font-bold text-on-surface leading-tight">Artisan Croissant</span>
+<span class="font-headline font-bold text-on-surface">$9.00</span>
+</div>
+<div class="flex items-center justify-between mt-1">
+<span class="text-xs text-on-surface-variant font-medium">x2 @ $4.50</span>
+<div class="flex items-center gap-3 bg-surface-container rounded-full px-2 py-1">
+<button class="w-6 h-6 flex items-center justify-center text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined text-sm" data-icon="remove">remove</span></button>
+<span class="text-xs font-bold w-4 text-center">2</span>
+<button class="w-6 h-6 flex items-center justify-center text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined text-sm" data-icon="add">add</span></button>
+</div>
+</div>
+</div>
+</div>
+<!-- Cart Item 2 -->
+<div class="flex gap-4 items-center">
+<div class="w-16 h-16 rounded-xl overflow-hidden bg-surface-container flex-shrink-0">
+<img alt="Flat White" class="w-full h-full object-cover" data-alt="hot flat white coffee in white ceramic cup" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAOqYpiYEy6Tgi-tCQcGKi_DmjkKat7sFx8j5sbPZq1tvPeeQbrw9G1M2v_LsPkCjChTeq10qx7oCFur1nw7lp8EU6TA8z60D05daEeFTEaJ-YS8vtqtvnBdYg-zWtW40gXS-vY0RA1RYoJ1atMTRD_uz68YLBrG5XgLNb7kBG8ZhxiBmu5A7jKYSMmcOgUuBKD__J4F_Y7ytDRdZsbpt_xevrBwg5PaO3gOl8X2abFtDDN6Apth8Hq2bvF7VsPLFOgZ3upB4XH_4w"/>
+</div>
+<div class="flex-1">
+<div class="flex justify-between">
+<span class="font-bold text-on-surface leading-tight">Flat White</span>
+<span class="font-headline font-bold text-on-surface">$4.75</span>
+</div>
+<div class="flex items-center justify-between mt-1">
+<span class="text-xs text-on-surface-variant font-medium">Oat Milk +$0.50</span>
+<div class="flex items-center gap-3 bg-surface-container rounded-full px-2 py-1">
+<button class="w-6 h-6 flex items-center justify-center text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined text-sm" data-icon="remove">remove</span></button>
+<span class="text-xs font-bold w-4 text-center">1</span>
+<button class="w-6 h-6 flex items-center justify-center text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined text-sm" data-icon="add">add</span></button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Totals -->
+<div class="p-6 bg-surface-container-lowest rounded-t-[2.5rem] shadow-[0px_-16px_40px_rgba(47,47,44,0.05)]">
+<div class="space-y-3 mb-6">
+<div class="flex justify-between items-center text-on-surface-variant font-medium">
+<span>Subtotal</span>
+<span class="font-headline font-bold text-on-surface">$13.75</span>
+</div>
+<div class="flex justify-between items-center text-on-surface-variant font-medium">
+<span>Tax (8%)</span>
+<span class="font-headline font-bold text-on-surface">$1.10</span>
+</div>
+<div class="pt-3 border-t border-surface-container flex justify-between items-center">
+<span class="font-headline font-extrabold text-2xl text-on-surface">Total</span>
+<span class="font-headline font-extrabold text-3xl text-primary">$14.85</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-3">
+<button class="py-4 bg-surface-variant text-on-surface-variant font-bold rounded-2xl hover:bg-surface-container-highest transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined" data-icon="print">print</span>
+                        Hold
+                    </button>
+<button class="py-4 bg-primary text-on-primary font-headline font-extrabold text-lg rounded-2xl shadow-[0px_12px_24px_rgba(155,64,0,0.25)] hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+                        Pay Now
+                    </button>
+</div>
+</div>
+</aside>
+</main>
+<!-- Contextual FAB (Shared Component Rule) -->
+<div class="fixed bottom-8 left-[calc(256px+32px)]">
+<button class="w-14 h-14 bg-surface-container-lowest rounded-full shadow-2xl flex items-center justify-center text-primary hover:text-on-primary hover:bg-primary transition-all border border-primary/10">
+<span class="material-symbols-outlined" data-icon="barcode_scanner">barcode_scanner</span>
+</button>
+</div>
+</body></html>

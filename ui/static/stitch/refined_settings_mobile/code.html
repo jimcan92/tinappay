@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline": "#787774",
+                        "surface-variant": "#dfddd8",
+                        "surface-container-high": "#e5e2de",
+                        "primary": "#9b4000",
+                        "on-tertiary-container": "#5e574f",
+                        "surface-container-low": "#f3f0ec",
+                        "inverse-surface": "#0e0e0c",
+                        "tertiary-container": "#f7ece1",
+                        "secondary-container": "#f1dfd4",
+                        "tertiary": "#615a52",
+                        "outline-variant": "#afada9",
+                        "on-error-container": "#520c00",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-fixed-variant": "#665950",
+                        "surface-tint": "#9b4000",
+                        "on-primary-fixed-variant": "#5a2200",
+                        "surface-bright": "#f9f6f2",
+                        "secondary-fixed": "#f1dfd4",
+                        "on-tertiary-fixed-variant": "#686259",
+                        "on-background": "#2f2f2c",
+                        "surface": "#f9f6f2",
+                        "secondary-fixed-dim": "#e3d1c6",
+                        "on-error": "#ffefec",
+                        "surface-container-highest": "#dfddd8",
+                        "primary-dim": "#883700",
+                        "on-surface-variant": "#5c5b59",
+                        "inverse-on-surface": "#9e9d99",
+                        "on-primary-fixed": "#1b0600",
+                        "on-tertiary": "#fcf1e6",
+                        "surface-dim": "#d6d4cf",
+                        "on-surface": "#2f2f2c",
+                        "primary-container": "#fe8848",
+                        "on-tertiary-fixed": "#4b453d",
+                        "primary-fixed-dim": "#ee7c3d",
+                        "secondary": "#665950",
+                        "on-primary-container": "#4b1b00",
+                        "tertiary-fixed-dim": "#e8ded3",
+                        "on-secondary-container": "#5c4f47",
+                        "surface-container": "#eae8e3",
+                        "primary-fixed": "#fe8848",
+                        "on-secondary-fixed": "#483d35",
+                        "on-secondary": "#fff0e7",
+                        "error-container": "#f95630",
+                        "on-primary": "#fff0ea",
+                        "background": "#f9f6f2",
+                        "tertiary-dim": "#554f46",
+                        "inverse-primary": "#fe8848",
+                        "error": "#b02500",
+                        "tertiary-fixed": "#f7ece1",
+                        "error-dim": "#b92902",
+                        "secondary-dim": "#594d45"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Plus Jakarta Sans"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Manrope', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .glass-panel {
+            background: rgba(249, 246, 242, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface">
+<!-- TopAppBar -->
+<header class="w-full top-0 sticky z-50 bg-[#f9f6f2] dark:bg-[#1a1a18]">
+<div class="flex items-center justify-between px-6 py-4 w-full">
+<div class="flex items-center gap-4">
+<button class="p-2 -ml-2 transition-colors duration-300 ease-in-out hover:bg-[#dfddd8]/20 dark:hover:bg-[#2f2f2c]/50 rounded-full text-[#9b4000] dark:text-[#fe8848]">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<h1 class="font-['Plus_Jakarta_Sans'] font-bold text-[#2f2f2c] dark:text-[#f9f6f2] text-lg tracking-tight">Artisanal Ledger</h1>
+</div>
+<div class="h-10 w-10 rounded-full overflow-hidden border-2 border-primary/20">
+<img alt="Baker Profile" class="h-full w-full object-cover" data-alt="close-up portrait of a professional male baker wearing a clean white chef uniform with soft warm kitchen lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWpyEAK5zUItiLAxQT4s5qoLKUfaMFCILpvKygO-W_C2i1RVAkO0Uzq80ZJNNwBAEDS267lg26zldGPVzk6gB2YZZeGTVUHoZu4O7q5a2IogoXICmP1LToCiichioC3mHww7qPlZSnGUXjPn6EXsGAfJHOEDR_T6c-y4yKX3ZazrayalXWTmHYkmTJVFHiqsisGVeFhU0wdL7IJa1o7MlU4XYrC_bnVpW2Qsi2JjeL4bxp8jxqamOhu6yPfDrYU5hGp5deKOhySNU"/>
+</div>
+</div>
+<div class="bg-[#f3f0ec] dark:bg-[#252522] h-[1px] w-full"></div>
+</header>
+<!-- NavigationDrawer (Suppressed by default, imagine it toggled) -->
+<!-- Not rendered in full state for the focus of "Settings" screen, but logic would put it here -->
+<main class="max-w-md mx-auto px-6 py-8 space-y-8">
+<!-- Editorial Header -->
+<section class="space-y-1">
+<h2 class="font-headline text-3xl font-extrabold tracking-tight text-on-surface">Settings</h2>
+<p class="text-on-surface-variant font-medium">Refine your artisanal workspace</p>
+</section>
+<!-- Profile Bento Section -->
+<section class="grid grid-cols-1 gap-4">
+<div class="bg-surface-container-lowest p-6 rounded-3xl shadow-[0px_12px_32px_rgba(47,47,44,0.06)] flex items-center gap-4">
+<div class="relative">
+<img alt="Julian S." class="w-16 h-16 rounded-2xl object-cover" data-alt="close-up portrait of a professional male baker wearing a clean white chef uniform with soft warm kitchen lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWmCwLTGE80cPv987h01KMnIq4_LM5Selfrg88F0F_hfs9ZNXV5xYX7h-8JP9A_Eddtj8WfE09hfM5WzdM9KCFpGF7k9NBCXyrsV2zTDKbJJXyCD8mmopLTq_fcjJ5-e20Yo-ZaqRT5Vecur0G9F1UlxrEJeWFM4TPRuqIBEmocPUE8g1O8p-OUE2VAPjl-2V9JOJzwx_6w6nqbUpLnFCGLpnYqAcZWzSKg2MBpg7iGR0-cJwcP1gW53KdRdN6rwPQi29OBew8o2A"/>
+<div class="absolute -bottom-1 -right-1 bg-primary text-on-primary p-1 rounded-lg">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">edit</span>
+</div>
+</div>
+<div class="flex-1">
+<h3 class="font-headline font-bold text-lg text-on-surface">Julian S.</h3>
+<p class="text-sm text-on-surface-variant font-medium">Head of Production</p>
+<div class="mt-2 inline-flex items-center gap-1 bg-tertiary-container text-on-tertiary-container px-2 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider">
+                        Shift: Morning
+                    </div>
+</div>
+</div>
+</section>
+<!-- Appearance Section -->
+<section class="space-y-4">
+<h4 class="font-headline text-sm font-bold uppercase tracking-widest text-outline">Appearance</h4>
+<div class="bg-surface-container-low rounded-3xl p-2 space-y-1">
+<div class="flex items-center justify-between p-4 bg-surface-container-lowest rounded-2xl">
+<div class="flex items-center gap-3">
+<div class="bg-secondary-container p-2 rounded-xl text-on-secondary-container">
+<span class="material-symbols-outlined" data-icon="dark_mode">dark_mode</span>
+</div>
+<span class="font-semibold text-on-surface">Dark Mode</span>
+</div>
+<button class="w-12 h-6 bg-surface-variant rounded-full relative transition-colors duration-300">
+<div class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full shadow-sm transform transition-transform duration-300"></div>
+</button>
+</div>
+<!-- Color Presets -->
+<div class="p-4 bg-surface-container-lowest rounded-2xl space-y-4">
+<span class="block font-semibold text-on-surface">Artisanal Palette</span>
+<div class="flex justify-between items-center px-1">
+<!-- Cinnamon (Primary) -->
+<div class="flex flex-col items-center gap-2">
+<button class="w-10 h-10 rounded-full bg-[#9b4000] ring-4 ring-primary/20 ring-offset-2 ring-offset-surface-container-lowest"></button>
+<span class="text-[10px] font-bold text-on-surface-variant">Cinnamon</span>
+</div>
+<!-- Flour -->
+<div class="flex flex-col items-center gap-2 opacity-60">
+<button class="w-10 h-10 rounded-full bg-[#dfddd8] border border-outline-variant"></button>
+<span class="text-[10px] font-bold text-on-surface-variant">Flour</span>
+</div>
+<!-- Wheat -->
+<div class="flex flex-col items-center gap-2 opacity-60">
+<button class="w-10 h-10 rounded-full bg-[#d2b48c]"></button>
+<span class="text-[10px] font-bold text-on-surface-variant">Wheat</span>
+</div>
+<!-- Cocoa -->
+<div class="flex flex-col items-center gap-2 opacity-60">
+<button class="w-10 h-10 rounded-full bg-[#3d2b1f]"></button>
+<span class="text-[10px] font-bold text-on-surface-variant">Cocoa</span>
+</div>
+<!-- Matcha -->
+<div class="flex flex-col items-center gap-2 opacity-60">
+<button class="w-10 h-10 rounded-full bg-[#8f9779]"></button>
+<span class="text-[10px] font-bold text-on-surface-variant">Matcha</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- System Preferences -->
+<section class="space-y-4">
+<h4 class="font-headline text-sm font-bold uppercase tracking-widest text-outline">System</h4>
+<div class="bg-surface-container-low rounded-3xl p-2 space-y-1">
+<!-- Stock Sync -->
+<div class="flex items-center justify-between p-4 bg-surface-container-lowest rounded-2xl">
+<div class="flex items-center gap-3">
+<div class="bg-tertiary-container p-2 rounded-xl text-on-tertiary-container">
+<span class="material-symbols-outlined" data-icon="sync">sync</span>
+</div>
+<div class="flex flex-col">
+<span class="font-semibold text-on-surface">Cloud Sync</span>
+<span class="text-[11px] text-on-surface-variant">Last synced 2m ago</span>
+</div>
+</div>
+<button class="w-12 h-6 bg-primary rounded-full relative transition-colors duration-300">
+<div class="absolute right-1 top-1 w-4 h-4 bg-white rounded-full shadow-sm"></div>
+</button>
+</div>
+<!-- Digital Receipts -->
+<div class="flex items-center justify-between p-4 bg-surface-container-lowest rounded-2xl">
+<div class="flex items-center gap-3">
+<div class="bg-secondary-container p-2 rounded-xl text-on-secondary-container">
+<span class="material-symbols-outlined" data-icon="receipt_long">receipt_long</span>
+</div>
+<span class="font-semibold text-on-surface">Auto-Receipts</span>
+</div>
+<button class="w-12 h-6 bg-primary rounded-full relative transition-colors duration-300">
+<div class="absolute right-1 top-1 w-4 h-4 bg-white rounded-full shadow-sm"></div>
+</button>
+</div>
+</div>
+</section>
+<!-- Navigation Section -->
+<section class="space-y-4">
+<h4 class="font-headline text-sm font-bold uppercase tracking-widest text-outline">Account</h4>
+<div class="bg-surface-container-low rounded-3xl p-2 space-y-1">
+<!-- Navigation Items following JSON mapping style_inactive_navigation -->
+<button class="w-full flex items-center justify-between p-4 bg-surface-container-lowest rounded-2xl text-[#2f2f2c] dark:text-[#dfddd8]">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined opacity-70" data-icon="inventory_2">inventory_2</span>
+<span class="font-semibold">Inventory</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant">chevron_right</span>
+</button>
+<button class="w-full flex items-center justify-between p-4 bg-surface-container-lowest rounded-2xl text-[#2f2f2c] dark:text-[#dfddd8]">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined opacity-70" data-icon="bakery_dining">bakery_dining</span>
+<span class="font-semibold">Production</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant">chevron_right</span>
+</button>
+<button class="w-full flex items-center justify-between p-4 bg-surface-container-lowest rounded-2xl text-[#2f2f2c] dark:text-[#dfddd8]">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined opacity-70" data-icon="group">group</span>
+<span class="font-semibold">Users</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant">chevron_right</span>
+</button>
+<!-- Active Settings Item -->
+<button class="w-full flex items-center justify-between p-4 bg-[#fe8848]/10 text-[#9b4000] border-l-4 border-[#9b4000] rounded-r-2xl">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined font-bold" data-icon="settings">settings</span>
+<span class="font-bold">Settings</span>
+</div>
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</section>
+<!-- Danger Zone -->
+<button class="w-full py-5 px-6 rounded-3xl bg-error-container/10 text-error flex items-center justify-center gap-2 font-bold border-2 border-dashed border-error/20">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+            Sign out of Ledger
+        </button>
+<div class="text-center pb-12">
+<p class="text-[10px] text-on-surface-variant font-bold uppercase tracking-widest">Artisanal Ledger v2.4.0</p>
+</div>
+</main>
+<!-- Suppressed BottomNavBar as requested -->
+</body></html>

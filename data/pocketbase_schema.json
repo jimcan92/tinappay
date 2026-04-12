@@ -1,0 +1,255 @@
+[
+  {
+    "name": "categories",
+    "type": "base",
+    "schema": [
+      {
+        "name": "name",
+        "type": "text",
+        "required": true
+      },
+      {
+        "name": "slug",
+        "type": "text",
+        "required": true,
+        "unique": true
+      },
+      {
+        "name": "type",
+        "type": "select",
+        "values": ["product", "ingredient"],
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "products",
+    "type": "base",
+    "schema": [
+      {
+        "name": "name",
+        "type": "text",
+        "required": true
+      },
+      {
+        "name": "description",
+        "type": "text"
+      },
+      {
+        "name": "price",
+        "type": "number",
+        "required": true
+      },
+      {
+        "name": "category",
+        "type": "relation",
+        "relationId": "categories",
+        "maxSelect": 1,
+        "required": true
+      },
+      {
+        "name": "image",
+        "type": "file",
+        "options": {
+          "maxSelect": 1,
+          "maxSize": 5242880,
+          "mimeTypes": ["image/jpeg", "image/png", "image/svg+xml", "image/gif", "image/webp"]
+        }
+      },
+      {
+        "name": "stock",
+        "type": "number",
+        "default": 0
+      },
+      {
+        "name": "active",
+        "type": "bool",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "ingredients",
+    "type": "base",
+    "schema": [
+      {
+        "name": "name",
+        "type": "text",
+        "required": true
+      },
+      {
+        "name": "description",
+        "type": "text"
+      },
+      {
+        "name": "unit",
+        "type": "text",
+        "required": true
+      },
+      {
+        "name": "current_stock",
+        "type": "number",
+        "required": true,
+        "default": 0
+      },
+      {
+        "name": "min_stock",
+        "type": "number",
+        "required": true,
+        "default": 10
+      },
+      {
+        "name": "max_stock",
+        "type": "number",
+        "required": true,
+        "default": 100
+      },
+      {
+        "name": "category",
+        "type": "relation",
+        "relationId": "categories",
+        "maxSelect": 1
+      },
+      {
+        "name": "image",
+        "type": "file",
+        "options": {
+          "maxSelect": 1,
+          "maxSize": 5242880,
+          "mimeTypes": ["image/jpeg", "image/png", "image/svg+xml", "image/gif", "image/webp"]
+        }
+      }
+    ]
+  },
+  {
+    "name": "suppliers",
+    "type": "base",
+    "schema": [
+      {
+        "name": "name",
+        "type": "text",
+        "required": true
+      },
+      {
+        "name": "contact_person",
+        "type": "text"
+      },
+      {
+        "name": "phone",
+        "type": "text"
+      },
+      {
+        "name": "email",
+        "type": "email"
+      },
+      {
+        "name": "categories",
+        "type": "text"
+      },
+      {
+        "name": "image",
+        "type": "file",
+        "options": {
+          "maxSelect": 1,
+          "maxSize": 5242880,
+          "mimeTypes": ["image/jpeg", "image/png", "image/svg+xml", "image/gif", "image/webp"]
+        }
+      }
+    ]
+  },
+  {
+    "name": "orders",
+    "type": "base",
+    "schema": [
+      {
+        "name": "total",
+        "type": "number",
+        "required": true
+      },
+      {
+        "name": "status",
+        "type": "select",
+        "values": ["completed", "cancelled"],
+        "default": "completed"
+      },
+      {
+        "name": "cashier",
+        "type": "relation",
+        "relationId": "_pb_users_auth_",
+        "maxSelect": 1,
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "order_items",
+    "type": "base",
+    "schema": [
+      {
+        "name": "order",
+        "type": "relation",
+        "relationId": "orders",
+        "maxSelect": 1,
+        "required": true,
+        "cascadeDelete": true
+      },
+      {
+        "name": "product",
+        "type": "relation",
+        "relationId": "products",
+        "maxSelect": 1,
+        "required": true
+      },
+      {
+        "name": "quantity",
+        "type": "number",
+        "required": true
+      },
+      {
+        "name": "price",
+        "type": "number",
+        "required": true
+      },
+      {
+        "name": "subtotal",
+        "type": "number",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "inventory_logs",
+    "type": "base",
+    "schema": [
+      {
+        "name": "product",
+        "type": "relation",
+        "relationId": "products",
+        "maxSelect": 1
+      },
+      {
+        "name": "ingredient",
+        "type": "relation",
+        "relationId": "ingredients",
+        "maxSelect": 1
+      },
+      {
+        "name": "quantity",
+        "type": "number",
+        "required": true
+      },
+      {
+        "name": "reason",
+        "type": "select",
+        "values": ["sale", "restock", "waste", "adjustment"],
+        "required": true
+      },
+      {
+        "name": "user",
+        "type": "relation",
+        "relationId": "_pb_users_auth_",
+        "maxSelect": 1
+      }
+    ]
+  }
+]
