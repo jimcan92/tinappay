@@ -25,7 +25,7 @@
     <button
         {onclick}
         class={cn(
-            'rounded-[2rem] p-6 text-left transition-all duration-300 active:scale-[0.98]',
+            'rounded-[2rem] p-[var(--card-padding,1.5rem)] text-left transition-all duration-300 active:scale-[0.98]',
             levelClasses[level],
             className
         )}
@@ -35,7 +35,7 @@
 {:else}
     <div
         class={cn(
-            'rounded-[2rem] p-6',
+            'rounded-[2rem] p-[var(--card-padding,1.5rem)]',
             levelClasses[level],
             className
         )}

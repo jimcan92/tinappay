@@ -39,5 +39,5 @@ export const GET: RequestHandler = async ({ url, locals, cookies }) => {
 	// Clean up cookie
 	cookies.delete('google_auth_data', { path: '/' });
 
-	throw redirect(303, '/');
+	throw redirect(303, url.searchParams.get('redirect_url') || '/');
 };

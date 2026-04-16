@@ -54,7 +54,7 @@
 
 	<nav class="flex-1 space-y-1 overflow-y-auto no-scrollbar">
 		{#each navItems as item}
-			{@const isActive = $page.url.pathname === item.href}
+			{@const isActive = $page.url.pathname === item.href || ($page.url.pathname.startsWith(item.href) && item.href !== '/')}
 			<a
 				href={item.href}
                 onclick={onClose}

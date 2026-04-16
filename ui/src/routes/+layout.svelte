@@ -9,6 +9,6 @@
 
 <svelte:head><link rel="icon" href={favicon} /></svelte:head>
 <ModeWatcher />
-<div class={themeState.value}>
+<div class="{themeState.value} density-{themeState.density}">
 	{@render children()}
 </div>

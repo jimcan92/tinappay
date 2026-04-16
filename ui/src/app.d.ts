@@ -5,7 +5,7 @@ declare global {
 		// interface Error {}
 		interface Locals {
 			pb: PocketBase;
-			user: PocketBase['authStore']['model'];
+			user: PocketBase['authStore']['record'];
 		}
 		// interface PageData {}
 		// interface PageState {}
@@ -13,4 +13,5 @@ declare global {
 	}
 }
 
-export {};
+export { };
+

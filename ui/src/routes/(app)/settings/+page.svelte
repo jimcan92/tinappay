@@ -1,11 +1,11 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-	import { pb } from '$lib/pocketbase';
 	import { goto } from '$app/navigation';
 	import ArtisanalCard from '$lib/components/artisanal/ArtisanalCard.svelte';
 	import SignatureButton from '$lib/components/artisanal/SignatureButton.svelte';
+	import { pb } from '$lib/pocketbase';
 	import { themeState } from '$lib/state/theme.svelte';
-	import { mode, resetMode, setMode } from 'mode-watcher';
+	import { mode, setMode } from 'mode-watcher';
+	import { onMount } from 'svelte';
 
 	let themeMode = $derived(mode.current);
 	let updatingInfo = $state(false);
@@ -76,20 +76,23 @@
 	}
 </script>
 
-<div class="px-6 py-10 md:px-12 max-w-6xl mx-auto">
+<div class="px-6 md:px-12 py-10 max-w-5xl mx-auto">
 	<!-- Editorial Header -->
 	<header class="mb-12">
-		<h1 class="text-4xl md:text-5xl font-black text-on-surface tracking-tight mb-3 font-serif">Bakery Governance</h1>
-		<p class="text-on-surface-variant text-lg max-w-2xl leading-relaxed">Manage your storefront identity and system-wide configurations. These details appear on customer receipts and the digital storefront.</p>
+		<h1 class="text-4xl md:text-5xl font-extrabold text-on-surface tracking-tight mb-2">Preferences</h1>
+		<p class="text-on-surface-variant text-lg max-w-2xl leading-relaxed">Customize your Artisanal Ledger workspace. These settings are applied globally to your profile and device.</p>
 	</header>
 
-	<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-		<!-- Left: Profile & Systems -->
-		<section class="lg:col-span-8 space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-			<ArtisanalCard level="lowest" class="p-8 shadow-md border border-outline-variant/10">
-				<div class="flex flex-col md:flex-row items-center gap-8 mb-10">
-					<div class="relative group">
-						<div class="w-28 h-28 rounded-[2rem] overflow-hidden border-4 border-surface shadow-xl bg-surface-container flex items-center justify-center">
+	<!-- Asymmetric Bento Grid for Settings -->
+	<div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+		
+		<!-- Left: Profile Section (Asymmetric Left) -->
+		<section class="md:col-span-8 space-y-8">
+			<!-- Profile Card -->
+			<div class="bg-surface-container-lowest rounded-xl p-8 shadow-[0px_12px_32px_rgba(47,47,44,0.06)]">
+				<div class="flex flex-col sm:flex-row items-start sm:items-center gap-6 mb-8">
+					<div class="relative group mx-auto sm:mx-0">
+						<div class="w-24 h-24 rounded-full overflow-hidden border-4 border-surface-container flex items-center justify-center bg-surface-container shadow-inner">
 							{#if logoPreview}
 								<img src={logoPreview} alt="Logo" class="h-full w-full object-cover" />
 							{:else if bakery.logo && typeof bakery.logo === 'string'}
@@ -98,168 +101,192 @@
 								<span class="material-symbols-outlined text-4xl text-on-surface-variant/30">bakery_dining</span>
 							{/if}
 						</div>
-						<label class="absolute bottom-0 right-0 bg-primary text-white p-2.5 rounded-full shadow-lg hover:scale-110 transition-transform border-4 border-surface cursor-pointer">
-							<span class="material-symbols-outlined text-sm">add_a_photo</span>
+						<label class="absolute bottom-0 right-0 bg-primary text-on-primary p-2 rounded-full shadow-lg hover:scale-110 transition-transform cursor-pointer">
+							<span class="material-symbols-outlined text-sm">edit</span>
 							<input type="file" class="hidden" accept="image/*" onchange={handleLogoChange} />
 						</label>
 					</div>
-					<div class="text-center md:text-left flex-1">
-						<div class="space-y-1 mb-4">
-							<label for="bakery-name" class="text-[10px] font-black text-on-surface-variant uppercase tracking-widest ml-1">Establishment Name</label>
-							<input id="bakery-name" bind:value={bakery.name} class="text-3xl font-black text-on-surface font-serif bg-transparent border-none p-0 focus:ring-0 w-full" placeholder="Enter Bakery Name" />
-						</div>
-						<div class="flex flex-wrap justify-center md:justify-start gap-2">
-							<span class="bg-primary/10 text-primary px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest">Active Storefront</span>
-							<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest">Production Ledger</span>
+					<div class="text-center sm:text-left">
+						<h2 class="text-2xl font-bold">{bakery.name || 'Bakery Name'}</h2>
+						<p class="text-on-surface-variant">Storefront Profile</p>
+						<div class="flex justify-center sm:justify-start gap-2 mt-2">
+							<span class="bg-tertiary-container text-on-tertiary-container px-3 py-1 rounded-md text-xs font-semibold uppercase tracking-wider">Active</span>
 						</div>
 					</div>
 				</div>
 
 				<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-					<div class="md:col-span-2 space-y-2">
-						<label for="set-desc" class="text-[10px] font-black text-on-surface-variant uppercase tracking-widest ml-1">Bakery Description</label>
-						<textarea id="set-desc" bind:value={bakery.description} class="w-full bg-surface-container-low border-none rounded-xl px-5 py-4 focus:ring-2 focus:ring-primary/20 text-sm font-medium resize-none leading-relaxed" rows="2" placeholder="Tell your artisanal story..."></textarea>
+					<div class="md:col-span-2 space-y-1">
+						<label for="bakery-name" class="text-xs font-bold text-on-surface-variant uppercase tracking-widest ml-1">Establishment Name</label>
+						<input id="bakery-name" bind:value={bakery.name} class="w-full bg-surface-container-low border-none rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary/20 text-on-surface" type="text" placeholder="Enter Bakery Name"/>
 					</div>
-					<div class="space-y-2">
-						<label for="set-address" class="text-[10px] font-black text-on-surface-variant uppercase tracking-widest ml-1">Physical Address</label>
-						<input id="set-address" bind:value={bakery.address} class="w-full bg-surface-container-low border-none rounded-xl px-5 py-4 focus:ring-2 focus:ring-primary/20 text-sm font-bold" type="text" placeholder="Street, City, Country"/>
+					<div class="md:col-span-2 space-y-1">
+						<label for="bakery-desc" class="text-xs font-bold text-on-surface-variant uppercase tracking-widest ml-1">Business Description</label>
+						<textarea id="bakery-desc" bind:value={bakery.description} class="w-full bg-surface-container-low border-none rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary/20 text-on-surface resize-none" rows="3" placeholder="Tell your artisanal story..."></textarea>
 					</div>
-					<div class="space-y-2">
-						<label for="set-phone" class="text-[10px] font-black text-on-surface-variant uppercase tracking-widest ml-1">Business Hotline</label>
-						<input id="set-phone" bind:value={bakery.phone} class="w-full bg-surface-container-low border-none rounded-xl px-5 py-4 focus:ring-2 focus:ring-primary/20 text-sm font-bold" type="tel" placeholder="+63 900 000 0000"/>
+					<div class="space-y-1">
+						<label for="bakery-email" class="text-xs font-bold text-on-surface-variant uppercase tracking-widest ml-1">Email Address</label>
+						<input id="bakery-email" bind:value={bakery.email} class="w-full bg-surface-container-low border-none rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary/20 text-on-surface" type="email" placeholder="hello@bakery.com"/>
 					</div>
-					<div class="md:col-span-2 space-y-2">
-						<label for="set-receipt" class="text-[10px] font-black text-on-surface-variant uppercase tracking-widest ml-1">Receipt Footer Note</label>
-						<input id="set-receipt" bind:value={bakery.receipt_footer} class="w-full bg-surface-container-low border-none rounded-xl px-5 py-4 focus:ring-2 focus:ring-primary/20 text-sm font-bold italic" type="text" placeholder="Ex: 'Thank you for supporting local bakers!'"/>
+					<div class="space-y-1">
+						<label for="bakery-phone" class="text-xs font-bold text-on-surface-variant uppercase tracking-widest ml-1">Phone Number</label>
+						<input id="bakery-phone" bind:value={bakery.phone} class="w-full bg-surface-container-low border-none rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary/20 text-on-surface" type="tel" placeholder="+63 900 000 0000"/>
+					</div>
+					<div class="md:col-span-2 space-y-1">
+						<label for="bakery-addr" class="text-xs font-bold text-on-surface-variant uppercase tracking-widest ml-1">Physical Address</label>
+						<input id="bakery-addr" bind:value={bakery.address} class="w-full bg-surface-container-low border-none rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary/20 text-on-surface" type="text" placeholder="Street, City, Country"/>
+					</div>
+					<div class="md:col-span-2 space-y-1">
+						<label for="bakery-footer" class="text-xs font-bold text-on-surface-variant uppercase tracking-widest ml-1">Receipt Footer Note</label>
+						<input id="bakery-footer" bind:value={bakery.receipt_footer} class="w-full bg-surface-container-low border-none rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary/20 text-on-surface italic" type="text" placeholder="Ex: 'Thank you for supporting local bakers!'"/>
 					</div>
 				</div>
 
-				<div class="mt-10 flex justify-end">
-					<SignatureButton onclick={onSaveBakery} disabled={updatingInfo} size="md">
-						{updatingInfo ? 'Synchronizing...' : 'Update Bakery Profile'}
-					</SignatureButton>
+				<div class="mt-8 flex justify-end">
+					<button onclick={onSaveBakery} disabled={updatingInfo} class="bg-primary text-on-primary px-8 py-3 rounded-full font-bold shadow-md hover:opacity-90 transition-opacity disabled:opacity-50">
+						{updatingInfo ? 'Synchronizing...' : 'Save Profile'}
+					</button>
 				</div>
-			</ArtisanalCard>
+			</div>
 
 			<!-- System Preferences -->
-			<div class="bg-surface-container-low rounded-[2rem] p-8 space-y-8">
-				<h3 class="text-xl font-black text-on-surface font-serif flex items-center gap-3">
-					<span class="material-symbols-outlined text-primary text-2xl" style="font-variation-settings: 'FILL' 1;">settings_applications</span>
-					System Calibration
+			<div class="bg-surface-container-low rounded-xl p-8 space-y-6">
+				<h3 class="text-xl font-bold flex items-center gap-2">
+					<span class="material-symbols-outlined text-primary">settings_applications</span>
+					System Preferences
 				</h3>
 				<div class="space-y-4">
-					<div class="flex items-center justify-between p-6 bg-surface-container-lowest rounded-2xl border border-outline-variant/5 shadow-sm">
+					<div class="flex items-center justify-between p-4 bg-surface-container-lowest rounded-lg">
 						<div>
-							<p class="font-black text-on-surface">Real-time Stock Sync</p>
-							<p class="text-xs text-on-surface-variant font-medium mt-1">Update inventory levels across all terminals instantly.</p>
+							<p class="font-bold">Real-time Stock Sync</p>
+							<p class="text-sm text-on-surface-variant">Update inventory levels across all terminals instantly.</p>
 						</div>
-						<button aria-label="Toggle Stock Sync" class="w-12 h-6 bg-primary rounded-full relative transition-all active:scale-95 shadow-inner">
-							<div class="absolute right-1 top-1 w-4 h-4 bg-white rounded-full shadow-md"></div>
-						</button>
+						<div class="relative inline-flex items-center cursor-pointer">
+							<div class="w-12 h-6 bg-primary rounded-full"></div>
+							<div class="absolute right-1 w-4 h-4 bg-white rounded-full transition-transform"></div>
+						</div>
 					</div>
-					<div class="flex items-center justify-between p-6 bg-surface-container-lowest rounded-2xl border border-outline-variant/5 shadow-sm opacity-60">
+					<div class="flex items-center justify-between p-4 bg-surface-container-lowest rounded-lg opacity-60">
 						<div>
-							<p class="font-black text-on-surface">Auto-Print Receipts</p>
-							<p class="text-xs text-on-surface-variant font-medium mt-1">Automatically trigger POS printer after successful checkout.</p>
+							<p class="font-bold">Auto-Print Receipts</p>
+							<p class="text-sm text-on-surface-variant">Automatically trigger POS printer after successful checkout.</p>
 						</div>
-						<button aria-label="Toggle Auto-print" class="w-12 h-6 bg-outline-variant/30 rounded-full relative transition-all active:scale-95">
-							<div class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full shadow-sm"></div>
-						</button>
+						<div class="relative inline-flex items-center cursor-pointer">
+							<div class="w-12 h-6 bg-outline-variant rounded-full"></div>
+							<div class="absolute left-1 w-4 h-4 bg-white rounded-full transition-transform"></div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</section>
 
-		<!-- Right: Appearance -->
-		<section class="lg:col-span-4 space-y-8 animate-in fade-in slide-in-from-right-4 duration-500">
+		<!-- Appearance Section (Asymmetric Right) -->
+		<section class="md:col-span-4 space-y-8">
 			<!-- Theme Selector -->
-			<ArtisanalCard level="high" class="p-8 border border-outline-variant/5">
-				<h3 class="text-xl font-black text-on-surface font-serif mb-6 flex items-center gap-3">
-					<span class="material-symbols-outlined text-primary text-2xl" style="font-variation-settings: 'FILL' 1;">palette</span>
-					Visuals
+			<div class="bg-surface-container-high rounded-xl p-6">
+				<h3 class="text-lg font-bold mb-4 flex items-center gap-2">
+					<span class="material-symbols-outlined text-primary">palette</span>
+					Appearance
 				</h3>
+				<p class="text-sm text-on-surface-variant mb-6 leading-relaxed">Choose a visual style that best suits your work environment.</p>
 				
-				<div class="space-y-4">
-					<button onclick={() => setMode('light')} class="w-full flex items-center gap-4 p-5 rounded-2xl border-2 transition-all {themeMode === 'light' ? 'border-primary bg-surface-container-lowest shadow-lg shadow-primary/5' : 'border-transparent bg-on-surface/5 hover:bg-on-surface/10'}">
-						<div class="h-10 w-10 rounded-xl bg-surface flex items-center justify-center border border-outline-variant/10 shadow-sm text-primary">
-							<span class="material-symbols-outlined">light_mode</span>
+				<div class="space-y-3">
+					<button onclick={() => setMode('light')} class="w-full flex items-center gap-4 p-4 rounded-xl border-2 transition-all {themeMode === 'light' ? 'border-primary bg-surface-container-lowest' : 'border-transparent bg-inverse-surface/5 hover:border-outline-variant/30'}">
+						<div class="w-10 h-10 rounded-lg bg-surface flex items-center justify-center shadow-sm">
+							<span class="material-symbols-outlined text-primary">light_mode</span>
 						</div>
 						<div class="text-left flex-1">
-							<p class="font-black text-sm">Light Mode</p>
-							<p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">Day Shifts</p>
+							<p class="font-bold leading-tight">Light Mode</p>
+							<p class="text-xs text-on-surface-variant">Optimal for day shifts</p>
 						</div>
 						{#if themeMode === 'light'}
-							<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+							<span class="material-symbols-outlined ml-auto text-primary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
 						{/if}
 					</button>
 
-					<button onclick={() => setMode('dark')} class="w-full flex items-center gap-4 p-5 rounded-2xl border-2 transition-all {themeMode === 'dark' ? 'border-primary bg-on-surface/10 shadow-lg shadow-primary/5' : 'border-transparent bg-on-surface/5 hover:bg-on-surface/10'}">
-						<div class="h-10 w-10 rounded-xl bg-on-surface flex items-center justify-center shadow-sm text-surface">
-							<span class="material-symbols-outlined">dark_mode</span>
+					<button onclick={() => setMode('dark')} class="w-full flex items-center gap-4 p-4 rounded-xl border-2 transition-all {themeMode === 'dark' ? 'border-primary bg-surface-container-lowest' : 'border-transparent bg-inverse-surface/5 hover:border-outline-variant/30'}">
+						<div class="w-10 h-10 rounded-lg bg-on-surface flex items-center justify-center shadow-sm">
+							<span class="material-symbols-outlined text-surface">dark_mode</span>
 						</div>
 						<div class="text-left flex-1">
-							<p class="font-black text-sm">Dark Mode</p>
-							<p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">Early Mornings</p>
+							<p class="font-bold leading-tight">Dark Mode</p>
+							<p class="text-xs text-on-surface-variant">Comfortable for early mornings</p>
 						</div>
 						{#if themeMode === 'dark'}
-							<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+							<span class="material-symbols-outlined ml-auto text-primary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
 						{/if}
 					</button>
 				</div>
 
-				<div class="mt-10 pt-8 border-t border-outline-variant/10">
-					<p class="text-[10px] font-black text-on-surface-variant uppercase tracking-[0.2em] mb-6">Accent Color Palette</p>
+				<div class="mt-8">
+					<p class="text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-4">Color Presets</p>
 					<div class="grid grid-cols-5 gap-3">
 						{#each [
-							{ id: 'theme-cinnamon', color: '#9b4000', label: 'Cinnamon' },
-							{ id: 'theme-flour', color: '#dcdcdc', label: 'Flour' },
-							{ id: 'theme-wheat', color: '#e69a2d', label: 'Wheat' },
-							{ id: 'theme-cocoa', color: '#5d3923', label: 'Cocoa' },
-							{ id: 'theme-matcha', color: '#7da27a', label: 'Matcha' }
+							{ id: 'theme-cinnamon', color: '#a64500', label: 'Cinnamon' },
+							{ id: 'theme-flour', color: '#c2bba8', label: 'Flour' },
+							{ id: 'theme-wheat', color: '#d4881e', label: 'Wheat' },
+							{ id: 'theme-cocoa', color: '#4a2915', label: 'Cocoa' },
+							{ id: 'theme-matcha', color: '#668c62', label: 'Matcha' }
 						] as accent}
 							<button 
-                                onclick={() => themeState.setTheme(accent.id)}
-                                aria-label="Set theme to {accent.label}"
-                                class="aspect-square rounded-full border-4 border-surface shadow-md transition-all active:scale-90 {themeState.value === accent.id ? 'ring-2 ring-primary scale-110' : 'opacity-60 hover:opacity-100 hover:scale-105'}"
-                                style="background-color: {accent.color}"
-                            ></button>
+								onclick={() => themeState.setTheme(accent.id)}
+								aria-label="Set theme to {accent.label}"
+								class="aspect-square rounded-full border-2 border-surface shadow-md transition-transform hover:scale-105 {themeState.value === accent.id ? 'ring-2 ring-primary scale-105 border-white dark:border-black' : ''}"
+								style="background-color: {accent.color}"
+							></button>
 						{/each}
 					</div>
 				</div>
-			</ArtisanalCard>
+			</div>
 
-			<!-- Readability -->
-			<ArtisanalCard level="lowest" class="p-8 border border-outline-variant/10 shadow-sm">
-				<h3 class="text-lg font-black text-on-surface font-serif mb-6">Readability</h3>
-				<div class="space-y-8">
+			<!-- Typography & Density -->
+			<div class="bg-surface-container-lowest rounded-xl p-6 shadow-[0px_12px_32px_rgba(47,47,44,0.06)] border border-outline-variant/10">
+				<h3 class="text-lg font-bold mb-4">Readability</h3>
+				<div class="space-y-6">
 					<div>
-						<label for="density-toggle" class="text-[10px] font-black text-on-surface-variant uppercase tracking-widest mb-4 block">Interface Density</label>
-						<div id="density-toggle" class="flex p-1.5 bg-surface-container rounded-2xl shadow-inner">
-							<button class="flex-1 py-2.5 text-xs font-black uppercase tracking-widest bg-surface-container-lowest rounded-xl shadow-md text-primary">Editorial</button>
-							<button class="flex-1 py-2.5 text-xs font-black uppercase tracking-widest text-on-surface-variant hover:text-on-surface">Compact</button>
+						<label for="density-ctrl" class="text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-2 block">Interface Density</label>
+						<div id="density-ctrl" class="flex p-1 bg-surface-container rounded-lg">
+							<button 
+								onclick={() => themeState.setDensity('editorial')}
+								class="flex-1 py-2 text-sm transition-all {themeState.density === 'editorial' ? 'font-bold bg-surface-container-lowest rounded-md shadow-sm text-primary' : 'font-medium text-on-surface-variant hover:text-on-surface'}">
+								Editorial
+							</button>
+							<button 
+								onclick={() => themeState.setDensity('compact')}
+								class="flex-1 py-2 text-sm transition-all {themeState.density === 'compact' ? 'font-bold bg-surface-container-lowest rounded-md shadow-sm text-primary' : 'font-medium text-on-surface-variant hover:text-on-surface'}">
+								Compact
+							</button>
 						</div>
 					</div>
 					<div>
-						<label for="font-size" class="text-[10px] font-black text-on-surface-variant uppercase tracking-widest mb-4 block">Base Type Size</label>
-						<input id="font-size" class="w-full accent-primary h-1.5 bg-surface-container rounded-full appearance-none cursor-pointer" max="20" min="12" type="range" value="16"/>
-						<div class="flex justify-between text-[9px] font-black text-on-surface-variant uppercase tracking-widest mt-3">
+						<label for="font-ctrl" class="text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-2 block">Base Font Size</label>
+						<input 
+							id="font-ctrl" 
+							class="w-full accent-primary" 
+							max="20" 
+							min="12" 
+							type="range" 
+							bind:value={themeState.fontSize}
+							oninput={(e) => themeState.setFontSize(parseInt(e.currentTarget.value))}
+						/>
+						<div class="flex justify-between text-[10px] text-on-surface-variant mt-1 px-1">
 							<span>Small</span>
 							<span>Medium</span>
 							<span>Large</span>
 						</div>
 					</div>
 				</div>
-			</ArtisanalCard>
+			</div>
 
 			<!-- Danger Zone -->
-			<div class="p-8 rounded-[2rem] border-2 border-error/10 bg-error-container/5 relative overflow-hidden group">
-				<h3 class="text-error font-black text-lg font-serif mb-2">Security Vault</h3>
-				<p class="text-xs text-on-surface-variant font-medium mb-6 leading-relaxed">Update your access credentials or manage system session security.</p>
-				<button class="flex items-center gap-3 text-error font-black uppercase tracking-widest text-[10px] group-hover:gap-4 transition-all">
+			<div class="p-6 border-2 border-error/10 rounded-xl bg-error-container/5 relative group">
+				<h3 class="text-error font-bold mb-2">Security</h3>
+				<p class="text-xs text-on-surface-variant mb-4">Manage your account security and data privacy settings.</p>
+				<button class="text-error text-sm font-bold flex items-center gap-2 hover:underline">
 					<span class="material-symbols-outlined text-sm">lock_reset</span>
 					Change Password
 				</button>
-                <button onclick={handleLogout} class="flex items-center gap-3 text-error font-black uppercase tracking-widest text-[10px] mt-4 group-hover:gap-4 transition-all">
+				<button onclick={handleLogout} class="text-error text-sm font-bold flex items-center gap-2 mt-4 hover:underline">
 					<span class="material-symbols-outlined text-sm">logout</span>
 					Sign Out System
 				</button>

@@ -15,17 +15,22 @@
 		try {
 			const startOfDay = new Date();
 			startOfDay.setHours(0, 0, 0, 0);
-			const filter = `created >= "${startOfDay.toISOString().replace('T', ' ')}"`;
+
+			// Clean format for PocketBase
+			const filterDate = startOfDay.toISOString().replace('T', ' ').split('.')[0];
+			const filter = `created >= '${filterDate}'`;
 
 			const [orders, orderItems] = await Promise.all([
 				pb.collection('orders').getFullList({ 
 					filter,
 					sort: '-created',
-					expand: 'cashier'
+					expand: 'cashier',
+					requestKey: null
 				}),
 				pb.collection('order_items').getFullList({
 					filter,
-					expand: 'product'
+					expand: 'product',
+					requestKey: null
 				})
 			]);
 
@@ -48,8 +53,12 @@
 			if (sorted.length > 0) {
 				bestSeller = sorted[0];
 			}
-		} catch (error) {
-			console.error('Failed to fetch reports:', error);
+		} catch (error: any) {
+			console.error('--- Reports Error Info ---');
+			console.error('Error Object:', error);
+			if (error.data) console.error('Error Data:', JSON.stringify(error.data, null, 2));
+			if (error.originalError) console.error('Original Error:', error.originalError);
+			console.error('--------------------------');
 		} finally {
 			loading = false;
 		}

@@ -4,24 +4,50 @@
 
 @custom-variant dark (&:is(.dark *));
 
+:root {
+	--accent-primary: #a64500;
+	--accent-primary-container: #ff914d;
+	--accent-on-primary: #fff0ea;
+
+	/* Bridge for Surface/Background (Warm Artisanal Paper) */
+	--site-bg: #fcfaf8;
+	--site-surface: #fcfaf8;
+	--site-on-surface: #2b2927;
+	--site-on-surface-variant: #595754;
+	--site-surface-container-lowest: #ffffff;
+	--site-surface-container-low: #f4efe8;
+	--site-surface-container: #ebe4da;
+	--site-surface-container-high: #e0d8cc;
+	--site-surface-container-highest: #d6ccbe;
+	--site-outline-variant: #aca7a1;
+
+	/* Scaling & Density Variables */
+	--base-font-size: 16px;
+	--spacing-scale: 1;
+	--site-padding: calc(2rem * var(--spacing-scale));
+	--card-padding: calc(1.5rem * var(--spacing-scale));
+	--section-gap: calc(2rem * var(--spacing-scale));
+	--item-gap: calc(1rem * var(--spacing-scale));
+}
+
 @theme inline {
 	--font-sans: 'Manrope', sans-serif;
 	--font-serif: 'Plus Jakarta Sans', sans-serif;
 	
-    /* Brand Colors from Stitch */
-    --color-primary: #9b4000;
-    --color-primary-container: #fe8848;
-    --color-on-primary: #fff0ea;
-    --color-background: #f9f6f2;
-    --color-surface: #f9f6f2;
-    --color-on-surface: #2f2f2c;
-    --color-on-surface-variant: #5c5b59;
-    --color-surface-container-lowest: #ffffff;
-    --color-surface-container-low: #f3f0ec;
-    --color-surface-container: #eae8e3;
-    --color-surface-container-high: #e5e2de;
-    --color-surface-container-highest: #dfddd8;
-    --color-outline-variant: #afada9;
+    /* Brand Colors bridged to variables */
+    --color-primary: var(--accent-primary);
+    --color-primary-container: var(--accent-primary-container);
+    --color-on-primary: var(--accent-on-primary);
+    --color-background: var(--site-bg);
+    --color-surface: var(--site-surface);
+    --color-on-surface: var(--site-on-surface);
+    --color-on-surface-variant: var(--site-on-surface-variant);
+    --color-surface-container-lowest: var(--site-surface-container-lowest);
+    --color-surface-container-low: var(--site-surface-container-low);
+    --color-surface-container: var(--site-surface-container);
+    --color-surface-container-high: var(--site-surface-container-high);
+    --color-surface-container-highest: var(--site-surface-container-highest);
+    --color-outline-variant: var(--site-outline-variant);
     --color-error: #b02500;
     --color-on-error: #ffffff;
     --color-error-container: #f95630;
@@ -49,13 +75,98 @@
     --radius-4xl: 2rem;
 }
 
+/* Theme Overrides updating Bridge Variables */
+html.density-compact {
+	--spacing-scale: 0.7 !important;
+}
+
+html.density-editorial {
+	--spacing-scale: 1 !important;
+}
+
+/* Dark Mode Overrides */
+/* Dark Mode Overrides (Rich Espresso/Charcoal) */
+html.dark {
+	--site-bg: #12100e;
+	--site-surface: #12100e;
+	--site-on-surface: #e8e3df;
+	--site-on-surface-variant: #a39e99;
+	--site-surface-container-lowest: #0a0907;
+	--site-surface-container-low: #1a1715;
+	--site-surface-container: #24211d;
+	--site-surface-container-high: #2e2a25;
+	--site-surface-container-highest: #3a352f;
+	--site-outline-variant: #544e48;
+}
+
+/* --- Light Mode Accents --- */
+html.theme-flour {
+	--accent-primary: #c2bba8 !important;
+	--accent-primary-container: #eae4d3 !important;
+	--accent-on-primary: #3d392e !important;
+}
+
+html.theme-wheat {
+	--accent-primary: #d4881e !important;
+	--accent-primary-container: #ffdfa3 !important;
+	--accent-on-primary: #4a2c00 !important;
+}
+
+html.theme-cocoa {
+	--accent-primary: #4a2915 !important;
+	--accent-primary-container: #8c6a56 !important;
+	--accent-on-primary: #ffffff !important;
+}
+
+html.theme-matcha {
+	--accent-primary: #668c62 !important;
+	--accent-primary-container: #daebd7 !important;
+	--accent-on-primary: #12330f !important;
+}
+
+/* --- Dark Mode Accents (Contrast Boosted) --- */
+html.dark.theme-cinnamon {
+    --accent-primary: #ca621c !important;
+	--accent-primary-container: #5c2400 !important;
+	--accent-on-primary: #ffffff !important;
+}
+
+html.dark.theme-flour {
+	--accent-primary: #e0dac9 !important;
+	--accent-primary-container: #474338 !important;
+	--accent-on-primary: #29261b !important;
+}
+
+html.dark.theme-wheat {
+	--accent-primary: #ebb55d !important;
+	--accent-primary-container: #633a00 !important;
+	--accent-on-primary: #2e1a00 !important;
+}
+
+html.dark.theme-cocoa {
+	--accent-primary: #855b40 !important;
+	--accent-primary-container: #331604 !important;
+	--accent-on-primary: #ffffff !important;
+}
+
+html.dark.theme-matcha {
+	--accent-primary: #94bd8f !important;
+	--accent-primary-container: #1b3d18 !important;
+	--accent-on-primary: #0a1f08 !important;
+}
+
 @layer base {
 	* {
 		@apply border-border outline-ring/50;
 	}
 
+	html {
+		font-size: var(--base-font-size);
+	}
+
 	body {
-		@apply bg-background text-on-surface transition-colors duration-300 font-sans;
+		@apply bg-background text-on-surface transition-all duration-300 font-sans;
+		font-size: 1rem; /* This now scales with html font-size */
 	}
 
 	h1, h2, h3, h4, h5, h6, .editorial-font {

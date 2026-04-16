@@ -1,82 +1,102 @@
 /// <reference path="../pb_data/types.d.ts" />
 migrate((app) => {
+  const users = app.findCollectionByNameOrId("users");
   const categories = app.findCollectionByNameOrId("categories");
   const products = app.findCollectionByNameOrId("products");
   const ingredients = app.findCollectionByNameOrId("ingredients");
-  const suppliers = app.findCollectionByNameOrId("suppliers");
 
-  // Helper to create category
-  const createCat = (name, slug, type) => {
-    const record = new Record(categories);
-    record.set("name", name);
-    record.set("slug", slug);
-    record.set("type", type);
-    app.save(record);
-    return record;
-  };
+  // 1. Seed POS User
+  const user = new Record(users, {
+    "email": "jimcan051592@gmail.com",
+    "password": "password123",
+    "passwordConfirm": "password123",
+    "name": "Jim Can",
+    "role": "admin"
+  });
+  app.save(user);
 
-  const catSourdough = createCat("Sourdough", "sourdough", "product");
-  const catPastries = createCat("Pastries", "pastries", "product");
-  const catCoffee = createCat("Coffee", "coffee", "product");
-  const catCakes = createCat("Cakes", "cakes", "product");
+  // 2. Seed Categories
+  const catBread = new Record(categories, {
+    "name": "Bread",
+    "slug": "bread",
+    "type": "product"
+  });
+  app.save(catBread);
 
-  const catFlours = createCat("Flours", "flours", "ingredient");
-  const catDairy = createCat("Dairy", "dairy", "ingredient");
-  const catSweeteners = createCat("Sweeteners", "sweeteners", "ingredient");
+  const catPastries = new Record(categories, {
+    "name": "Pastries",
+    "slug": "pastries",
+    "type": "product"
+  });
+  app.save(catPastries);
 
-  // Products
-  const createProd = (name, price, catId, stock, description = "") => {
-    const record = new Record(products);
-    record.set("name", name);
-    record.set("price", price);
-    record.set("category", catId);
-    record.set("stock", stock);
-    record.set("description", description);
-    record.set("active", true);
-    app.save(record);
-  };
+  const catSupplies = new Record(categories, {
+    "name": "Supplies",
+    "slug": "supplies",
+    "type": "ingredient"
+  });
+  app.save(catSupplies);
 
-  createProd("Classic Sourdough", 8.50, catSourdough.id, 8, "Signature Crust");
-  createProd("Butter Croissant", 4.25, catPastries.id, 15, "Honeycomb Crumb");
-  createProd("Rye Boule", 9.00, catSourdough.id, 2, "Dark & Hearty");
-  createProd("Flat White", 5.50, catCoffee.id, 50, "Single Origin");
-  createProd("Lemon Tart", 6.50, catPastries.id, 10, "Zesty Classic");
-  createProd("Pain au Choc", 4.75, catPastries.id, 12, "Valrhona Fill");
+  // 3. Seed Products
+  const panDeSal = new Record(products, {
+    "name": "Pandesal",
+    "price": 5.00,
+    "category": catBread.id,
+    "stock": 100,
+    "active": true
+  });
+  app.save(panDeSal);
 
-  // Ingredients
-  const createIng = (name, unit, current, min, max, catId, description = "") => {
-    const record = new Record(ingredients);
-    record.set("name", name);
-    record.set("unit", unit);
-    record.set("current_stock", current);
-    record.set("min_stock", min);
-    record.set("max_stock", max);
-    record.set("category", catId);
-    record.set("description", description);
-    app.save(record);
-  };
+  const ensaymada = new Record(products, {
+    "name": "Ensaymada",
+    "price": 25.00,
+    "category": catPastries.id,
+    "stock": 50,
+    "active": true
+  });
+  app.save(ensaymada);
 
-  createIng("Unbleached Flour", "kg", 12.5, 5, 50, catFlours.id, "King Arthur Special");
-  createIng("Cultured Butter", "kg", 45.0, 10, 50, catDairy.id, "Grass-fed unsalted");
-  createIng("Organic Honey", "L", 3.2, 2, 15, catSweeteners.id, "Wildflower Blend");
-  createIng("Whole Milk", "L", 18.0, 5, 20, catDairy.id, "Local Dairy Fresh");
-  createIng("Maldon Sea Salt", "kg", 8.5, 2, 10, catFlours.id, "Flaky finishing salt");
-  createIng("Yeast Blend", "units", 2.4, 1, 10, catFlours.id);
-  createIng("Organic Eggs", "count", 48, 24, 144, catDairy.id);
+  const monay = new Record(products, {
+    "name": "Monay",
+    "price": 10.00,
+    "category": catBread.id,
+    "stock": 80,
+    "active": true
+  });
+  app.save(monay);
 
-  // Suppliers
-  const createSup = (name, categories_str, phone = "", email = "") => {
-    const record = new Record(suppliers);
-    record.set("name", name);
-    record.set("categories", categories_str);
-    record.set("phone", phone);
-    record.set("email", email);
-    app.save(record);
-  };
+  // 4. Seed Ingredients
+  const flour = new Record(ingredients, {
+    "name": "All-purpose Flour",
+    "unit": "kg",
+    "current_stock": 50,
+    "min_stock": 10,
+    "max_stock": 100,
+    "category": catSupplies.id
+  });
+  app.save(flour);
 
-  createSup("Grain & Co.", "Flour, Grains, Seeds", "555-0123", "orders@grainco.com");
-  createSup("Dairy Fresh", "Milk, Butter, Cream", "555-0456", "sales@dairyfresh.com");
+  const sugar = new Record(ingredients, {
+    "name": "White Sugar",
+    "unit": "kg",
+    "current_stock": 20,
+    "min_stock": 5,
+    "max_stock": 50,
+    "category": catSupplies.id
+  });
+  app.save(sugar);
 
+  const yeast = new Record(ingredients, {
+    "name": "Instant Dry Yeast",
+    "unit": "pack",
+    "current_stock": 30,
+    "min_stock": 5,
+    "max_stock": 50,
+    "category": catSupplies.id
+  });
+  app.save(yeast);
+
+  return;
 }, (app) => {
-  // Rollback logic if needed
+  // Rollback logic (optional for seed)
 })

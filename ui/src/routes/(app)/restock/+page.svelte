@@ -49,7 +49,7 @@
 			});
 
 			await pb.collection('inventory_logs').create({
-				ingredient: selectedIngredient.id,
+				supply: selectedIngredient.id,
 				quantity: restockAmount,
 				reason: 'restock',
 				user: pb.authStore.model?.id

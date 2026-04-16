@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-	import { pb } from '$lib/pocketbase';
-	import { cartState } from '$lib/state/cart.svelte';
 	import ArtisanalCard from '$lib/components/artisanal/ArtisanalCard.svelte';
 	import SignatureButton from '$lib/components/artisanal/SignatureButton.svelte';
+	import { pb } from '$lib/pocketbase';
+	import { cartState } from '$lib/state/cart.svelte';
+	import { onMount } from 'svelte';
 
 	let categories = $state<any[]>([]);
 	let products = $state<any[]>([]);
@@ -68,16 +68,23 @@
 <div class="flex h-full w-full overflow-hidden bg-surface">
 	<!-- Left Section: Catalog -->
 	<section class="flex flex-1 flex-col overflow-hidden p-6 md:p-8 lg:p-10">
-		<header class="mb-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+		<header class="mb-10 flex flex-col justify-between gap-6 md:flex-row md:items-center">
 			<div>
-				<h2 class="font-serif text-3xl font-black tracking-tight text-on-surface">Daily Selection</h2>
-				<p class="text-sm font-medium text-on-surface-variant">Station: Front Counter • Cashier: {pb.authStore.model?.name || 'Staff'}</p>
+				<h2 class="font-serif text-3xl font-black tracking-tight text-on-surface">
+					Daily Selection
+				</h2>
+				<p class="text-sm font-medium text-on-surface-variant">
+					Station: Front Counter • Cashier: {pb.authStore.record?.name || 'Staff'}
+				</p>
 			</div>
-			<div class="relative w-full md:w-80 group">
-				<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant transition-colors group-focus-within:text-primary">search</span>
+			<div class="group relative w-full md:w-80">
+				<span
+					class="material-symbols-outlined absolute top-1/2 left-4 -translate-y-1/2 text-on-surface-variant transition-colors group-focus-within:text-primary"
+					>search</span
+				>
 				<input
 					bind:value={searchQuery}
-					class="w-full rounded-full border-none bg-surface-container-low py-3.5 pl-12 pr-4 text-sm font-medium transition-all focus:ring-2 focus:ring-primary/20"
+					class="w-full rounded-full border-none bg-surface-container-low py-3.5 pr-4 pl-12 text-sm font-medium transition-all focus:ring-2 focus:ring-primary/20"
 					placeholder="Search menu items..."
 					type="text"
 				/>
@@ -85,10 +92,13 @@
 		</header>
 
 		<!-- Categories -->
-		<div class="no-scrollbar mb-10 flex gap-3 overflow-x-auto pb-2">
+		<div class="mb-10 no-scrollbar flex gap-3 overflow-x-auto pb-2">
 			<button
 				onclick={() => (selectedCategoryId = null)}
-				class="flex items-center gap-2 whitespace-nowrap rounded-full px-6 py-2.5 text-sm font-bold transition-all {selectedCategoryId === null ? 'bg-primary text-on-primary shadow-lg' : 'bg-surface-container-highest/30 text-on-surface hover:bg-surface-container-highest'}"
+				class="flex items-center gap-2 rounded-full px-6 py-2.5 text-sm font-bold whitespace-nowrap transition-all {selectedCategoryId ===
+				null
+					? 'bg-primary text-on-primary shadow-lg'
+					: 'bg-surface-container-highest/30 text-on-surface hover:bg-surface-container-highest'}"
 			>
 				<span class="material-symbols-outlined text-[20px]">grid_view</span>
 				All
@@ -96,7 +106,10 @@
 			{#each categories as cat}
 				<button
 					onclick={() => (selectedCategoryId = cat.id)}
-					class="flex items-center gap-2 whitespace-nowrap rounded-full px-6 py-2.5 text-sm font-bold transition-all {selectedCategoryId === cat.id ? 'bg-primary text-on-primary shadow-lg' : 'bg-surface-container-highest/30 text-on-surface hover:bg-surface-container-highest'}"
+					class="flex items-center gap-2 rounded-full px-6 py-2.5 text-sm font-bold whitespace-nowrap transition-all {selectedCategoryId ===
+					cat.id
+						? 'bg-primary text-on-primary shadow-lg'
+						: 'bg-surface-container-highest/30 text-on-surface hover:bg-surface-container-highest'}"
 				>
 					<span class="material-symbols-outlined text-[20px]">bakery_dining</span>
 					{cat.name}
@@ -105,30 +118,53 @@
 		</div>
 
 		<!-- Grid -->
-		<div class="no-scrollbar flex-1 overflow-y-auto pr-2 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+		<div
+			class="no-scrollbar grid flex-1 grid-cols-1 gap-4 overflow-y-auto pr-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+		>
 			{#each filteredProducts as product}
 				<button
 					onclick={() => cartState.addItem(product)}
-					class="group flex flex-col rounded-3xl bg-surface-container-lowest p-4 text-left transition-all hover:shadow-xl hover:border-primary-container/20 active:scale-95 border border-transparent"
+					class="group flex flex-col rounded-3xl border border-transparent bg-surface-container-lowest p-4 text-left transition-all hover:border-primary-container/20 hover:shadow-xl active:scale-95"
 				>
-					<div class="mb-4 h-40 w-full overflow-hidden rounded-2xl bg-surface-container shadow-inner">
+					<div
+						class="mb-4 h-40 w-full overflow-hidden rounded-2xl bg-surface-container shadow-inner"
+					>
 						{#if product.image}
-							<img src={pb.files.getUrl(product, product.image)} alt={product.name} class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
+							<img
+								src={pb.files.getUrl(product, product.image)}
+								alt={product.name}
+								class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+							/>
 						{:else}
-							<div class="flex h-full w-full items-center justify-center bg-primary/5 text-primary/30 font-serif font-black text-4xl uppercase">{product.name.substring(0, 2)}</div>
+							<div
+								class="flex h-full w-full items-center justify-center bg-primary/5 font-serif text-4xl font-black text-primary/30 uppercase"
+							>
+								{product.name.substring(0, 2)}
+							</div>
 						{/if}
 					</div>
-					<div class="flex items-start justify-between mb-1">
-						<h4 class="font-serif font-black text-lg text-on-surface leading-tight line-clamp-1">{product.name}</h4>
+					<div class="mb-1 flex items-start justify-between">
+						<h4 class="line-clamp-1 font-serif text-lg leading-tight font-black text-on-surface">
+							{product.name}
+						</h4>
 						<span class="font-serif font-black text-primary">${product.price.toFixed(2)}</span>
 					</div>
-					<p class="text-[11px] font-medium text-on-surface-variant line-clamp-2">{product.description || 'Fresh baked artisanal batch.'}</p>
-					
-					<div class="mt-auto pt-4 flex items-center justify-between">
-						<span class="rounded px-2 py-0.5 text-[9px] font-black uppercase tracking-widest {product.stock > 5 ? 'bg-tertiary-container text-on-tertiary-container' : 'bg-error-container text-on-error-container animate-pulse'}">
+					<p class="line-clamp-2 text-[11px] font-medium text-on-surface-variant">
+						{product.description || 'Fresh baked artisanal batch.'}
+					</p>
+
+					<div class="mt-auto flex items-center justify-between pt-4">
+						<span
+							class="rounded px-2 py-0.5 text-[9px] font-black tracking-widest uppercase {product.stock >
+							5
+								? 'bg-tertiary-container text-on-tertiary-container'
+								: 'animate-pulse bg-error-container text-on-error-container'}"
+						>
 							{product.stock > 0 ? (product.stock <= 5 ? 'Low Stock' : 'In Stock') : 'Out of Stock'}
 						</span>
-						<div class="flex h-8 w-8 items-center justify-center rounded-full bg-primary-container/10 text-primary transition-colors group-hover:bg-primary group-hover:text-on-primary">
+						<div
+							class="flex h-8 w-8 items-center justify-center rounded-full bg-primary-container/10 text-primary transition-colors group-hover:bg-primary group-hover:text-on-primary"
+						>
 							<span class="material-symbols-outlined text-[20px]">add</span>
 						</div>
 					</div>
@@ -138,18 +174,28 @@
 	</section>
 
 	<!-- Right Section: Order (always visible on lg, hidden on mobile unless toggled) -->
-	<aside class="hidden lg:flex w-full flex-col bg-surface-container-low shadow-[-12px_0px_32px_rgba(47,47,44,0.04)] lg:w-[400px]">
+	<aside
+		class="hidden w-full flex-col bg-surface-container-low shadow-[-12px_0px_32px_rgba(47,47,44,0.04)] lg:flex lg:w-[400px]"
+	>
 		<div class="bg-surface-container-highest/10 p-8">
 			<div class="mb-8 flex items-center justify-between">
 				<h3 class="font-serif text-2xl font-black tracking-tight uppercase">Current Order</h3>
-				<button onclick={() => cartState.clear()} class="flex h-10 w-10 items-center justify-center rounded-full text-on-surface-variant hover:bg-error-container hover:text-on-error-container transition-colors">
+				<button
+					onclick={() => cartState.clear()}
+					class="flex h-10 w-10 items-center justify-center rounded-full text-on-surface-variant transition-colors hover:bg-error-container hover:text-on-error-container"
+				>
 					<span class="material-symbols-outlined">delete</span>
 				</button>
 			</div>
-			<button class="flex w-full items-center justify-between rounded-2xl border border-dashed border-outline-variant bg-surface-container-lowest px-6 py-4 transition-all hover:bg-white group">
+			<button
+				class="group flex w-full items-center justify-between rounded-2xl border border-dashed border-outline-variant bg-surface-container-lowest px-6 py-4 transition-all hover:bg-white"
+			>
 				<div class="flex items-center gap-3">
 					<span class="material-symbols-outlined text-primary">person_add</span>
-					<span class="text-sm font-black uppercase tracking-widest text-on-surface-variant group-hover:text-on-surface">Add Customer</span>
+					<span
+						class="text-sm font-black tracking-widest text-on-surface-variant uppercase group-hover:text-on-surface"
+						>Add Customer</span
+					>
 				</div>
 				<span class="material-symbols-outlined text-outline-variant">chevron_right</span>
 			</button>
@@ -157,25 +203,46 @@
 
 		<div class="no-scrollbar flex-1 space-y-6 overflow-y-auto px-8 py-6">
 			{#each cartState.items as item}
-				<div class="flex items-center gap-4 group">
-					<div class="h-16 w-16 shrink-0 overflow-hidden rounded-2xl bg-surface-container shadow-inner">
+				<div class="group flex items-center gap-4">
+					<div
+						class="h-16 w-16 shrink-0 overflow-hidden rounded-2xl bg-surface-container shadow-inner"
+					>
 						{#if item.image}
 							<img src={item.image} alt={item.name} class="h-full w-full object-cover" />
 						{:else}
-							<div class="flex h-full w-full items-center justify-center bg-primary/5 text-primary/30 font-black">{item.name.substring(0, 2)}</div>
+							<div
+								class="flex h-full w-full items-center justify-center bg-primary/5 font-black text-primary/30"
+							>
+								{item.name.substring(0, 2)}
+							</div>
 						{/if}
 					</div>
 					<div class="flex-1">
-						<div class="flex justify-between items-start mb-1">
-							<span class="text-sm font-black text-on-surface leading-tight">{item.name}</span>
-							<span class="font-serif font-black text-on-surface">${(item.price * item.quantity).toFixed(2)}</span>
+						<div class="mb-1 flex items-start justify-between">
+							<span class="text-sm leading-tight font-black text-on-surface">{item.name}</span>
+							<span class="font-serif font-black text-on-surface"
+								>${(item.price * item.quantity).toFixed(2)}</span
+							>
 						</div>
 						<div class="flex items-center justify-between">
-							<span class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">x{item.quantity} @ ${item.price.toFixed(2)}</span>
-							<div class="flex items-center gap-3 rounded-full bg-surface-container px-2 py-1 shadow-inner">
-								<button onclick={() => cartState.removeItem(item.productId)} class="flex h-6 w-6 items-center justify-center rounded-full text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined text-sm">remove</span></button>
+							<span class="text-[10px] font-bold tracking-widest text-on-surface-variant uppercase"
+								>x{item.quantity} @ ${item.price.toFixed(2)}</span
+							>
+							<div
+								class="flex items-center gap-3 rounded-full bg-surface-container px-2 py-1 shadow-inner"
+							>
+								<button
+									onclick={() => cartState.removeItem(item.productId)}
+									class="flex h-6 w-6 items-center justify-center rounded-full text-on-surface-variant transition-colors hover:text-primary"
+									><span class="material-symbols-outlined text-sm">remove</span></button
+								>
 								<span class="w-4 text-center text-xs font-black">{item.quantity}</span>
-								<button onclick={() => cartState.addItem({ id: item.productId, name: item.name, price: item.price })} class="flex h-6 w-6 items-center justify-center rounded-full text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined text-sm">add</span></button>
+								<button
+									onclick={() =>
+										cartState.addItem({ id: item.productId, name: item.name, price: item.price })}
+									class="flex h-6 w-6 items-center justify-center rounded-full text-on-surface-variant transition-colors hover:text-primary"
+									><span class="material-symbols-outlined text-sm">add</span></button
+								>
 							</div>
 						</div>
 					</div>
@@ -189,32 +256,44 @@
 		</div>
 
 		<!-- Footer -->
-		<div class="rounded-t-[2.5rem] bg-surface-container-lowest p-8 shadow-[0px_-16px_40px_rgba(47,47,44,0.05)]">
+		<div
+			class="rounded-t-[2.5rem] bg-surface-container-lowest p-8 shadow-[0px_-16px_40px_rgba(47,47,44,0.05)]"
+		>
 			<div class="mb-8 space-y-3 px-2">
-				<div class="flex items-center justify-between text-xs font-bold uppercase tracking-widest text-on-surface-variant">
+				<div
+					class="flex items-center justify-between text-xs font-bold tracking-widest text-on-surface-variant uppercase"
+				>
 					<span>Subtotal</span>
-					<span class="font-serif font-black text-on-surface">${cartState.totalPrice.toFixed(2)}</span>
+					<span class="font-serif font-black text-on-surface"
+						>${cartState.totalPrice.toFixed(2)}</span
+					>
 				</div>
-				<div class="flex items-center justify-between text-xs font-bold uppercase tracking-widest text-on-surface-variant">
+				<div
+					class="flex items-center justify-between text-xs font-bold tracking-widest text-on-surface-variant uppercase"
+				>
 					<span>Tax (0%)</span>
 					<span class="font-serif font-black text-on-surface">$0.00</span>
 				</div>
 				<div class="my-4 h-px bg-surface-container"></div>
 				<div class="flex items-center justify-between">
-					<span class="font-serif text-2xl font-black uppercase tracking-tight">Total</span>
-					<span class="font-serif text-4xl font-black text-primary tracking-tighter">${cartState.totalPrice.toFixed(2)}</span>
+					<span class="font-serif text-2xl font-black tracking-tight uppercase">Total</span>
+					<span class="font-serif text-4xl font-black tracking-tighter text-primary"
+						>${cartState.totalPrice.toFixed(2)}</span
+					>
 				</div>
 			</div>
 
 			<div class="grid grid-cols-2 gap-4">
-				<button class="flex items-center justify-center gap-2 rounded-2xl bg-surface-container-high py-4 text-sm font-black uppercase tracking-widest text-on-surface hover:bg-surface-container-highest transition-all active:scale-95 shadow-sm">
+				<button
+					class="flex items-center justify-center gap-2 rounded-2xl bg-surface-container-high py-4 text-sm font-black tracking-widest text-on-surface uppercase shadow-sm transition-all hover:bg-surface-container-highest active:scale-95"
+				>
 					<span class="material-symbols-outlined text-lg">save</span>
 					Hold
 				</button>
-				<button 
+				<button
 					disabled={cartState.items.length === 0 || loading}
 					onclick={handleCheckout}
-					class="flex items-center justify-center gap-2 rounded-2xl bg-primary py-4 font-serif text-lg font-black uppercase tracking-widest text-on-primary shadow-xl shadow-primary/30 transition-all hover:scale-[1.02] active:scale-95 disabled:opacity-50 disabled:grayscale"
+					class="flex items-center justify-center gap-2 rounded-2xl bg-primary py-4 font-serif text-lg font-black tracking-widest text-on-primary uppercase shadow-xl shadow-primary/30 transition-all hover:scale-[1.02] active:scale-95 disabled:opacity-50 disabled:grayscale"
 				>
 					<span class="material-symbols-outlined">payments</span>
 					Pay
@@ -223,56 +302,97 @@
 		</div>
 	</aside>
 
-    <!-- Success Modal -->
-    {#if showSuccess}
-        <div class="fixed inset-0 z-[100] flex items-center justify-center bg-on-surface/40 p-4 backdrop-blur-sm animate-in fade-in duration-300">
-            <ArtisanalCard class="max-w-md w-full p-0 overflow-hidden shadow-2xl animate-in zoom-in-95 duration-300">
-                <div class="bg-primary p-10 text-center relative overflow-hidden">
-                    <div class="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent"></div>
-                    <div class="relative z-10">
-                        <div class="h-20 w-20 rounded-[2rem] bg-white/20 border-4 border-white/20 flex items-center justify-center mx-auto mb-6 shadow-xl">
-                            <span class="material-symbols-outlined text-white text-4xl" style="font-variation-settings: 'wght' 700;">check_circle</span>
-                        </div>
-                        <h3 class="text-3xl font-black text-white uppercase tracking-tighter leading-tight font-serif">Batch Finalized</h3>
-                        <p class="text-xs font-bold text-white/80 uppercase tracking-[0.3em] mt-2">Order #{(lastOrder?.id || '').substring(0, 8)}</p>
-                    </div>
-                </div>
-                
-                <div class="p-8 bg-[radial-gradient(#dfddd8_1px,transparent_1px)] [background-size:20px_20px] bg-white">
-                    <div class="space-y-4 mb-8">
-                        {#each lastOrder?.items || [] as item}
-                            <div class="flex justify-between items-center">
-                                <span class="text-sm font-black text-on-surface">{item.name} <span class="text-on-surface-variant font-medium ml-1">x{item.quantity}</span></span>
-                                <span class="font-serif font-black">${(item.price * item.quantity).toFixed(2)}</span>
-                            </div>
-                        {/each}
-                    </div>
-                    <div class="border-t-2 border-dashed border-surface-container pt-6 flex justify-between items-center">
-                        <span class="text-lg font-black uppercase tracking-tight">Total Paid</span>
-                        <span class="text-3xl font-serif font-black text-primary tracking-tighter">${lastOrder?.total.toFixed(2)}</span>
-                    </div>
-                </div>
+	<!-- Success Modal -->
+	{#if showSuccess}
+		<div
+			class="fixed inset-0 z-[100] flex animate-in items-center justify-center bg-on-surface/40 p-4 backdrop-blur-sm duration-300 fade-in"
+		>
+			<ArtisanalCard
+				class="w-full max-w-md animate-in overflow-hidden p-0 shadow-2xl duration-300 zoom-in-95"
+			>
+				<div class="relative overflow-hidden bg-primary p-10 text-center">
+					<div class="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent"></div>
+					<div class="relative z-10">
+						<div
+							class="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-[2rem] border-4 border-white/20 bg-white/20 shadow-xl"
+						>
+							<span
+								class="material-symbols-outlined text-4xl text-white"
+								style="font-variation-settings: 'wght' 700;">check_circle</span
+							>
+						</div>
+						<h3
+							class="font-serif text-3xl leading-tight font-black tracking-tighter text-white uppercase"
+						>
+							Batch Finalized
+						</h3>
+						<p class="mt-2 text-xs font-bold tracking-[0.3em] text-white/80 uppercase">
+							Order #{(lastOrder?.id || '').substring(0, 8)}
+						</p>
+					</div>
+				</div>
 
-                <footer class="p-8 bg-surface-container-low flex flex-col gap-3">
-                    <SignatureButton size="lg" onclick={() => { showSuccess = false; lastOrder = null; }} class="w-full">
-                        Next Batch
-                    </SignatureButton>
-                    <button class="text-[10px] font-black uppercase tracking-[0.3em] text-on-surface-variant hover:text-primary transition-colors">Print Receipt</button>
-                </footer>
-            </ArtisanalCard>
-        </div>
-    {/if}
+				<div
+					class="bg-white bg-[radial-gradient(#dfddd8_1px,transparent_1px)] [background-size:20px_20px] p-8"
+				>
+					<div class="mb-8 space-y-4">
+						{#each lastOrder?.items || [] as item}
+							<div class="flex items-center justify-between">
+								<span class="text-sm font-black text-on-surface"
+									>{item.name}
+									<span class="ml-1 font-medium text-on-surface-variant">x{item.quantity}</span
+									></span
+								>
+								<span class="font-serif font-black">${(item.price * item.quantity).toFixed(2)}</span
+								>
+							</div>
+						{/each}
+					</div>
+					<div
+						class="flex items-center justify-between border-t-2 border-dashed border-surface-container pt-6"
+					>
+						<span class="text-lg font-black tracking-tight uppercase">Total Paid</span>
+						<span class="font-serif text-3xl font-black tracking-tighter text-primary"
+							>${lastOrder?.total.toFixed(2)}</span
+						>
+					</div>
+				</div>
+
+				<footer class="flex flex-col gap-3 bg-surface-container-low p-8">
+					<SignatureButton
+						size="lg"
+						onclick={() => {
+							showSuccess = false;
+							lastOrder = null;
+						}}
+						class="w-full"
+					>
+						Next Batch
+					</SignatureButton>
+					<button
+						class="text-[10px] font-black tracking-[0.3em] text-on-surface-variant uppercase transition-colors hover:text-primary"
+						>Print Receipt</button
+					>
+				</footer>
+			</ArtisanalCard>
+		</div>
+	{/if}
 </div>
 
 <!-- Mobile Cart FAB (only on small screens) -->
 {#if !showCartMobile}
 	<button
-		onclick={() => showCartMobile = true}
-		class="fixed bottom-8 right-6 z-50 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-primary to-primary-container text-on-primary shadow-2xl transition-all active:scale-95 lg:hidden"
+		onclick={() => (showCartMobile = true)}
+		class="fixed right-6 bottom-8 z-50 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-primary to-primary-container text-on-primary shadow-2xl transition-all active:scale-95 lg:hidden"
 	>
-		<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">shopping_cart</span>
+		<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;"
+			>shopping_cart</span
+		>
 		{#if cartState.items.length > 0}
-			<span class="absolute -top-1 -right-1 flex h-6 w-6 items-center justify-center rounded-full bg-error text-on-error text-[10px] font-black">{cartState.items.length}</span>
+			<span
+				class="absolute -top-1 -right-1 flex h-6 w-6 items-center justify-center rounded-full bg-error text-[10px] font-black text-on-error"
+				>{cartState.items.length}</span
+			>
 		{/if}
 	</button>
 {/if}
@@ -281,40 +401,66 @@
 {#if showCartMobile}
 	<!-- svelte-ignore a11y_click_events_have_key_events -->
 	<!-- svelte-ignore a11y_no_static_element_interactions -->
-	<div onclick={() => showCartMobile = false} class="fixed inset-0 z-40 bg-on-surface/30 backdrop-blur-sm lg:hidden"></div>
-	<div class="fixed bottom-0 left-0 right-0 z-50 flex max-h-[85dvh] flex-col rounded-t-[2rem] bg-surface-container-low shadow-2xl lg:hidden">
-		<div class="flex items-center justify-between px-8 py-5 border-b border-outline-variant/10">
+	<div
+		onclick={() => (showCartMobile = false)}
+		class="fixed inset-0 z-40 bg-on-surface/30 backdrop-blur-sm lg:hidden"
+	></div>
+	<div
+		class="fixed right-0 bottom-0 left-0 z-50 flex max-h-[85dvh] flex-col rounded-t-[2rem] bg-surface-container-low shadow-2xl lg:hidden"
+	>
+		<div class="flex items-center justify-between border-b border-outline-variant/10 px-8 py-5">
 			<h3 class="font-serif text-xl font-black tracking-tight uppercase">Current Order</h3>
 			<div class="flex items-center gap-3">
-				<button onclick={() => cartState.clear()} class="flex h-9 w-9 items-center justify-center rounded-full text-on-surface-variant hover:bg-error-container hover:text-on-error-container transition-colors">
+				<button
+					onclick={() => cartState.clear()}
+					class="flex h-9 w-9 items-center justify-center rounded-full text-on-surface-variant transition-colors hover:bg-error-container hover:text-on-error-container"
+				>
 					<span class="material-symbols-outlined text-lg">delete</span>
 				</button>
-				<button onclick={() => showCartMobile = false} class="flex h-9 w-9 items-center justify-center rounded-full hover:bg-surface-container-high transition-colors">
+				<button
+					onclick={() => (showCartMobile = false)}
+					class="flex h-9 w-9 items-center justify-center rounded-full transition-colors hover:bg-surface-container-high"
+				>
 					<span class="material-symbols-outlined">keyboard_arrow_down</span>
 				</button>
 			</div>
 		</div>
-		<div class="no-scrollbar flex-1 overflow-y-auto space-y-4 px-8 py-5">
+		<div class="no-scrollbar flex-1 space-y-4 overflow-y-auto px-8 py-5">
 			{#each cartState.items as item}
 				<div class="flex items-center gap-4">
 					<div class="h-14 w-14 shrink-0 overflow-hidden rounded-2xl bg-surface-container">
 						{#if item.image}
 							<img src={item.image} alt={item.name} class="h-full w-full object-cover" />
 						{:else}
-							<div class="flex h-full w-full items-center justify-center bg-primary/5 text-primary/30 font-black">{item.name.substring(0, 2)}</div>
+							<div
+								class="flex h-full w-full items-center justify-center bg-primary/5 font-black text-primary/30"
+							>
+								{item.name.substring(0, 2)}
+							</div>
 						{/if}
 					</div>
 					<div class="flex-1">
-						<div class="flex justify-between items-start mb-1">
+						<div class="mb-1 flex items-start justify-between">
 							<span class="text-sm font-black text-on-surface">{item.name}</span>
 							<span class="font-serif font-black">${(item.price * item.quantity).toFixed(2)}</span>
 						</div>
 						<div class="flex items-center justify-between">
-							<span class="text-[10px] font-bold text-on-surface-variant">x{item.quantity} @ ${item.price.toFixed(2)}</span>
+							<span class="text-[10px] font-bold text-on-surface-variant"
+								>x{item.quantity} @ ${item.price.toFixed(2)}</span
+							>
 							<div class="flex items-center gap-2 rounded-full bg-surface-container px-2 py-1">
-								<button onclick={() => cartState.removeItem(item.productId)} class="flex h-6 w-6 items-center justify-center text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined text-sm">remove</span></button>
+								<button
+									onclick={() => cartState.removeItem(item.productId)}
+									class="flex h-6 w-6 items-center justify-center text-on-surface-variant hover:text-primary"
+									><span class="material-symbols-outlined text-sm">remove</span></button
+								>
 								<span class="w-4 text-center text-xs font-black">{item.quantity}</span>
-								<button onclick={() => cartState.addItem({ id: item.productId, name: item.name, price: item.price })} class="flex h-6 w-6 items-center justify-center text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined text-sm">add</span></button>
+								<button
+									onclick={() =>
+										cartState.addItem({ id: item.productId, name: item.name, price: item.price })}
+									class="flex h-6 w-6 items-center justify-center text-on-surface-variant hover:text-primary"
+									><span class="material-symbols-outlined text-sm">add</span></button
+								>
 							</div>
 						</div>
 					</div>
@@ -326,15 +472,19 @@
 				</div>
 			{/each}
 		</div>
-		<div class="rounded-t-[2rem] bg-surface-container-lowest p-6 shadow-[0px_-16px_40px_rgba(47,47,44,0.05)]">
-			<div class="flex justify-between items-center mb-4">
+		<div
+			class="rounded-t-[2rem] bg-surface-container-lowest p-6 shadow-[0px_-16px_40px_rgba(47,47,44,0.05)]"
+		>
+			<div class="mb-4 flex items-center justify-between">
 				<span class="font-serif text-xl font-black uppercase">Total</span>
-				<span class="font-serif text-3xl font-black text-primary">${cartState.totalPrice.toFixed(2)}</span>
+				<span class="font-serif text-3xl font-black text-primary"
+					>${cartState.totalPrice.toFixed(2)}</span
+				>
 			</div>
 			<button
 				disabled={cartState.items.length === 0 || loading}
 				onclick={handleCheckout}
-				class="w-full flex items-center justify-center gap-3 rounded-2xl bg-primary py-4 font-serif text-lg font-black uppercase tracking-widest text-on-primary shadow-xl shadow-primary/20 transition-all active:scale-95 disabled:opacity-50 disabled:grayscale"
+				class="flex w-full items-center justify-center gap-3 rounded-2xl bg-primary py-4 font-serif text-lg font-black tracking-widest text-on-primary uppercase shadow-xl shadow-primary/20 transition-all active:scale-95 disabled:opacity-50 disabled:grayscale"
 			>
 				<span class="material-symbols-outlined">payments</span>
 				Pay Now
@@ -344,7 +494,11 @@
 {/if}
 
 <style>
-	.no-scrollbar::-webkit-scrollbar { display: none; }
-	.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+	.no-scrollbar::-webkit-scrollbar {
+		display: none;
+	}
+	.no-scrollbar {
+		-ms-overflow-style: none;
+		scrollbar-width: none;
+	}
 </style>
-

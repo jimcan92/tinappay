@@ -49,13 +49,21 @@ class CartState {
 	async checkout() {
 		if (this.items.length === 0) return;
 
+		// Ensure we have a valid cashier ID from the authStore
+		const cashierId = pb.authStore.model?.id;
+		if (!cashierId) {
+			console.error('Checkout failed: No authenticated user found in pb.authStore');
+			throw new Error('You must be logged in to process a checkout.');
+		}
+
 		try {
 			const orderData = {
 				total: this.totalPrice,
 				status: 'completed',
-				cashier: pb.authStore.model?.id
+				cashier: cashierId
 			};
 
+			console.log('Creating order with data:', orderData);
 			const order = await pb.collection('orders').create(orderData);
 
 			for (const item of this.items) {
@@ -78,14 +86,18 @@ class CartState {
 					product: item.productId,
 					quantity: -item.quantity,
 					reason: 'sale',
-					user: pb.authStore.model?.id
+					user: cashierId
 				});
 			}
 
 			this.clear();
 			return order;
-		} catch (error) {
-			console.error('Checkout failed:', error);
+		} catch (error: any) {
+			if (error.data) {
+				console.error('Checkout validation failed:', JSON.stringify(error.data, null, 2));
+			} else {
+				console.error('Checkout failed:', error);
+			}
 			throw error;
 		}
 	}
