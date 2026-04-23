@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Products - Lenie’s Choice Inventory</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed": "#351000",
+                        "background": "#fcf9f8",
+                        "tertiary-fixed": "#ffdbcc",
+                        "surface-container": "#f0eded",
+                        "surface-container-high": "#eae7e7",
+                        "primary": "#8d4b00",
+                        "on-secondary-fixed-variant": "#6d391e",
+                        "on-secondary": "#ffffff",
+                        "primary-container": "#b15f00",
+                        "on-surface": "#1b1c1c",
+                        "surface-dim": "#dcd9d9",
+                        "on-secondary-fixed": "#351000",
+                        "surface-container-highest": "#e4e2e1",
+                        "on-tertiary-container": "#fffbff",
+                        "on-primary-fixed-variant": "#6e3900",
+                        "surface-variant": "#e4e2e1",
+                        "on-tertiary-fixed-variant": "#76330d",
+                        "tertiary": "#904821",
+                        "secondary-fixed": "#ffdbcc",
+                        "tertiary-fixed-dim": "#ffb693",
+                        "inverse-primary": "#ffb77d",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-container": "#fffbff",
+                        "inverse-surface": "#303030",
+                        "surface-container-low": "#f6f3f2",
+                        "error-container": "#ffdad6",
+                        "primary-fixed-dim": "#ffb77d",
+                        "outline": "#887364",
+                        "secondary": "#895033",
+                        "on-primary": "#ffffff",
+                        "secondary-fixed-dim": "#ffb694",
+                        "secondary-container": "#feb28f",
+                        "on-surface-variant": "#554336",
+                        "surface": "#fcf9f8",
+                        "tertiary-container": "#af5f36",
+                        "surface-tint": "#904d00",
+                        "on-tertiary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "error": "#ba1a1a",
+                        "surface-bright": "#fcf9f8",
+                        "on-background": "#1b1c1c",
+                        "on-error": "#ffffff",
+                        "on-primary-fixed": "#2f1500",
+                        "outline-variant": "#dbc2b0",
+                        "inverse-on-surface": "#f3f0ef",
+                        "primary-fixed": "#ffdcc3",
+                        "on-secondary-container": "#794227"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Plus Jakarta Sans"],
+                        "body": ["Plus Jakarta Sans"],
+                        "label": ["Plus Jakarta Sans"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .tonal-nesting {
+            background: linear-gradient(135deg, rgba(246, 243, 242, 0.8) 0%, rgba(255, 255, 255, 0.4) 100%);
+        }
+        .main-cta-gradient {
+            background: linear-gradient(135deg, #8d4b00 0%, #b15f00 100%);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background font-body text-on-surface">
+<!-- Mobile Header (TopAppBar) -->
+<header class="w-full h-20 sticky top-0 z-40 bg-stone-50/80 backdrop-blur-md flex items-center justify-between px-6">
+<div class="flex items-center gap-4">
+<button class="p-2 hover:bg-stone-100 rounded-lg transition-colors">
+<span class="material-symbols-outlined text-amber-700">menu</span>
+</button>
+<h1 class="text-stone-900 font-extrabold text-xl tracking-tighter">Products</h1>
+</div>
+<div class="flex items-center gap-3">
+<button class="p-2 hover:bg-stone-100 rounded-lg transition-colors">
+<span class="material-symbols-outlined text-stone-500" data-icon="notifications">notifications</span>
+</button>
+<div class="w-10 h-10 rounded-full bg-surface-container-high overflow-hidden border-2 border-primary-fixed">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="close-up portrait of a professional female baker in a white chef coat smiling in a warm sunlit artisanal bakery kitchen" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBmiVtpmZpwClvFn61x4Rzl3i3BugNyhguX0rugan5hXKmVm8JrRFnYPxhiFtw-R0KkrU2QlCVC8-gr1wcCjjuQ-lBIonggjtvo8W5uiaSwPwcY3ClcTP61voEGilQV7wYwG_vaHEa4SVAC3CWDFFEz0xflmR9v8frtnXbsQL11B9dUfVNpwojhr1V3JU73BrO0bzodV2S3T9rWaSyC7fNRkyFB_lLqLdsfKEzW-VX6usancwLOTpv_jc9tvkxxahYij57FACjXIcc"/>
+</div>
+</div>
+</header>
+<!-- Content Canvas -->
+<main class="min-h-screen px-6 py-6 space-y-8 pb-32"><nav aria-label="Breadcrumb" class="flex items-center gap-2 mb-2 text-sm font-medium">
+<a class="text-stone-500 hover:text-primary transition-colors flex items-center gap-1" href="#">
+<span class="material-symbols-outlined text-[18px]">inventory</span>
+    Inventory
+  </a>
+<span class="material-symbols-outlined text-stone-400 text-[18px]">chevron_right</span>
+<span class="text-stone-900 font-bold">Products</span>
+</nav>
+<!-- Search and Filters Section -->
+<section class="space-y-4">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-stone-400">search</span>
+<input class="w-full h-14 pl-12 pr-4 bg-surface-container-highest rounded-xl border-none focus:ring-2 focus:ring-primary/40 transition-all text-on-surface placeholder:text-stone-400" placeholder="Search baked goods..." type="text"/>
+</div>
+<div class="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+<button class="whitespace-nowrap px-6 py-2 bg-primary text-on-primary rounded-full font-semibold text-sm shadow-sm">All Items</button>
+<button class="whitespace-nowrap px-6 py-2 bg-surface-container-high text-on-surface-variant rounded-full font-medium text-sm">Low Stock</button>
+<button class="whitespace-nowrap px-6 py-2 bg-surface-container-high text-on-surface-variant rounded-full font-medium text-sm">Best Sellers</button>
+<button class="whitespace-nowrap px-6 py-2 bg-surface-container-high text-on-surface-variant rounded-full font-medium text-sm">New</button>
+</div>
+</section>
+<!-- Product Bento Grid -->
+<section class="grid grid-cols-1 gap-6">
+<!-- Product Card 1 (Large Priority) -->
+<div class="bg-surface-container-lowest rounded-2xl overflow-hidden shadow-[8px_0_24px_rgba(137,80,51,0.06)] group">
+<div class="h-48 w-full relative overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="close-up of golden brown artisan sourdough loaves with dusted flour crust on a dark wood bakery counter in soft morning light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAeqyMMnZGA4kqHDDeYFBgqLoR_PNgrsWVpAJvW6YDOjCsBHtBJHSnlzo2TsZk9y-EeawEItVEEsp2jKn7uNJOrAAE-og04EZmFI9DQ06vJB-Ct7DNTAV8_zLDBHeEqnTcBsUd6f42QuF26wPFpBStHVaqlLSDVncPh5qbJzAR-az4tTqcePU5vp10p0orU29O3CXTyRol8eQAoiNiIlTQfzvs6_i_te3xigUmtMzx0D3EtAAbU-LVs5-GJlRFV3SeE1RFav7LO7Ks"/>
+<div class="absolute top-4 right-4 bg-tertiary text-on-tertiary px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">High Demand</div>
+</div>
+<div class="p-5 space-y-3">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="text-on-surface font-bold text-lg tracking-tight">Artisanal Sourdough</h3>
+<p class="text-on-surface-variant text-sm">24-hour slow ferment, house starter</p>
+</div>
+<span class="text-primary font-extrabold text-xl">$8.50</span>
+</div>
+<div class="flex items-center justify-between pt-2">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+<span class="text-sm font-semibold text-on-surface">42 units in stock</span>
+</div>
+<button class="w-10 h-10 flex items-center justify-center bg-secondary-container text-on-secondary-container rounded-lg">
+<span class="material-symbols-outlined" data-weight="fill">add_shopping_cart</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Two-Column Product Grid -->
+<div class="grid grid-cols-2 gap-4">
+<!-- Product Card 2 -->
+<div class="bg-surface-container-lowest rounded-2xl overflow-hidden shadow-[4px_0_12px_rgba(137,80,51,0.04)]">
+<div class="h-32 w-full relative">
+<img class="w-full h-full object-cover" data-alt="stack of flaky golden butter croissants with layered pastry visible in a cozy bakery environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBgs18t2RYSbcQ5uOD8ol6qqmMBwks5x50E_el1QSnnd_c6PgrO-MCVpRloK2yCf2b3ydeOfPexg-7zoAizQ-O-u8qCoZfGfGg5cFvd7OKG7v9BOMJ41w0L9RmZJTnTPqR6VDrA1HB855xnWTsDkxeN_9Q5Nn41GU5RZnnNo8KEGvdU6KLGMTh9ul36xqGU8OKFAmYbS95bONP2nQLOYpV3ErLA_mUJxVm2AMQCTewdgKtAL0rCsLV_QrNpnQb2E6vu2U6AhjK8Whw"/>
+</div>
+<div class="p-3 space-y-1">
+<h4 class="text-on-surface font-bold text-sm truncate">Butter Croissants</h4>
+<div class="flex justify-between items-center">
+<span class="text-primary font-bold text-sm">$4.25</span>
+<span class="text-[10px] bg-error-container text-on-error-container px-2 py-0.5 rounded-full font-bold">12 Left</span>
+</div>
+</div>
+</div>
+<!-- Product Card 3 -->
+<div class="bg-surface-container-lowest rounded-2xl overflow-hidden shadow-[4px_0_12px_rgba(137,80,51,0.04)]">
+<div class="h-32 w-full relative">
+<img class="w-full h-full object-cover" data-alt="selection of colorful French macarons on a marble pedestal with soft pastel lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBD42Pblb0AJ2L-fHlQ_uMcgTzNpztSwlf-mFTlu680wYs1Zd1ZmmLaXJZNReCnP7uKWOdCwqdIIBMd-1v74MP_TImIrAa8qamMdZh2Y-9229EVtjHXMWvhp_FS-KvwVkm-LnV4tVsW5yE87Rz7zvSfY7UPEx0J3iNqtzwisMFAFO9kwBswvpc9CnZgTMFAGozxd8CKdjrrFOCQ1iBK_ryMTrVhjBP834lo-wmIQXUKPHoQKcleMEiQJEocjp7haW1AJTSASBbQ-l4"/>
+</div>
+<div class="p-3 space-y-1">
+<h4 class="text-on-surface font-bold text-sm truncate">Macaron Box (6)</h4>
+<div class="flex justify-between items-center">
+<span class="text-primary font-bold text-sm">$15.00</span>
+<span class="text-[10px] bg-secondary-fixed text-on-secondary-fixed px-2 py-0.5 rounded-full font-bold">34 Left</span>
+</div>
+</div>
+</div>
+<!-- Product Card 4 -->
+<div class="bg-surface-container-lowest rounded-2xl overflow-hidden shadow-[4px_0_12px_rgba(137,80,51,0.04)]">
+<div class="h-32 w-full relative">
+<img class="w-full h-full object-cover" data-alt="rich dark chocolate tart with a smooth ganache surface and a dusting of cocoa powder on a rustic wooden plate" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA99Iq5y2Y9XufNxSXEqpimaC5GQnew3yBeDtKZXnec-QEeCsVsutYecD4BxWUb7d9I3JWVx4uXQz5e3pDhGblrybElpogEb0hogzsys7YtOWrDl4paMW67O-rfn4KndkVLXCUz0CW_G2CMgfbMqhteRz-wIFsMfpNYIZgFXhmQOuP1tkdCUtYB-be-6ki6WfxBrTvIkDKOSgClXHZ8W8aQ6P-WHD34e2my3DlmSYdtXpZxPE1WADCLvCRtE3eIe1JW7aKF9_ibJN0"/>
+</div>
+<div class="p-3 space-y-1">
+<h4 class="text-on-surface font-bold text-sm truncate">Chocolate Ganache</h4>
+<div class="flex justify-between items-center">
+<span class="text-primary font-bold text-sm">$6.50</span>
+<span class="text-[10px] bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full font-bold">In Stock</span>
+</div>
+</div>
+</div>
+<!-- Product Card 5 -->
+<div class="bg-surface-container-lowest rounded-2xl overflow-hidden shadow-[4px_0_12px_rgba(137,80,51,0.04)]">
+<div class="h-32 w-full relative">
+<img class="w-full h-full object-cover" data-alt="thick chewy chocolate chip cookies with melted chocolate pools and sea salt flakes on parchment paper" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwTQjNg1sLD9wCZ5dU7XxJbvUYWT074PUTq8tL3EamAJlJLx45ENkyS4_3SCLBS8-MVQjY7Rh_Zy0ZzpjnVCz8plHIbRqy7uutSzwjAX4hlKzhPMrbQRKX5Ygz5m4QODUKUvwUpR3kzC_6UzInKm7SUopT3el8reXtkozj3BVoh9Bbo9z1M_PVEkhID7PzCGDk1O-eOwxRhOBiA69RAfaiEndMOmBrwjmutEC-UMFTIoeAHIVjtuFVw54QGKjBLYv18w4P6x4y4sk"/>
+</div>
+<div class="p-3 space-y-1">
+<h4 class="text-on-surface font-bold text-sm truncate">Sea Salt Cookies</h4>
+<div class="flex justify-between items-center">
+<span class="text-primary font-bold text-sm">$2.50</span>
+<span class="text-[10px] bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full font-bold">In Stock</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Summary Widget -->
+<section class="bg-primary-fixed/30 p-6 rounded-2xl space-y-4 border border-primary-fixed-dim/20">
+<h2 class="text-on-primary-fixed font-extrabold text-lg tracking-tight">Inventory Overview</h2>
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-surface-container-lowest p-4 rounded-xl">
+<p class="text-on-surface-variant text-xs font-bold uppercase tracking-widest">Total Value</p>
+<p class="text-primary font-extrabold text-2xl mt-1">$4,281</p>
+</div>
+<div class="bg-surface-container-lowest p-4 rounded-xl">
+<p class="text-on-surface-variant text-xs font-bold uppercase tracking-widest">Low Stock Items</p>
+<p class="text-secondary font-extrabold text-2xl mt-1">12</p>
+</div>
+</div>
+</section>
+</main>
+<!-- FAB Action -->
+<button class="fixed right-6 bottom-24 w-14 h-14 rounded-full main-cta-gradient text-on-primary shadow-lg flex items-center justify-center z-50 active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-3xl">add</span>
+</button>
+<!-- Bottom Navigation Bar (Responsive Pivot) -->
+<nav class="fixed bottom-0 left-0 right-0 h-20 bg-stone-100/85 backdrop-blur-xl px-6 flex items-center justify-between z-50">
+<button class="flex flex-col items-center gap-1 text-stone-500">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-[10px] font-bold">Dashboard</span>
+</button>
+<button class="flex flex-col items-center gap-1 bg-orange-100 text-orange-950 rounded-2xl px-4 py-1">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+<span class="text-[10px] font-extrabold">Products</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-stone-500">
+<span class="material-symbols-outlined">reorder</span>
+<span class="text-[10px] font-bold">Supplies</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-stone-500">
+<span class="material-symbols-outlined">category</span>
+<span class="text-[10px] font-bold">Categories</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-stone-500">
+<span class="material-symbols-outlined">analytics</span>
+<span class="text-[10px] font-bold">Reports</span>
+</button>
+</nav>
+<!-- Sidebar Overlay (Toggleable Hidden State) -->
+<div class="fixed inset-0 bg-stone-950/40 z-[60] backdrop-blur-sm hidden" id="sidebar">
+<div class="w-[280px] h-full bg-stone-100/85 backdrop-blur-xl p-6 flex flex-col space-y-8 shadow-[8px_0_24px_rgba(137,80,51,0.06)]">
+<div class="space-y-1">
+<h2 class="text-xl font-extrabold text-stone-900 tracking-tighter">Lenie’s Choice</h2>
+<p class="text-sm font-medium text-amber-700">TinAPPay ERP</p>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="text-stone-600 py-2 px-4 flex items-center gap-3 hover:text-stone-900 transition-all rounded-full" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-medium text-sm">Dashboard</span>
+</a>
+<a class="bg-orange-100 text-orange-950 rounded-full py-2 px-4 flex items-center gap-3 font-semibold" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+<span class="text-sm">Products</span>
+</a>
+<a class="text-stone-600 py-2 px-4 flex items-center gap-3 hover:text-stone-900 transition-all rounded-full" href="#">
+<span class="material-symbols-outlined">reorder</span>
+<span class="font-medium text-sm">Supplies</span>
+</a>
+<a class="text-stone-600 py-2 px-4 flex items-center gap-3 hover:text-stone-900 transition-all rounded-full" href="#">
+<span class="material-symbols-outlined">category</span>
+<span class="font-medium text-sm">Categories</span>
+</a>
+<a class="text-stone-600 py-2 px-4 flex items-center gap-3 hover:text-stone-900 transition-all rounded-full" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-medium text-sm">Reports</span>
+</a>
+</nav>
+<div class="pt-6 border-t border-stone-200/50 space-y-2">
+<a class="text-stone-600 py-2 px-4 flex items-center gap-3 hover:text-stone-900 transition-all rounded-full" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-medium text-sm">Settings</span>
+</a>
+<a class="text-stone-600 py-2 px-4 flex items-center gap-3 hover:text-stone-900 transition-all rounded-full" href="#">
+<span class="material-symbols-outlined">help_outline</span>
+<span class="font-medium text-sm">Support</span>
+</a>
+</div>
+</div>
+</div>
+</body></html>

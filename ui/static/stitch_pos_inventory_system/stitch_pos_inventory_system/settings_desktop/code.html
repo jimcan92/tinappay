@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Settings | Lenie's Choice Bakeshop</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-tertiary-fixed": "#351000",
+                      "secondary": "#895033",
+                      "primary-container": "#b15f00",
+                      "inverse-on-surface": "#f3f0ef",
+                      "primary-fixed": "#ffdcc3",
+                      "surface": "#fcf9f8",
+                      "on-secondary-container": "#794227",
+                      "surface-container-lowest": "#ffffff",
+                      "error": "#ba1a1a",
+                      "error-container": "#ffdad6",
+                      "surface-container-low": "#f6f3f2",
+                      "on-error-container": "#93000a",
+                      "inverse-surface": "#303030",
+                      "primary": "#8d4b00",
+                      "secondary-fixed-dim": "#ffb694",
+                      "on-tertiary-fixed-variant": "#76330d",
+                      "tertiary-fixed-dim": "#ffb693",
+                      "on-primary-container": "#fffbff",
+                      "on-background": "#1b1c1c",
+                      "surface-container-highest": "#e4e2e1",
+                      "tertiary-container": "#af5f36",
+                      "surface-variant": "#e4e2e1",
+                      "tertiary-fixed": "#ffdbcc",
+                      "primary-fixed-dim": "#ffb77d",
+                      "surface-bright": "#fcf9f8",
+                      "on-tertiary-container": "#fffbff",
+                      "secondary-fixed": "#ffdbcc",
+                      "surface-tint": "#904d00",
+                      "inverse-primary": "#ffb77d",
+                      "surface-container": "#f0eded",
+                      "on-primary-fixed-variant": "#6e3900",
+                      "outline-variant": "#dbc2b0",
+                      "on-surface": "#1b1c1c",
+                      "tertiary": "#904821",
+                      "on-secondary-fixed": "#351000",
+                      "secondary-container": "#feb28f",
+                      "surface-container-high": "#eae7e7",
+                      "on-surface-variant": "#554336",
+                      "on-primary-fixed": "#2f1500",
+                      "background": "#fcf9f8",
+                      "on-tertiary": "#ffffff",
+                      "on-secondary-fixed-variant": "#6d391e",
+                      "on-error": "#ffffff",
+                      "on-secondary": "#ffffff",
+                      "surface-dim": "#dcd9d9",
+                      "on-primary": "#ffffff",
+                      "outline": "#887364"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "fontFamily": {
+                      "headline": ["Plus Jakarta Sans"],
+                      "body": ["Plus Jakarta Sans"],
+                      "label": ["Plus Jakarta Sans"]
+              }
+            },
+          }
+        }
+    </script>
+<style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface selection:bg-primary-fixed">
+<aside class="w-[280px] fixed h-full left-0 top-0 z-40 bg-[#f6f3f2]/85 dark:bg-[#1b1c1c]/85 backdrop-blur-xl shadow-[8px_0_24px_rgba(137,80,51,0.06)] flex flex-col h-screen p-8 gap-10">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-primary-container flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">bakery_dining</span>
+</div>
+<div>
+<h1 class="text-lg font-bold tracking-tight text-[#1b1c1c] dark:text-[#fcf9f8]">Lenie's Choice</h1>
+<p class="text-[10px] font-bold uppercase tracking-[0.2em] text-on-surface-variant/60">TinAPPay ERP</p>
+</div>
+</div>
+<nav class="flex flex-col gap-2">
+<a class="text-[#554336] dark:text-[#dbc2b0] hover:bg-[#fcf9f8]/50 dark:hover:bg-stone-800/50 rounded-full px-4 py-3 flex items-center gap-4 transition-all duration-300 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-medium text-sm">Dashboard</span>
+</a>
+<a class="text-[#554336] dark:text-[#dbc2b0] hover:bg-[#fcf9f8]/50 dark:hover:bg-stone-800/50 rounded-full px-4 py-3 flex items-center gap-4 transition-all duration-300 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">point_of_sale</span>
+<span class="font-medium text-sm">POS</span>
+</a>
+<a class="text-[#554336] dark:text-[#dbc2b0] hover:bg-[#fcf9f8]/50 dark:hover:bg-stone-800/50 rounded-full px-4 py-3 flex items-center gap-4 transition-all duration-300 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-medium text-sm">Inventory</span>
+</a>
+<a class="text-[#554336] dark:text-[#dbc2b0] hover:bg-[#fcf9f8]/50 dark:hover:bg-stone-800/50 rounded-full px-4 py-3 flex items-center gap-4 transition-all duration-300 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-medium text-sm">Users</span>
+</a>
+<a class="bg-[#ffdcc3] text-[#2f1500] rounded-full px-4 py-3 flex items-center gap-4 transition-all duration-300 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">settings</span>
+<span class="font-medium text-sm">Settings</span>
+</a>
+</nav>
+<div class="mt-auto">
+<div class="p-4 rounded-xl bg-surface-container flex items-center gap-3">
+<img class="w-10 h-10 rounded-full object-cover" data-alt="professional chef in clean white apron smiling in a warm kitchen environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFzEcfUxk9uq5nWmhtvaI_aGK3l8vl5jClFwtoz1XYgnDExdemZdWhKGms9vuEzFzLXba0bvTLaMShjmv_Vs_MvbMSK2AnGz4tJ3zAbtdZkONis8Zqdzajvy2c-pxe2nK1b3vNkXCfFJ6B7xL9G_QHNxrrDN5VjBJL5vIL_wJ7vAwmGMDwD6UHiADFG171J80dXWmJxrMSeLLpBB2ljmPILNixlBZGVVgt_4TM1snma-NgiRDnjslLXLvMt2IuXklvuW_EzTYkjJI"/>
+<div class="overflow-hidden">
+<p class="text-sm font-bold truncate">Lenie Administra</p>
+<p class="text-xs text-on-surface-variant">Owner</p>
+</div>
+</div>
+</div>
+</aside>
+<main class="ml-[280px] min-h-screen p-12 max-w-[1200px]">
+<header class="mb-12">
+<h2 class="text-4xl font-extrabold tracking-tight text-on-surface mb-2">Settings</h2>
+<p class="text-on-surface-variant">Configure your digital bakery workshop and application preferences.</p>
+</header>
+<div class="grid grid-cols-12 gap-8">
+<section class="col-span-12 lg:col-span-8 space-y-8">
+<div class="bg-surface-container-low rounded-3xl p-8 transition-all hover:shadow-[0_8px_30px_rgb(137,80,51,0.04)]">
+<div class="flex items-center gap-3 mb-8">
+<span class="material-symbols-outlined text-primary">storefront</span>
+<h3 class="text-xl font-bold">Bakery Identity</h3>
+</div>
+<div class="space-y-6">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="text-xs font-bold uppercase tracking-wider text-on-surface-variant ml-1">Bakery Name</label>
+<input class="w-full bg-surface-container-highest border-none rounded-lg px-4 py-3 text-on-surface focus:ring-2 focus:ring-primary/40 transition-all font-medium" type="text" value="Lenie's Choice Bakeshop"/>
+</div>
+<div class="space-y-2">
+<label class="text-xs font-bold uppercase tracking-wider text-on-surface-variant ml-1">Business ID</label>
+<input class="w-full bg-surface-container-highest/50 border-none rounded-lg px-4 py-3 text-on-surface-variant cursor-not-allowed font-mono text-sm" readonly="" type="text" value="TNP-2024-8892"/>
+</div>
+</div>
+<div class="space-y-2">
+<label class="text-xs font-bold uppercase tracking-wider text-on-surface-variant ml-1">Store Description</label>
+<textarea class="w-full bg-surface-container-highest border-none rounded-lg px-4 py-3 text-on-surface focus:ring-2 focus:ring-primary/40 transition-all font-medium" rows="3">Artisanal sourdough and traditional Filipino pastries crafted with heritage and precision.</textarea>
+</div>
+<div class="flex justify-end">
+<button class="bg-gradient-to-br from-primary to-primary-container text-on-primary-container px-6 py-2.5 rounded-lg font-bold text-sm shadow-lg hover:shadow-primary/20 transition-all active:scale-[0.97]">
+                                Update Details
+                            </button>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-low rounded-3xl p-8">
+<div class="flex items-center gap-3 mb-8">
+<span class="material-symbols-outlined text-primary">palette</span>
+<h3 class="text-xl font-bold">App Theme</h3>
+</div>
+<div class="space-y-10">
+<div>
+<p class="text-sm font-bold text-on-surface mb-4">Interface Mode</p>
+<div class="flex gap-4 p-1.5 bg-surface-container-highest w-fit rounded-xl">
+<button class="flex items-center gap-2 px-6 py-2.5 bg-surface-container-lowest text-on-surface rounded-lg shadow-sm font-bold text-sm">
+<span class="material-symbols-outlined text-lg">light_mode</span>
+                                    Light
+                                </button>
+<button class="flex items-center gap-2 px-6 py-2.5 text-on-surface-variant hover:text-on-surface rounded-lg font-bold text-sm">
+<span class="material-symbols-outlined text-lg">dark_mode</span>
+                                    Dark
+                                </button>
+</div>
+</div>
+<div>
+<p class="text-sm font-bold text-on-surface mb-4">Color Presets</p>
+<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+<button class="flex flex-col items-center gap-3 p-4 rounded-2xl bg-surface-container-lowest border-2 border-primary/20 group transition-all">
+<div class="w-12 h-12 rounded-full bg-[#8d4b00] shadow-inner shadow-black/10"></div>
+<span class="text-xs font-bold text-on-surface">Cinnamon</span>
+</button>
+<button class="flex flex-col items-center gap-3 p-4 rounded-2xl hover:bg-surface-container-lowest transition-all group">
+<div class="w-12 h-12 rounded-full bg-[#fcf9f8] border border-outline-variant shadow-inner"></div>
+<span class="text-xs font-bold text-on-surface-variant group-hover:text-on-surface">Flour</span>
+</button>
+<button class="flex flex-col items-center gap-3 p-4 rounded-2xl hover:bg-surface-container-lowest transition-all group">
+<div class="w-12 h-12 rounded-full bg-[#f5deb3] shadow-inner"></div>
+<span class="text-xs font-bold text-on-surface-variant group-hover:text-on-surface">Wheat</span>
+</button>
+<button class="flex flex-col items-center gap-3 p-4 rounded-2xl hover:bg-surface-container-lowest transition-all group">
+<div class="w-12 h-12 rounded-full bg-[#3d2b1f] shadow-inner"></div>
+<span class="text-xs font-bold text-on-surface-variant group-hover:text-on-surface">Cocoa</span>
+</button>
+<button class="flex flex-col items-center gap-3 p-4 rounded-2xl hover:bg-surface-container-lowest transition-all group">
+<div class="w-12 h-12 rounded-full bg-[#4f7942] shadow-inner"></div>
+<span class="text-xs font-bold text-on-surface-variant group-hover:text-on-surface">Matcha</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="col-span-12 lg:col-span-4 space-y-8">
+<div class="bg-surface-container-low rounded-3xl p-8 overflow-hidden relative group">
+<div class="relative z-10">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-primary">verified_user</span>
+<h3 class="text-xl font-bold">Security</h3>
+</div>
+<ul class="space-y-4">
+<li class="flex items-center justify-between p-3 rounded-xl hover:bg-surface-container transition-colors">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary">passkey</span>
+<span class="text-sm font-medium">Two-Factor Auth</span>
+</div>
+<div class="w-10 h-5 bg-primary-fixed rounded-full relative flex items-center px-1">
+<div class="w-3 h-3 bg-primary rounded-full ml-auto"></div>
+</div>
+</li>
+<li class="flex items-center justify-between p-3 rounded-xl hover:bg-surface-container transition-colors">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary">history</span>
+<span class="text-sm font-medium">Login History</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant text-sm">chevron_right</span>
+</li>
+</ul>
+</div>
+<div class="absolute -right-8 -bottom-8 opacity-[0.03] group-hover:opacity-[0.05] transition-opacity duration-700">
+<span class="material-symbols-outlined text-[160px]">shield</span>
+</div>
+</div>
+<div class="bg-surface-container-low rounded-3xl p-8">
+<h3 class="text-xl font-bold mb-6">Bakery Visuals</h3>
+<div class="space-y-4">
+<div class="relative group cursor-pointer overflow-hidden rounded-2xl aspect-video bg-surface-container-highest">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="interior of a modern rustic bakery with warm wood accents and glowing oven in the background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8uwz_kj7vMhgMDdKGtGjWguHbdTr4NsQqQozqmrs_0macyNSm7BYCZtYzn4l11_eN0rSr8MFMeigDfXus5NGC_gYlUmell8eHmNgzGJnIaAxk77J-MHBv_eYLocmLXQfCTQJik7XuOPNTOMIsFQKB8Jc_1aOyJ0aImXVM7SWmTgzr7S8GUC6YwQbvkaNDwHNuoLrqjmuHvkP6b16ipe5ldmVmDcjM6-qlr0IA5iIkjty0Tu2rGo0Ww7fIxQ4lPUmUPBe6nNpBav8"/>
+<div class="absolute inset-0 bg-primary/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="bg-surface-container-lowest px-4 py-2 rounded-full text-xs font-bold shadow-xl">Change Cover</span>
+</div>
+</div>
+<div class="flex items-center justify-between text-xs font-bold uppercase tracking-wider text-on-surface-variant px-1">
+<span>Bakery Logo</span>
+<button class="text-primary hover:underline">Edit</button>
+</div>
+<div class="w-20 h-20 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 flex items-center justify-center">
+<span class="material-symbols-outlined text-3xl text-primary" style="font-variation-settings: 'FILL' 1;">bakery_dining</span>
+</div>
+</div>
+</div>
+<div class="bg-error-container text-on-error-container rounded-3xl p-8 border border-error/10">
+<h3 class="text-xl font-bold mb-2">Danger Zone</h3>
+<p class="text-sm opacity-80 mb-6">Permanently remove your bakeshop data and access.</p>
+<button class="w-full py-3 px-4 bg-error text-on-error rounded-xl font-bold text-sm shadow-lg shadow-error/20 hover:bg-on-error-container transition-colors active:scale-[0.98]">
+                        Deactivate Account
+                    </button>
+</div>
+</section>
+</div>
+</main>
+</body></html>

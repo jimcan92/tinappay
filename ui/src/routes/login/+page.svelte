@@ -1,145 +1,197 @@
 <script lang="ts">
-	import { MailIcon, LockIcon, EyeIcon } from '$lib/components/icons';
-	import { enhance } from '$app/forms';
-    import SignatureButton from '$lib/components/artisanal/SignatureButton.svelte';
+	import { pb } from '$lib/pocketbase';
 
-	let { form } = $props();
-	let showPassword = $state(false);
 	let loading = $state(false);
+	let error = $state('');
+
+	async function autoClockIn() {
+		const user = pb.authStore.record;
+		if (!user?.id || !user?.role || !user?.branch) return;
+		try {
+			const today = new Date();
+			today.setHours(0, 0, 0, 0);
+			const todayStr = today.toISOString().replace('T', ' ').split('.')[0];
+			const existing = await pb
+				.collection('attendance')
+				.getFirstListItem(`user = '${user.id}' && clock_in >= '${todayStr}' && clock_out = ''`)
+				.catch(() => null);
+			if (!existing) {
+				const now = new Date().toISOString().replace('T', ' ').split('.')[0];
+				await pb.collection('attendance').create({
+					user: user.id,
+					clock_in: now,
+					...(user.branch && { branch: user.branch })
+				});
+			}
+		} catch {
+			/* attendance is secondary to login */
+		}
+	}
+
+	async function loginWithGoogle() {
+		loading = true;
+		error = '';
+		try {
+			await pb.collection('users').authWithOAuth2({ provider: 'google' });
+			document.cookie = pb.authStore.exportToCookie({ httpOnly: false, path: '/' });
+			await autoClockIn();
+			window.location.href = '/';
+		} catch (err: any) {
+			loading = false;
+			error = err?.message?.includes('popup') ? '' : 'Google login failed. Please try again.';
+		}
+	}
 </script>
 
-<div class="relative min-h-screen flex flex-col bg-surface text-on-surface overflow-hidden">
-    <!-- Background Texture -->
-    <div class="absolute inset-0 z-0 opacity-10 pointer-events-none">
-        <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBiFAN5SIHdeh2LkduRKqYaFDb1KMz57J-0z9gWs_VUOForx4ROjSH8zL4xzXsPcXcRJKcE_bG3Qcby9VToBcsZUjNjZzQy0A2KSRnPo3VQ2tvdOZx5wlwl8207Mhqa1T52SfTt4DCufApKHnH9GV7ekVhYojHUi3OBOrQnv7Bhstov7su5H0vlknQNKoPydjX6TnI2rw68MLDAsEEh5YvQ9UsqflQw9GpuHkJmxn8KJ4U1KfwTrYlvvxoZZxbhN7DGG3uQj7fFf0U" alt="" />
-    </div>
+<svelte:head>
+	<title>Sign In | tinAPPay ERP</title>
+</svelte:head>
 
-    <!-- Decorative Icon -->
-    <div class="absolute top-0 right-0 p-12 hidden lg:block opacity-20 pointer-events-none">
-        <span class="material-symbols-outlined text-[12rem] text-primary rotate-12" style="font-variation-settings: 'FILL' 1;">bakery_dining</span>
-    </div>
+<div class="relative flex min-h-screen flex-col items-center justify-center overflow-hidden">
+	<!-- Decorative Bakery Icons -->
+	<div class="pointer-events-none absolute top-12 left-12 hidden opacity-[0.03] lg:block">
+		<span
+			class="material-symbols-outlined -rotate-12 text-[12rem] text-primary"
+			style="font-variation-settings: 'FILL' 1;">bakery_dining</span
+		>
+	</div>
+	<div class="pointer-events-none absolute right-12 bottom-12 hidden opacity-[0.03] lg:block">
+		<span
+			class="material-symbols-outlined rotate-12 text-[14rem] text-primary"
+			style="font-variation-settings: 'FILL' 1;">breakfast_dining</span
+		>
+	</div>
 
-    <main class="flex-grow flex items-center justify-center p-6 z-10">
-        <div class="w-full max-w-[440px]">
-            <div class="bg-surface-container-lowest/90 backdrop-blur-xl p-8 md:p-12 rounded-[2.5rem] shadow-[0px_12px_32px_rgba(47,47,44,0.06)] border border-surface-container-high">
-                <header class="mb-10 text-center">
-                    <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-secondary-container mb-6 shadow-inner">
-                        <span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings: 'FILL' 1;">restaurant_menu</span>
-                    </div>
-                    <h1 class="text-3xl font-black tracking-tighter text-on-surface leading-tight font-serif">TinAPPay ERP</h1>
-                    <p class="text-on-surface-variant font-medium text-sm mt-2">Manage your craft with precision.</p>
-                </header>
-
-                {#if form?.message}
-                    <div class="mb-6 w-full rounded-2xl bg-error-container/10 p-4 text-sm text-error font-bold border border-error/10 animate-in fade-in">
-                        {form.message}
-                    </div>
-                {/if}
-
-                <form 
-                    method="POST" 
-                    action="?/login" 
-                    use:enhance={() => {
-                        loading = true;
-                        return async ({ update }) => {
-                            loading = false;
-                            update();
-                        };
-                    }}
-                    class="space-y-6"
-                >
-                    <div class="space-y-2">
-                        <label class="block text-[10px] font-black uppercase tracking-[0.2em] text-on-surface-variant ml-1" for="email">Email Address</label>
-                        <div class="relative group">
-                            <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant transition-colors group-focus-within:text-primary">mail</span>
-                            <input
-                                type="email"
-                                name="email"
-                                id="email"
-                                required
-                                placeholder="baker@artisanal.ledger"
-                                class="w-full pl-12 pr-4 py-4 bg-surface-container-low border-none rounded-2xl text-on-surface placeholder:text-on-surface-variant/40 focus:ring-2 focus:ring-primary/20 transition-all font-medium"
-                            />
-                        </div>
-                    </div>
-
-                    <div class="space-y-2">
-                        <div class="flex justify-between items-center px-1">
-                            <label class="block text-[10px] font-black uppercase tracking-[0.2em] text-on-surface-variant" for="password">Password</label>
-                            <a class="text-[10px] font-black uppercase tracking-widest text-primary hover:text-primary-dim transition-colors" href="#">Forgot?</a>
-                        </div>
-                        <div class="relative group">
-                            <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant transition-colors group-focus-within:text-primary">lock</span>
-                            <input
-                                type={showPassword ? "text" : "password"}
-                                name="password"
-                                id="password"
-                                required
-                                placeholder="••••••••"
-                                class="w-full pl-12 pr-12 py-4 bg-surface-container-low border-none rounded-2xl text-on-surface placeholder:text-on-surface-variant/40 focus:ring-2 focus:ring-primary/20 transition-all font-medium"
-                            />
-                            <button
-                                type="button"
-                                onclick={() => showPassword = !showPassword}
-                                class="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-on-surface"
-                            >
-                                <span class="material-symbols-outlined text-xl">{showPassword ? 'visibility_off' : 'visibility'}</span>
-                            </button>
-                        </div>
-                    </div>
-
-                    <SignatureButton 
-                        type="submit" 
-                        disabled={loading} 
-                        class="w-full h-14" 
-                        size="lg"
-                    >
-                        {loading ? 'Authenticating...' : 'Sign In'}
-                    </SignatureButton>
-                </form>
-
-                <div class="my-8 flex items-center gap-4 px-2">
-                    <div class="h-px flex-1 bg-surface-container-high"></div>
-                    <span class="text-[9px] font-black text-on-surface-variant/50 uppercase tracking-[0.3em]">Collaborate</span>
-                    <div class="h-px flex-1 bg-surface-container-high"></div>
-                </div>
-
-                <form method="POST" action="?/google" class="w-full">
-                    <button
-                        type="submit"
-                        class="flex h-14 w-full items-center justify-center gap-3 rounded-full border border-surface-container-high bg-white font-bold text-on-surface shadow-sm transition-all hover:bg-surface-container-low active:scale-[0.98]"
-                    >
-                        <svg width="20" height="20" viewBox="0 0 48 48">
-                            <path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z" />
-                            <path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z" />
-                            <path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z" />
-                            <path fill="#1976D2" d="M43.611,20.083L43.595,20L42,20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z" />
-                        </svg>
-                        Google Sign In
-                    </button>
-                </form>
-
-                <div class="mt-10 text-center">
-                    <p class="text-[13px] text-on-surface-variant font-medium">
-                        Need assistance? 
-                        <a class="font-black text-on-surface hover:text-primary transition-colors underline decoration-outline-variant underline-offset-4" href="#">Contact Support</a>
-                    </p>
-                </div>
-            </div>
-            <div class="mt-8 text-center">
-                <p class="font-serif text-[0.6rem] uppercase tracking-[0.3em] text-on-surface-variant/40 font-black">Boutique ERP for Master Bakers</p>
-            </div>
-        </div>
-    </main>
-
-    <footer class="bg-surface-container-low flex flex-col md:flex-row justify-between items-center px-10 py-6 w-full border-t border-outline-variant/10">
-        <div class="text-[10px] font-bold tracking-widest uppercase text-on-surface-variant/60 mb-4 md:mb-0">
-            © 2024 The Artisanal Ledger. Crafted for Excellence.
-        </div>
-        <div class="flex gap-8">
-            <a class="text-[10px] font-black uppercase tracking-widest text-on-surface-variant/60 hover:text-primary transition-all" href="#">Privacy</a>
-            <a class="text-[10px] font-black uppercase tracking-widest text-on-surface-variant/60 hover:text-primary transition-all" href="#">Terms</a>
-            <a class="text-[10px] font-black uppercase tracking-widest text-on-surface-variant/60 hover:text-primary transition-all" href="#">Support</a>
-        </div>
-    </footer>
+	<!-- Main Login Card -->
+	<div class="flex min-h-0 flex-1 flex-col items-center justify-center">
+		<div class="relative z-10 w-full max-w-[440px]">
+			<div
+				class="grain relative flex flex-col items-center overflow-hidden rounded-[3rem] border border-outline-variant/10 bg-gradient-to-br from-primary/50 to-primary/10 p-10 shadow-[0_32px_80px_rgba(43,26,13,0.12)] backdrop-blur-3xl md:p-12"
+			>
+				<!-- Branding Header -->
+				<img
+					src="/tinAPPay_v.png"
+					alt="tinAPPay"
+					class="relative h-48 object-contain transition-transform group-hover:scale-105"
+				/>
+				<!-- Instructions -->
+				<div class="mb-8 space-y-4 text-center">
+					<div class="rounded-2xl border border-primary/10 bg-primary/5 p-4">
+						<p
+							class="text-[10px] leading-relaxed font-bold tracking-wider text-on-surface uppercase"
+						>
+							Login with your personal or any Google account then wait for the admin to confirm.
+							While waiting, you can contact the admin.
+						</p>
+					</div>
+					<p class="text-[9px] font-medium text-on-surface-variant/70 italic">
+						Once confirmed, this will be the basis for your attendance. Logging in will auto
+						clock-in, and logging out will auto clock-out.
+					</p>
+				</div>
+				<!-- Error Feedback -->
+				{#if error}
+					<div
+						class="mb-8 animate-in rounded-2xl border border-error/10 bg-error-container/10 p-4 text-center fade-in slide-in-from-top-2"
+					>
+						<p class="text-[10px] font-black tracking-widest text-error uppercase">{error}</p>
+					</div>
+				{/if}
+				<!-- Auth Actions -->
+				<button
+					onclick={loginWithGoogle}
+					disabled={loading}
+					class="group relative w-full overflow-hidden rounded-full bg-white p-[1px] shadow-lg transition-all hover:shadow-primary/25 active:scale-95 disabled:opacity-50"
+				>
+					<div class="absolute inset-0 bg-gray-200 transition-colors group-hover:bg-gray-300"></div>
+					<div
+						class="relative flex items-center justify-center gap-4 rounded-full bg-white px-8 py-4.5 text-sm font-black text-gray-700 transition-colors group-hover:bg-gray-50"
+					>
+						{#if loading}
+							<span
+								class="material-symbols-outlined animate-spin text-xl text-[#4285F4]"
+								style="animation-duration:0.8s">progress_activity</span
+							>
+							<span class="text-gray-500">Verifying...</span>
+						{:else}
+							<svg width="20" height="20" viewBox="0 0 18 18">
+								<path
+									d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z"
+									fill="#4285F4"
+								/>
+								<path
+									d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.259c-.806.54-1.837.859-3.048.859-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9 18z"
+									fill="#34A853"
+								/>
+								<path
+									d="M3.964 10.705c-.181-.54-.285-1.114-.285-1.705s.104-1.165.285-1.705V4.963H.957C.347 6.178 0 7.548 0 9c0 1.452.347 2.822.957 4.037l3.007-2.332z"
+									fill="#FBBC05"
+								/>
+								<path
+									d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.582C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.963L3.964 7.295C4.672 5.168 6.656 3.58 9 3.58z"
+									fill="#EA4335"
+								/>
+							</svg>
+							Continue with Google
+						{/if}
+					</div>
+				</button>
+				<!-- Support Section -->
+				<div class="mt-4 space-y-4 text-center">
+					<p class="text-[9px] font-black tracking-[0.2em] text-on-surface-variant/40 uppercase">
+						Need assistance?
+					</p>
+					<a
+						class="inline-flex items-center gap-2 rounded-2xl border border-outline-variant/5 bg-surface-container/50 px-6 py-3 text-[10px] font-black tracking-widest text-primary uppercase transition-all hover:bg-primary/5 active:scale-95"
+						href="mailto:jimcan051592@gmail.com"
+					>
+						<span class="material-symbols-outlined text-sm">support_agent</span>
+						Contact Support
+					</a>
+				</div>
+			</div>
+			<p
+				class="mt-8 text-center text-[9px] font-black tracking-[0.5em] text-on-surface-variant/20 uppercase"
+			>
+				Modernizing the way you bake
+			</p>
+		</div>
+	</div>
+	<!-- Simple Footer -->
+	<footer
+		class="mt-auto flex w-full flex-col items-center justify-between bg-surface px-12 py-8 opacity-60 md:flex-row"
+	>
+		<p class="mb-4 text-[9px] font-black tracking-[0.2em] uppercase md:mb-0">
+			© {new Date().getFullYear()} tinAPPay ERP. All rights reserved.
+		</p>
+		<div class="flex gap-8">
+			<a
+				class="text-[9px] font-black tracking-[0.2em] uppercase transition-all hover:text-primary"
+				href="/privacy">Privacy</a
+			>
+			<a
+				class="text-[9px] font-black tracking-[0.2em] uppercase transition-all hover:text-primary"
+				href="/terms">Terms</a
+			>
+			<a
+				class="text-[9px] font-black tracking-[0.2em] uppercase transition-all hover:text-primary"
+				href="/help">Help</a
+			>
+		</div>
+	</footer>
 </div>
+
+<style>
+	.grain::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		background-image: url('https://grainy-gradients.vercel.app/noise.svg');
+		filter: contrast(150%) brightness(1000%);
+		mix-blend-mode: overlay;
+		opacity: 0.04;
+		pointer-events: none;
+	}
+</style>

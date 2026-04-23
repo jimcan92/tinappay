@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TinAPPay ERP | HR Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-low": "#f3f0ec",
+                        "on-secondary": "#fff0e7",
+                        "on-primary-fixed-variant": "#5a2200",
+                        "on-tertiary": "#fcf1e6",
+                        "surface-tint": "#9b4000",
+                        "background": "#f9f6f2",
+                        "secondary-fixed": "#f1dfd4",
+                        "outline": "#787774",
+                        "tertiary": "#615a52",
+                        "primary-fixed": "#fe8848",
+                        "error-dim": "#b92902",
+                        "on-secondary-container": "#5c4f47",
+                        "tertiary-dim": "#554f46",
+                        "inverse-on-surface": "#9e9d99",
+                        "inverse-primary": "#fe8848",
+                        "outline-variant": "#afada9",
+                        "surface": "#f9f6f2",
+                        "tertiary-fixed-dim": "#e8ded3",
+                        "surface-dim": "#d6d4cf",
+                        "on-tertiary-fixed": "#4b453d",
+                        "on-error": "#ffefec",
+                        "secondary-fixed-dim": "#e3d1c6",
+                        "surface-bright": "#f9f6f2",
+                        "surface-container-high": "#e5e2de",
+                        "primary-dim": "#883700",
+                        "error": "#b02500",
+                        "secondary-dim": "#594d45",
+                        "surface-variant": "#dfddd8",
+                        "on-surface-variant": "#5c5b59",
+                        "on-background": "#2f2f2c",
+                        "on-tertiary-fixed-variant": "#686259",
+                        "on-secondary-fixed-variant": "#665950",
+                        "surface-container-highest": "#dfddd8",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed": "#1b0600",
+                        "on-tertiary-container": "#5e574f",
+                        "primary-container": "#fe8848",
+                        "on-secondary-fixed": "#483d35",
+                        "error-container": "#f95630",
+                        "surface-container": "#eae8e3",
+                        "primary": "#9b4000",
+                        "secondary-container": "#f1dfd4",
+                        "inverse-surface": "#0e0e0c",
+                        "tertiary-fixed": "#f7ece1",
+                        "on-primary": "#fff0ea",
+                        "tertiary-fixed-dim": "#e8ded3",
+                        "on-surface": "#2f2f2c",
+                        "secondary": "#665950",
+                        "on-primary-container": "#4b1b00",
+                        "on-error-container": "#520c00",
+                        "primary-fixed-dim": "#ee7c3d"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Plus Jakarta Sans"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Manrope', sans-serif; }
+        h1, h2, h3 { font-family: 'Plus Jakarta Sans', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-on-background selection:bg-primary-container selection:text-on-primary-container">
+<!-- SideNavBar Shell -->
+<aside class="h-screen w-72 fixed left-0 top-0 bg-[#f3f0ec] dark:bg-stone-900 backdrop-blur-xl flex flex-col h-full p-6 space-y-2 z-50">
+<div class="mb-10 px-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined" data-icon="bakery_dining">bakery_dining</span>
+</div>
+<div>
+<h1 class="font-plus-jakarta-sans text-xl font-black text-orange-900 dark:text-orange-500 leading-tight">TinAPPay</h1>
+<p class="font-manrope text-xs font-medium text-stone-500 uppercase tracking-widest">Lenie's Choice</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="text-stone-600 dark:text-stone-400 px-4 py-3 hover:translate-x-1 transition-transform flex items-center gap-3 rounded-lg group" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="dashboard">dashboard</span>
+<span class="font-manrope text-sm font-medium">Dashboard</span>
+</a>
+<a class="text-stone-600 dark:text-stone-400 px-4 py-3 hover:translate-x-1 transition-transform flex items-center gap-3 rounded-lg group" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="point_of_sale">point_of_sale</span>
+<span class="font-manrope text-sm font-medium">POS</span>
+</a>
+<a class="text-stone-600 dark:text-stone-400 px-4 py-3 hover:translate-x-1 transition-transform flex items-center gap-3 rounded-lg group" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="inventory_2">inventory_2</span>
+<span class="font-manrope text-sm font-medium">Inventory</span>
+</a>
+<a class="text-stone-600 dark:text-stone-400 px-4 py-3 hover:translate-x-1 transition-transform flex items-center gap-3 rounded-lg group" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="payments">payments</span>
+<span class="font-manrope text-sm font-medium">Finance</span>
+</a>
+<a class="text-stone-600 dark:text-stone-400 px-4 py-3 hover:translate-x-1 transition-transform flex items-center gap-3 rounded-lg group" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="shopping_cart">shopping_cart</span>
+<span class="font-manrope text-sm font-medium">Procurement</span>
+</a>
+<a class="bg-orange-100/80 dark:bg-orange-950/30 text-orange-900 dark:text-orange-100 rounded-lg border-l-4 border-orange-800 px-4 py-3 font-bold flex items-center gap-3 group" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="groups" style="font-variation-settings: 'FILL' 1;">groups</span>
+<span class="font-manrope text-sm font-medium">HR Management</span>
+</a>
+</nav>
+<div class="pt-6 border-t border-stone-200/50 space-y-1">
+<a class="text-stone-600 dark:text-stone-400 px-4 py-3 hover:translate-x-1 transition-transform flex items-center gap-3 rounded-lg" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="settings">settings</span>
+<span class="font-manrope text-sm font-medium">Settings</span>
+</a>
+<a class="text-stone-600 dark:text-stone-400 px-4 py-3 hover:translate-x-1 transition-transform flex items-center gap-3 rounded-lg" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="help">help</span>
+<span class="font-manrope text-sm font-medium">Support</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Stage -->
+<main class="ml-72 min-h-screen">
+<!-- TopAppBar -->
+<header class="bg-[#f9f6f2]/90 dark:bg-stone-950/90 backdrop-blur-md sticky top-0 z-40 shadow-sm dark:shadow-none px-8 py-4 flex justify-between items-center w-full">
+<div class="flex items-center gap-4">
+<h2 class="text-2xl font-extrabold text-orange-950 dark:text-orange-100 font-plus-jakarta-sans tracking-tight">HR Management</h2>
+<span class="px-3 py-1 bg-tertiary-container text-on-tertiary-fixed text-xs font-bold rounded-md uppercase tracking-tighter">7 Branches Live</span>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative hidden lg:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-stone-400" data-icon="search">search</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-full text-sm w-64 focus:ring-2 focus:ring-primary/20" placeholder="Find staff or shift..." type="text"/>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 text-stone-600 hover:bg-stone-200/50 transition-colors rounded-full relative">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<div class="h-8 w-px bg-stone-200 mx-1"></div>
+<div class="flex items-center gap-3 pl-2">
+<div class="text-right">
+<p class="text-sm font-bold text-on-background leading-none">Admin Head</p>
+<p class="text-[10px] font-medium text-stone-500 uppercase tracking-widest">Master Control</p>
+</div>
+<img class="w-10 h-10 rounded-full border-2 border-primary/20 object-cover" data-alt="Professional headshot of a smiling administrator in a warm lit office studio" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGZwDm4T9WWnO441FaWJ0xd4vgKqtVpNjfiRKHvtMsZr04Kmg3IhpJiFKx5nAgjvCekzuD3dmgfK06lQZ245dX_ul5z9PHqK57Vu1Kzm-iWLjg3TF7tbHkAshjnHNyMblTF__1DOySh3hJuvrDABdyNKmGdhOR8pkw5C8aBGd4H_qMF6fYmco6__ogjXN4Nxey7q2gqR176JYEvKWIi1OvRHxAdvXspl4ND427kfTquhsS2eQ7yXziKT2FRhpmPBvaEoN6_Hzyoew"/>
+</div>
+</div>
+</div>
+</header>
+<div class="p-8 space-y-8 max-w-[1600px] mx-auto">
+<!-- Hero Bento Grid -->
+<section class="grid grid-cols-12 gap-6">
+<!-- Attendance Status Overview -->
+<div class="col-span-12 lg:col-span-8 bg-surface-container-lowest rounded-xl p-8 shadow-sm relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-8 opacity-10 group-hover:scale-110 transition-transform duration-500">
+<span class="material-symbols-outlined text-9xl text-primary" data-icon="clock_loader_60">clock_loader_60</span>
+</div>
+<div class="relative z-10">
+<h3 class="text-stone-500 text-xs font-bold uppercase tracking-[0.2em] mb-4">Real-Time Pulse</h3>
+<div class="flex items-end gap-12">
+<div>
+<span class="text-6xl font-extrabold text-on-background tracking-tighter">142</span>
+<span class="text-stone-400 font-medium ml-2">Staff Clocked In</span>
+</div>
+<div class="pb-2">
+<div class="flex gap-1 items-center mb-1">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+<span class="text-xs font-bold text-tertiary">94% Attendance Rate</span>
+</div>
+<div class="w-48 h-1.5 bg-stone-100 rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[94%]"></div>
+</div>
+</div>
+</div>
+<div class="mt-8 grid grid-cols-4 gap-4">
+<div class="bg-surface-container-low p-4 rounded-lg">
+<p class="text-xs font-bold text-stone-500 uppercase mb-1">Central Hub</p>
+<p class="text-xl font-bold text-on-background">42 / 45</p>
+</div>
+<div class="bg-surface-container-low p-4 rounded-lg">
+<p class="text-xs font-bold text-stone-500 uppercase mb-1">North Sourdough</p>
+<p class="text-xl font-bold text-on-background">18 / 20</p>
+</div>
+<div class="bg-surface-container-low p-4 rounded-lg">
+<p class="text-xs font-bold text-stone-500 uppercase mb-1">East Brioche</p>
+<p class="text-xl font-bold text-on-background">24 / 24</p>
+</div>
+<div class="bg-surface-container-low p-4 rounded-lg">
+<p class="text-xs font-bold text-stone-500 uppercase mb-1">South Patisserie</p>
+<p class="text-xl font-bold text-on-background">15 / 18</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Quick Action Card -->
+<div class="col-span-12 lg:col-span-4 bg-primary text-on-primary rounded-xl p-8 relative flex flex-col justify-between shadow-lg overflow-hidden">
+<div class="absolute top-0 left-0 w-full h-full opacity-10 bg-[url('https://www.transparenttextures.com/patterns/wheat.png')]"></div>
+<div class="relative z-10">
+<h3 class="text-orange-200 text-xs font-bold uppercase tracking-[0.2em] mb-2">Staff Operations</h3>
+<p class="text-2xl font-bold leading-tight">Ensure every shift is covered with artisanal precision.</p>
+</div>
+<div class="relative z-10 space-y-3 mt-8">
+<button class="w-full bg-on-primary text-primary py-3 rounded-full font-bold flex items-center justify-center gap-2 hover:bg-orange-50 transition-colors">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+                            Add New Staff Member
+                        </button>
+<button class="w-full bg-white/10 backdrop-blur-md border border-white/20 text-white py-3 rounded-full font-bold flex items-center justify-center gap-2 hover:bg-white/20 transition-colors">
+<span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
+                            Review Weekly Roster
+                        </button>
+</div>
+</div>
+</section>
+<!-- Weekly Shift Roster -->
+<section class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden">
+<div class="px-8 py-6 flex justify-between items-center border-b border-stone-100">
+<div>
+<h3 class="text-xl font-bold text-on-background">Weekly Roster: Nov 12 - Nov 18</h3>
+<p class="text-sm text-stone-500">Managing shifts for Bakery Production &amp; Front-of-House</p>
+</div>
+<div class="flex gap-2">
+<div class="inline-flex rounded-lg border border-outline-variant/30 p-1 bg-surface-container-low">
+<button class="px-4 py-1.5 bg-surface-container-lowest rounded-md shadow-sm text-xs font-bold text-primary">Table View</button>
+<button class="px-4 py-1.5 text-xs font-bold text-stone-500">Grid View</button>
+</div>
+<button class="flex items-center gap-2 px-4 py-1.5 text-stone-600 border border-outline-variant/30 rounded-lg text-sm font-bold hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="filter_list">filter_list</span>
+                            Filter Branch
+                        </button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low/50">
+<th class="px-8 py-4 text-[10px] font-black text-stone-500 uppercase tracking-widest">Member</th>
+<th class="px-4 py-4 text-[10px] font-black text-stone-500 uppercase tracking-widest text-center">Mon</th>
+<th class="px-4 py-4 text-[10px] font-black text-stone-500 uppercase tracking-widest text-center">Tue</th>
+<th class="px-4 py-4 text-[10px] font-black text-stone-500 uppercase tracking-widest text-center">Wed</th>
+<th class="px-4 py-4 text-[10px] font-black text-stone-500 uppercase tracking-widest text-center">Thu</th>
+<th class="px-4 py-4 text-[10px] font-black text-stone-500 uppercase tracking-widest text-center border-x border-orange-200 bg-orange-50/50">Fri (Today)</th>
+<th class="px-4 py-4 text-[10px] font-black text-stone-500 uppercase tracking-widest text-center">Sat</th>
+<th class="px-4 py-4 text-[10px] font-black text-stone-500 uppercase tracking-widest text-center">Sun</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-stone-50">
+<!-- Roster Row 1 -->
+<tr class="hover:bg-surface-container-low/20 transition-colors">
+<td class="px-8 py-4">
+<div class="flex items-center gap-3">
+<img class="w-10 h-10 rounded-lg object-cover" data-alt="Close-up of a senior head baker in white kitchen uniform with a focused expression" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXKrV5e40VVkJM6ug5IVQGmiC8T12Kqv5pksoHF3aJNzCRjsaC3IAsrZsMVC564c51-0So8VBMTV17pYZAJfWniKmvEayUMaHLLYvladltA0TnOHqXd77aVyOIXDA6S8YVbs4HVPfIxzfT7xprkYuz0yMz5L5LyX_SMFA43sgjpqwtuVqVtj8g4pyZtKzRCbjeOanIpRtdyJ3VKsVEjj9rNHGd9pwqD4AehddNl3wug3B7MGypTDdPYEJGqNLZ4W1DWD7-fVtifwE"/>
+<div>
+<p class="text-sm font-bold text-on-background leading-tight">Arthur Vance</p>
+<p class="text-[10px] text-stone-400 font-medium uppercase">Head Baker • Central Hub</p>
+</div>
+</div>
+</td>
+<td class="px-2 py-4 text-center">
+<span class="inline-block px-2 py-1 bg-stone-100 text-[10px] font-bold rounded text-stone-500">04:00 - 12:00</span>
+</td>
+<td class="px-2 py-4 text-center">
+<span class="inline-block px-2 py-1 bg-stone-100 text-[10px] font-bold rounded text-stone-500">04:00 - 12:00</span>
+</td>
+<td class="px-2 py-4 text-center">
+<span class="inline-block px-2 py-1 bg-stone-100 text-[10px] font-bold rounded text-stone-500">OFF</span>
+</td>
+<td class="px-2 py-4 text-center">
+<span class="inline-block px-2 py-1 bg-stone-100 text-[10px] font-bold rounded text-stone-500">04:00 - 12:00</span>
+</td>
+<td class="px-2 py-4 text-center border-x border-orange-100 bg-orange-50/20">
+<span class="inline-block px-2 py-1 bg-primary-container text-[10px] font-bold rounded text-on-primary-container">04:00 - 12:00</span>
+</td>
+<td class="px-2 py-4 text-center">
+<span class="inline-block px-2 py-1 bg-stone-100 text-[10px] font-bold rounded text-stone-500">04:00 - 12:00</span>
+</td>
+<td class="px-2 py-4 text-center">
+<span class="inline-block px-2 py-1 bg-stone-100 text-[10px] font-bold rounded text-stone-500">OFF</span>
+</td>
+</tr>
+<!-- Roster Row 2 -->
+<tr class="hover:bg-surface-container-low/20 transition-colors">
+<td class="px-8 py-4">
+<div class="flex items-center gap-3">
+<img class="w-10 h-10 rounded-lg object-cover" data-alt="Young female pastry chef with hair tied back, smiling in a clean bakery environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGvcwkcUjkW8AkQNiRguTugzSrwHLYGAxmzVR0fPUW0Iu1r2fhWdDtn3GA2xGGmtGDYH-2b5Wh6wXgbpHLKNZYdy5T41yDLQc1h8pKQ_pTAQ_syxc0l54CyWTpndy1fHqEndzl1083m3NHLrB3Za-osvqzwDgnKO-Z5KuULvmnx5_eYJitBZJ4i9crJNh2Qlenj4CIDHcatcTDHoPYJX_B3hWuF0j-t8SDycaxLVjrVc566Cf_drBiLIPI5TLZmrDyrow-TzbVzuk"/>
+<div>
+<p class="text-sm font-bold text-on-background leading-tight">Clara J. Smith</p>
+<p class="text-[10px] text-stone-400 font-medium uppercase">Pastry Chef • North Sourdough</p>
+</div>
+</div>
+</td>
+<td class="px-2 py-4 text-center">
+<span class="inline-block px-2 py-1 bg-stone-100 text-[10px] font-bold rounded text-stone-500">06:00 - 14:00</span>
+</td>
+<td class="px-2 py-4 text-center">
+<span class="inline-block px-2 py-1 bg-stone-100 text-[10px] font-bold rounded text-stone-500">06:00 - 14:00</span>
+</td>
+<td class="px-2 py-4 text-center">
+<span class="inline-block px-2 py-1 bg-stone-100 text-[10px] font-bold rounded text-stone-500">06:00 - 14:00</span>
+</td>
+<td class="px-2 py-4 text-center">
+<span class="inline-block px-2 py-1 bg-stone-100 text-[10px] font-bold rounded text-stone-500">OFF</span>
+</td>
+<td class="px-2 py-4 text-center border-x border-orange-100 bg-orange-50/20">
+<span class="inline-block px-2 py-1 bg-primary-container text-[10px] font-bold rounded text-on-primary-container">06:00 - 14:00</span>
+</td>
+<td class="px-2 py-4 text-center">
+<span class="inline-block px-2 py-1 bg-stone-100 text-[10px] font-bold rounded text-stone-500">06:00 - 14:00</span>
+</td>
+<td class="px-2 py-4 text-center">
+<span class="inline-block px-2 py-1 bg-stone-100 text-[10px] font-bold rounded text-stone-500">OFF</span>
+</td>
+</tr>
+<!-- Roster Row 3 -->
+<tr class="hover:bg-surface-container-low/20 transition-colors">
+<td class="px-8 py-4">
+<div class="flex items-center gap-3">
+<img class="w-10 h-10 rounded-lg object-cover" data-alt="Middle-aged man in a professional grey apron standing in front of a modern coffee machine" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBO4r_snSInGzBSmAqaHdCXpjSiCsD6RJFpGxM7PbD2aXMR5fCRn50znR-NINpJYcQXObqO5fgTC9RVW8E8WDojrgethq3ecymuBaa6ojJufJFq1ZmJpwaSkgCN8TVoFnQ1PSlNZP_S7FNfzsu1-j7a0ZkhMyG2fCjAnut_HIIl39heRvs7RBTbUFvlfSQkcQX0Ka5FydqhOM_YMWvGUDbV8zSpNZM9wX4EoFS4BICfdyRWkKqrj7d3Swop3JS-ZcW3UmJzviQSRjM"/>
+<div>
+<p class="text-sm font-bold text-on-background leading-tight">Marcus Lin</p>
+<p class="text-[10px] text-stone-400 font-medium uppercase">FOH Supervisor • East Brioche</p>
+</div>
+</div>
+</td>
+<td class="px-2 py-4 text-center">
+<span class="inline-block px-2 py-1 bg-stone-100 text-[10px] font-bold rounded text-stone-500">08:00 - 16:00</span>
+</td>
+<td class="px-2 py-4 text-center">
+<span class="inline-block px-2 py-1 bg-stone-100 text-[10px] font-bold rounded text-stone-500">08:00 - 16:00</span>
+</td>
+<td class="px-2 py-4 text-center">
+<span class="inline-block px-2 py-1 bg-stone-100 text-[10px] font-bold rounded text-stone-500">08:00 - 16:00</span>
+</td>
+<td class="px-2 py-4 text-center">
+<span class="inline-block px-2 py-1 bg-stone-100 text-[10px] font-bold rounded text-stone-500">08:00 - 16:00</span>
+</td>
+<td class="px-2 py-4 text-center border-x border-orange-100 bg-orange-50/20">
+<span class="inline-block px-2 py-1 bg-stone-100 text-[10px] font-bold rounded text-stone-500">OFF</span>
+</td>
+<td class="px-2 py-4 text-center">
+<span class="inline-block px-2 py-1 bg-stone-100 text-[10px] font-bold rounded text-stone-500">08:00 - 16:00</span>
+</td>
+<td class="px-2 py-4 text-center">
+<span class="inline-block px-2 py-1 bg-stone-100 text-[10px] font-bold rounded text-stone-500">08:00 - 16:00</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-4 bg-stone-50/50 text-center">
+<button class="text-xs font-bold text-primary uppercase tracking-widest hover:underline">View Full Team Roster (142 Members)</button>
+</div>
+</section>
+<!-- Staff Directory & Attendance Pulse -->
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Staff Directory List -->
+<div class="lg:col-span-2 space-y-6">
+<div class="flex items-center justify-between">
+<h3 class="text-xl font-bold text-on-background">Staff Directory</h3>
+<a class="text-sm font-bold text-primary hover:underline" href="#">View All</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- Staff Card 1 -->
+<div class="bg-surface-container-low p-4 rounded-xl flex items-center gap-4 hover:shadow-md transition-shadow cursor-pointer">
+<div class="relative">
+<img class="w-14 h-14 rounded-full object-cover" data-alt="Smiling young male barista in a dark denim apron with light artistic flare" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBY-2AKPuHLIB4vFimP0DbG2TH5rB4NojaUwkJqILXnX0wh7AGP-beMCn5W__Vr46IMSGL8ktkhG9a_BwFLPTvL6rsx0xzq5-MhqHY8DxC7E5oFG1fxNWa3ycS_enkUyvUmsQxwVxGRqT5Mw7EhiSKGr5j3lvSbcO6IxQYLy5Pqpt8wu8e8upnXUcKMn9QKCUBrHhVXbAqgo1k2cVnZROFfDvzu_tZJ2ZQeqRDXPeZDGV7tCfoOe3XqACM_Fy_wPZmsdERxfW-bz3g"/>
+<span class="absolute bottom-0 right-0 w-4 h-4 bg-tertiary-container border-2 border-surface-container-low rounded-full"></span>
+</div>
+<div class="flex-1">
+<p class="text-sm font-extrabold text-on-background">Leo Garavito</p>
+<p class="text-xs font-medium text-stone-500">Senior Barista</p>
+<div class="mt-2 flex items-center gap-2">
+<span class="text-[10px] px-2 py-0.5 bg-tertiary-container text-on-tertiary-container rounded">Clocked In</span>
+<span class="text-[10px] text-stone-400 font-bold uppercase">Central Hub</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-stone-300" data-icon="chevron_right">chevron_right</span>
+</div>
+<!-- Staff Card 2 -->
+<div class="bg-surface-container-low p-4 rounded-xl flex items-center gap-4 hover:shadow-md transition-shadow cursor-pointer">
+<div class="relative">
+<img class="w-14 h-14 rounded-full object-cover" data-alt="Young woman with bright glasses and creative attire in a bright sunlit kitchen" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCc0F8bHF6lqdNP38DQE4lCkHzDnS28Q7LfaBd6ES2StW3MkXG4REiJ1YBOT9r_IvmMtu-WQoUUQ-OsFtrvcAZqGUjpzDXqTaPL7RiGO4T1-oLgqZiXh87LpPTlrmLYEhIWP7e-_9mpuehu8WkipKkJNk3DyfbiRZaE0v5ufzFhPPgqJjDkdkEiSuNCtFgCxwDmLd1XKoFGJMbANIchw_V3Nnu3dB0uHkfaCYdMGxwBUxmdb_vBmulfQU-5yZP9Gd315lJzw1omLzQ"/>
+<span class="absolute bottom-0 right-0 w-4 h-4 bg-error-container border-2 border-surface-container-low rounded-full"></span>
+</div>
+<div class="flex-1">
+<p class="text-sm font-extrabold text-on-background">Sienna Bloom</p>
+<p class="text-xs font-medium text-stone-500">Boulangerie Lead</p>
+<div class="mt-2 flex items-center gap-2">
+<span class="text-[10px] px-2 py-0.5 bg-error-container text-on-error-container rounded">On Leave</span>
+<span class="text-[10px] text-stone-400 font-bold uppercase">South Patisserie</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-stone-300" data-icon="chevron_right">chevron_right</span>
+</div>
+<!-- Staff Card 3 -->
+<div class="bg-surface-container-low p-4 rounded-xl flex items-center gap-4 hover:shadow-md transition-shadow cursor-pointer">
+<div class="relative">
+<img class="w-14 h-14 rounded-full object-cover" data-alt="Portrait of a young man with a neatly trimmed beard in casual professional attire" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxq5cieinobwSHIoSrr2frLYxUqG-sdNEyrx-HnBz8pW1orPAZOkZq4Kenk6zYlA4G08NQkBWerKiIbOZc9rbBMEzRslwhSLZlDAC5gUHfJvLoqAAMGxPDKibVkmsuAxioSA14KbA_JPy_lo7bxGadNygFtnZVfjqWD4-ImNIFTdVyPng_LDZsi7EwaT2WRJUh8hkExZJrbebS2__fTz1dJIe-RLxboPV_CkQs9Fq_EcsK9quipHJlvbkSwHiEPgXCwwntYlcx69Q"/>
+<span class="absolute bottom-0 right-0 w-4 h-4 bg-stone-300 border-2 border-surface-container-low rounded-full"></span>
+</div>
+<div class="flex-1">
+<p class="text-sm font-extrabold text-on-background">Jameson Webb</p>
+<p class="text-xs font-medium text-stone-500">Logistics Officer</p>
+<div class="mt-2 flex items-center gap-2">
+<span class="text-[10px] px-2 py-0.5 bg-stone-200 text-stone-600 rounded">Clocked Out</span>
+<span class="text-[10px] text-stone-400 font-bold uppercase">Logistics Hub</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-stone-300" data-icon="chevron_right">chevron_right</span>
+</div>
+<!-- Staff Card 4 -->
+<div class="bg-surface-container-low p-4 rounded-xl flex items-center gap-4 hover:shadow-md transition-shadow cursor-pointer">
+<div class="relative">
+<img class="w-14 h-14 rounded-full object-cover" data-alt="Portrait of a young woman with a warm friendly expression in a modern cafe setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBeIqK8Fm68uRno3c4RNB7OPRb8KfalNB-UG1sK0VcBFovSJdZ3aNdzyectGoLCj6fQ-SsV-6rTRqw8bMh9DfEihn2XBSoseDtyVwRNggjYPUau9fykidOTnuTLpCzs2WmLX6p7QF54nbSAKkyrlNqrtw20AbPWCM-TmoXTF9Iu-0V6b1wsfKt-YCi2aUemnaRb8PPYjxmPA6Bz0sinwodaspe8OoEUmKKuWZbP2z09fpYzBYn0U1rMeP1AKL7GU0MTinIWoJuI45w"/>
+<span class="absolute bottom-0 right-0 w-4 h-4 bg-tertiary-container border-2 border-surface-container-low rounded-full"></span>
+</div>
+<div class="flex-1">
+<p class="text-sm font-extrabold text-on-background">Elena Ruiz</p>
+<p class="text-xs font-medium text-stone-500">Junior Baker</p>
+<div class="mt-2 flex items-center gap-2">
+<span class="text-[10px] px-2 py-0.5 bg-tertiary-container text-on-tertiary-container rounded">Clocked In</span>
+<span class="text-[10px] text-stone-400 font-bold uppercase">East Brioche</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-stone-300" data-icon="chevron_right">chevron_right</span>
+</div>
+</div>
+</div>
+<!-- Recent Activity / Logs -->
+<div class="bg-surface-container-low rounded-xl p-6 flex flex-col h-full">
+<h3 class="text-lg font-bold text-on-background mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="history">history</span>
+                        Recent Activity
+                    </h3>
+<div class="space-y-6 relative before:absolute before:left-[11px] before:top-2 before:bottom-2 before:w-[2px] before:bg-stone-200">
+<div class="relative pl-8">
+<span class="absolute left-0 top-1 w-6 h-6 rounded-full bg-tertiary-container flex items-center justify-center border-4 border-surface-container-low">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+</span>
+<p class="text-xs text-stone-500 font-bold uppercase tracking-widest">08:42 AM</p>
+<p class="text-sm font-medium text-on-background mt-1"><strong>Marcus Lin</strong> clocked in at <strong>East Brioche</strong>.</p>
+</div>
+<div class="relative pl-8">
+<span class="absolute left-0 top-1 w-6 h-6 rounded-full bg-error-container flex items-center justify-center border-4 border-surface-container-low">
+<span class="w-2 h-2 rounded-full bg-error"></span>
+</span>
+<p class="text-xs text-stone-500 font-bold uppercase tracking-widest">08:15 AM</p>
+<p class="text-sm font-medium text-on-background mt-1"><strong>Sienna Bloom</strong> requested medical leave for 2 days.</p>
+</div>
+<div class="relative pl-8">
+<span class="absolute left-0 top-1 w-6 h-6 rounded-full bg-primary-container flex items-center justify-center border-4 border-surface-container-low">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+</span>
+<p class="text-xs text-stone-500 font-bold uppercase tracking-widest">07:58 AM</p>
+<p class="text-sm font-medium text-on-background mt-1"><strong>Arthur Vance</strong> updated the weekend roster for <strong>Central Hub</strong>.</p>
+</div>
+<div class="relative pl-8">
+<span class="absolute left-0 top-1 w-6 h-6 rounded-full bg-tertiary-container flex items-center justify-center border-4 border-surface-container-low">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+</span>
+<p class="text-xs text-stone-500 font-bold uppercase tracking-widest">06:01 AM</p>
+<p class="text-sm font-medium text-on-background mt-1"><strong>Clara J. Smith</strong> clocked in at <strong>North Sourdough</strong>.</p>
+</div>
+</div>
+<div class="mt-auto pt-6">
+<button class="w-full py-2 bg-surface-container-lowest text-stone-600 rounded-lg text-xs font-bold uppercase tracking-widest hover:bg-white transition-colors">View All Logs</button>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Contextual FAB (Hidden on Scroll or Specific Screens - Visible here for Action) -->
+<div class="fixed bottom-8 right-8 z-50">
+<button class="w-14 h-14 rounded-full bg-primary text-on-primary shadow-xl flex items-center justify-center hover:scale-110 transition-transform active:scale-95 group">
+<span class="material-symbols-outlined text-2xl" data-icon="add_task">add_task</span>
+<span class="absolute right-full mr-4 px-3 py-1 bg-on-surface text-white text-[10px] font-bold rounded-md opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Create Shift Alert</span>
+</button>
+</div>
+</body></html>

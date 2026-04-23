@@ -1,0 +1,28 @@
+Enterprise Resource Planning (ERP) Needs Assessment Report
+Lenie’s Choice Bakeshop
+
+1. INTRODUCTION
+ERP systems integrate various business functions into a single, centralized system. This report assesses whether Lenie’s Choice Bakeshop, a multi-branch bakery enterprise, requires an ERP system.
+
+2. COMPANY BACKGROUND
+Enterprise Name: Lenie’s Choice Bakeshop
+Business Size: Small enterprise
+Branches: Seven (7) branches in Cebu (Barili, Alegria, Malabuyoc, Ginatilan, Samboan).
+
+3. CURRENT OPERATIONAL PROBLEMS
+- Inventory Inaccuracies
+- Manual Sales Recording
+- Inefficient Procurement
+- Poor Inter-Branch Coordination
+- Human Error and Operational Delays
+
+4. ERP FIT ANALYSIS
+The enterprise needs an ERP to integrate inventory, sales, procurement, and financial data across its 7 branches.
+
+5. ADVANTAGES
+- Improved efficiency through automation.
+- Real-time visibility across branches.
+- Reduced administrative workload.
+
+6. RECOMMENDATION
+Phased modular implementation starting with Inventory, POS, and Procurement.

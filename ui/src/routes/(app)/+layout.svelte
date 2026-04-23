@@ -1,6 +1,7 @@
 <script lang="ts">
-	import Sidebar from '$lib/components/artisanal/Sidebar.svelte';
-	import TopBar from '$lib/components/artisanal/TopBar.svelte';
+	import Sidebar from '$lib/components/Sidebar.svelte';
+	import Toast from '$lib/components/Toast.svelte';
+	import TopBar from '$lib/components/TopBar.svelte';
 	import { pb } from '$lib/pocketbase';
 	import { onMount } from 'svelte';
 
@@ -11,25 +12,27 @@
 		if (typeof document !== 'undefined') {
 			pb.authStore.loadFromCookie(document.cookie);
 		}
-		// categoriesState.init();
-
-		// return () => {
-		// 	categoriesState.unsubscribe();
-		// };
 	});
 </script>
 
-<div class="flex h-[100dvh] overflow-hidden bg-surface">
-	<Sidebar isOpen={isSidebarOpen} onClose={() => (isSidebarOpen = false)} />
+<div class="flex">
+	<!-- Sidebar Component -->
+	<Sidebar isOpen={isSidebarOpen} onClose={() => (isSidebarOpen = false)} user={data.user} />
 
-	<div class="flex min-w-0 flex-1 flex-col lg:ml-64">
+	<div
+		class="flex h-screen flex-1 flex-col overflow-hidden bg-[radial-gradient(circle_at_top_right,rgba(254,136,72,0.08),transparent_18rem)] lg:ml-80"
+	>
+		<!-- TopBar Component -->
 		<TopBar user={data.user} onMenuClick={() => (isSidebarOpen = true)} />
 
-		<main class="flex-1 overflow-y-auto no-scrollbar pt-16">
-			{@render children()}
+		<!-- Main Content Area -->
+		<main class="no-scrollbar flex-1 overflow-y-auto pt-16">
+			{@render children?.()}
 		</main>
 	</div>
 </div>
+
+<Toast />
 
 <style>
 	:global(.no-scrollbar::-webkit-scrollbar) {

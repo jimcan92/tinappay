@@ -1,13 +1,15 @@
 <script lang="ts">
+	import BakingLoader from '$lib/components/BakingLoader.svelte';
+	import { pb, fileUrl } from '$lib/pocketbase';
+	import { usersState } from '$lib/states/users.svelte';
+	import { toastState } from '$lib/states/toast.svelte';
 	import { onMount } from 'svelte';
-	import { pb } from '$lib/pocketbase';
-	import SignatureButton from '$lib/components/artisanal/SignatureButton.svelte';
-	import ArtisanalCard from '$lib/components/artisanal/ArtisanalCard.svelte';
-    import BakingLoader from '$lib/components/BakingLoader.svelte';
+    import SignatureButton from '$lib/components/artisanal/SignatureButton.svelte';
+    import ArtisanalCard from '$lib/components/artisanal/ArtisanalCard.svelte';
+    import PaginatedTable from '$lib/components/PaginatedTable.svelte';
 
-	let users = $state<any[]>([]);
 	let loading = $state(false);
-    let fetching = $state(true);
+	let fetching = $state(true);
 	let searchQuery = $state('');
 	let selectedRole = $state<string | null>(null);
 	let selectedUserId = $state<string | null>(null);
@@ -15,6 +17,7 @@
 	// CRUD States
 	let isEditing = $state(false);
 	let isAdding = $state(false);
+	let confirmDelete = $state(false);
 
 	// Form State
 	let form = $state({
@@ -22,39 +25,34 @@
 		password: '',
 		passwordConfirm: '',
 		name: '',
-		role: 'Cashier',
+		role: 'staff' as 'admin' | 'cashier' | 'staff',
 		avatar: null as File | null
 	});
 
 	let filteredUsers = $derived(
-		users.filter((u) => {
+		usersState.allUsers.filter((u) => {
 			const matchesRole = selectedRole ? u.role === selectedRole : true;
-			const matchesSearch = u.name?.toLowerCase().includes(searchQuery.toLowerCase()) || u.email?.toLowerCase().includes(searchQuery.toLowerCase());
+			const matchesSearch =
+				u.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+				u.email?.toLowerCase().includes(searchQuery.toLowerCase());
 			return matchesRole && matchesSearch;
 		})
 	);
 
-	let selectedUser = $derived(
-		users.find(u => u.id === selectedUserId) || null
-	);
+	let selectedUser = $derived(usersState.allUsers.find((u) => u.id === selectedUserId) || null);
 
-    let stats = $derived({
-        total: users.length,
-        admins: users.filter(u => u.role === 'Admin').length,
-        cashiers: users.filter(u => u.role === 'Cashier').length
-    });
+	let stats = $derived({
+		total: usersState.allUsers.length,
+		admins: usersState.allUsers.filter((u) => u.role === 'admin').length,
+		cashiers: usersState.allUsers.filter((u) => u.role === 'cashier').length,
+		bakers: usersState.allUsers.filter((u) => u.role === 'baker').length
+	});
 
 	async function fetchUsers() {
-		try {
-			const userList = await pb.collection('users').getFullList({ sort: '-created' });
-			users = userList;
-			if (users.length > 0 && !selectedUserId) {
-				selectedUserId = users[0].id;
-			}
-		} catch (error) {
-			console.error('Failed to fetch users:', error);
-		} finally {
-            fetching = false;
+		await usersState.init();
+        fetching = false;
+        if (usersState.allUsers.length > 0 && !selectedUserId) {
+            selectedUserId = usersState.allUsers[0].id;
         }
 	}
 
@@ -67,7 +65,7 @@
 				password: '',
 				passwordConfirm: '',
 				name: selectedUser.name || '',
-				role: selectedUser.role || 'Cashier',
+				role: (selectedUser.role as any) || 'staff',
 				avatar: null
 			};
 		} else {
@@ -76,7 +74,7 @@
 				password: '',
 				passwordConfirm: '',
 				name: '',
-				role: 'Cashier',
+				role: 'staff',
 				avatar: null
 			};
 		}
@@ -111,10 +109,12 @@
 			}
 
 			if (isAdding) {
-				const record = await pb.collection('users').create(formData);
+				const record = await usersState.create(formData);
 				selectedUserId = record.id;
+				toastState.success('Staff member registered.');
 			} else if (isEditing && selectedUserId) {
-				await pb.collection('users').update(selectedUserId, formData);
+				await usersState.update(selectedUserId, formData);
+				toastState.success('Profile updated.');
 			}
 
 			await fetchUsers();
@@ -122,27 +122,36 @@
 			isEditing = false;
 		} catch (err) {
 			console.error('User save failed:', err);
+			toastState.error('Failed to save staff member.');
 		} finally {
 			loading = false;
 		}
 	}
 
 	async function handleDelete() {
-		if (!selectedUserId || !confirm('Permanently remove this team member?')) return;
+		if (!selectedUserId) return;
+		if (!confirmDelete) { confirmDelete = true; return; }
 		loading = true;
 		try {
-			await pb.collection('users').delete(selectedUserId);
+			await usersState.delete(selectedUserId);
+			toastState.success('Staff member removed.');
 			selectedUserId = null;
 			await fetchUsers();
 		} catch (err) {
 			console.error('Delete failed:', err);
+			toastState.error('Failed to remove staff member.');
 		} finally {
 			loading = false;
+			confirmDelete = false;
 		}
 	}
 </script>
 
-<div class="flex h-full w-full overflow-hidden bg-background">
+<svelte:head>
+	<title>Staff & Governance | tinAPPay ERP</title>
+</svelte:head>
+
+<div class="flex h-full w-full overflow-hidden bg-surface">
 	<!-- MAIN LIST -->
 	<div class="flex flex-1 flex-col overflow-hidden border-r border-outline-variant/10">
 		<header class="p-8 md:p-10">
@@ -189,19 +198,19 @@
                 <div class="no-scrollbar flex gap-2 overflow-x-auto py-1">
                     <button
                         onclick={() => (selectedRole = null)}
-                        class="rounded-xl px-5 py-2 text-xs font-black uppercase tracking-widest transition-all {selectedRole === null ? 'bg-primary text-white shadow-lg' : 'bg-muted text-muted-foreground'}"
+                        class="rounded-xl px-5 py-2 text-xs font-black uppercase tracking-widest transition-all {selectedRole === null ? 'bg-primary text-white shadow-lg' : 'bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high'}"
                     >
                         All
                     </button>
                     <button
-                        onclick={() => (selectedRole = 'Admin')}
-                        class="rounded-xl px-5 py-2 text-xs font-black uppercase tracking-widest transition-all {selectedRole === 'Admin' ? 'bg-primary text-white shadow-lg' : 'bg-muted text-muted-foreground'}"
+                        onclick={() => (selectedRole = 'admin')}
+                        class="rounded-xl px-5 py-2 text-xs font-black uppercase tracking-widest transition-all {selectedRole === 'admin' ? 'bg-primary text-white shadow-lg' : 'bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high'}"
                     >
                         Admins
                     </button>
                     <button
-                        onclick={() => (selectedRole = 'Cashier')}
-                        class="rounded-xl px-5 py-2 text-xs font-black uppercase tracking-widest transition-all {selectedRole === 'Cashier' ? 'bg-primary text-white shadow-lg' : 'bg-muted text-muted-foreground'}"
+                        onclick={() => (selectedRole = 'cashier')}
+                        class="rounded-xl px-5 py-2 text-xs font-black uppercase tracking-widest transition-all {selectedRole === 'cashier' ? 'bg-primary text-white shadow-lg' : 'bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high'}"
                     >
                         Cashiers
                     </button>
@@ -216,66 +225,69 @@
                 </div>
             {:else}
                 <ArtisanalCard level="lowest" class="p-0 overflow-hidden shadow-sm border border-outline-variant/10">
-                    <table class="w-full text-left border-collapse">
-                        <thead>
+                    <PaginatedTable
+                        items={filteredUsers}
+                        pageSize={10}
+                        tableClass="w-full text-left border-collapse"
+                        emptyMessage="No staff members found."
+                    >
+                        {#snippet header()}
                             <tr class="bg-surface-container-low text-on-surface-variant text-[10px] font-black uppercase tracking-[0.2em]">
                                 <th class="px-8 py-5">Staff Member</th>
                                 <th class="px-6 py-5">Designation</th>
-                                <th class="px-6 py-5">Status</th>
+                                <th class="px-6 py-5 text-center">Status</th>
                                 <th class="px-8 py-5 text-right">Actions</th>
                             </tr>
-                        </thead>
-                        <tbody class="divide-y divide-outline-variant/5">
-                            {#each filteredUsers as user}
-                                <tr 
-                                    class="hover:bg-surface-container-low/40 transition-colors group cursor-pointer {selectedUserId === user.id ? 'bg-primary/5' : ''}"
-                                    onclick={() => { selectedUserId = user.id; isAdding = false; isEditing = false; }}
-                                >
-                                    <td class="px-8 py-5">
-                                        <div class="flex items-center gap-4">
-                                            <div class="h-11 w-11 rounded-full overflow-hidden bg-surface-container border-2 border-white shadow-sm flex-shrink-0 transition-transform group-hover:scale-105">
-                                                {#if user.avatar}
-                                                    <img src={pb.files.getUrl(user, user.avatar)} alt="" class="h-full w-full object-cover" />
-                                                {:else}
-                                                    <div class="h-full w-full flex items-center justify-center bg-primary/10 text-primary font-black text-xs uppercase">{user.name?.substring(0, 2) || 'US'}</div>
-                                                {/if}
-                                            </div>
-                                            <div>
-                                                <p class="font-bold text-on-surface text-sm">{user.name || 'Anonymous'}</p>
-                                                <p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-tighter">{user.email}</p>
-                                            </div>
+                        {/snippet}
+                        {#snippet row(user)}
+                            <tr 
+                                class="hover:bg-surface-container-low/40 transition-colors group cursor-pointer {selectedUserId === user.id ? 'bg-primary/5' : ''}"
+                                onclick={() => { selectedUserId = user.id; isAdding = false; isEditing = false; confirmDelete = false; }}
+                            >
+                                <td class="px-8 py-5">
+                                    <div class="flex items-center gap-4">
+                                        <div class="h-11 w-11 rounded-full overflow-hidden bg-surface-container border-2 border-white shadow-sm flex-shrink-0 transition-transform group-hover:scale-105">
+                                            {#if user.avatar}
+                                                <img src={fileUrl(user, user.avatar)} alt="" class="h-full w-full object-cover" />
+                                            {:else}
+                                                <div class="h-full w-full flex items-center justify-center bg-primary/10 text-primary font-black text-xs uppercase">{user.name?.substring(0, 2) || 'US'}</div>
+                                            {/if}
                                         </div>
-                                    </td>
-                                    <td class="px-6 py-5">
-                                        <span class="px-3 py-1 bg-secondary-container text-on-secondary-container rounded-md text-[10px] font-black uppercase tracking-widest">{user.role || 'Staff'}</span>
-                                    </td>
-                                    <td class="px-6 py-5">
-                                        <div class="flex items-center gap-2">
-                                            <span class="h-2 w-2 rounded-full bg-tertiary shadow-[0_0_8px_rgba(125,162,122,0.5)]"></span>
-                                            <span class="text-[10px] font-black uppercase tracking-widest text-tertiary-dim">Active</span>
+                                        <div>
+                                            <p class="font-bold text-on-surface text-sm">{user.name || 'Anonymous'}</p>
+                                            <p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-tighter">{user.email}</p>
                                         </div>
-                                    </td>
-                                    <td class="px-8 py-5 text-right">
-                                        <span class="material-symbols-outlined text-on-surface-variant/30 group-hover:text-primary transition-all">chevron_right</span>
-                                    </td>
-                                </tr>
-                            {/each}
-                        </tbody>
-                    </table>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-5">
+                                    <span class="px-3 py-1 bg-secondary-container text-on-secondary-container rounded-md text-[10px] font-black uppercase tracking-widest">{user.role || 'staff'}</span>
+                                </td>
+                                <td class="px-6 py-5">
+                                    <div class="flex items-center justify-center gap-2">
+                                        <span class="h-2 w-2 rounded-full bg-tertiary shadow-[0_0_8px_rgba(125,162,122,0.5)]"></span>
+                                        <span class="text-[10px] font-black uppercase tracking-widest text-tertiary-dim">Active</span>
+                                    </div>
+                                </td>
+                                <td class="px-8 py-5 text-right">
+                                    <span class="material-symbols-outlined text-on-surface-variant/30 group-hover:text-primary transition-all">chevron_right</span>
+                                </td>
+                            </tr>
+                        {/snippet}
+                    </PaginatedTable>
                 </ArtisanalCard>
             {/if}
 		</div>
 	</div>
 
 	<!-- DETAIL PANEL -->
-	<aside class="z-20 flex w-full flex-col overflow-hidden bg-surface-container-lowest border-l border-outline-variant/10 lg:w-[450px] xl:w-[550px] {selectedUserId || isAdding ? 'flex' : 'hidden lg:flex'}">
+	<aside class="z-20 flex w-full flex-col overflow-hidden border-l border-outline-variant/10 bg-surface-container-low/30 lg:w-[450px] xl:w-[550px] {selectedUserId || isAdding ? 'flex' : 'hidden lg:flex'}">
 		{#if isAdding || isEditing}
-			<header class="p-10 border-b border-outline-variant/10 bg-surface-container-low/20 flex items-center justify-between">
+			<header class="flex items-center justify-between border-b border-outline-variant/10 bg-surface-container-low/20 p-10">
 				<div>
-					<h3 class="text-2xl font-black text-foreground tracking-tight font-serif">{isAdding ? 'Register Member' : 'Refine Profile'}</h3>
+					<h3 class="font-serif text-2xl font-black tracking-tight text-on-surface">{isAdding ? 'Register Member' : 'Refine Profile'}</h3>
 					<p class="text-[10px] text-on-surface-variant font-black uppercase tracking-[0.2em] mt-1">Staff Authorization</p>
 				</div>
-				<button onclick={() => { isAdding = false; isEditing = false; }} class="h-10 w-10 rounded-full hover:bg-muted flex items-center justify-center transition-colors">
+				<button onclick={() => { isAdding = false; isEditing = false; }} class="flex h-10 w-10 items-center justify-center rounded-full transition-colors hover:bg-surface-container-high">
 					<span class="material-symbols-outlined">close</span>
 				</button>
 			</header>
@@ -294,8 +306,10 @@
 				<div class="space-y-2">
 					<label for="user-role" class="text-[10px] font-black text-on-surface-variant uppercase tracking-widest px-1">System Role</label>
 					<select id="user-role" bind:value={form.role} class="w-full h-14 rounded-2xl bg-surface-container-low border-none px-6 text-sm font-bold focus:ring-2 focus:ring-primary/20">
-						<option value="Admin">Administrator</option>
-						<option value="Cashier">Cashier</option>
+					        <option value="admin">Administrator</option>
+					        <option value="cashier">Cashier / POS</option>
+					        <option value="baker">Baker</option>
+					        <option value="staff">General Staff</option>
 					</select>
 				</div>
 
@@ -330,16 +344,23 @@
 			</footer>
 
 		{:else if selectedUser}
-			<header class="p-10 border-b border-outline-variant/10 bg-surface-container-low/20 relative overflow-hidden">
+			<header class="relative overflow-hidden border-b border-outline-variant/10 bg-surface-container-low/20 p-10">
 				<div class="absolute top-0 right-0 p-8 flex gap-3">
 					<button onclick={startEditing} class="h-12 w-12 rounded-2xl bg-white border border-outline-variant/10 flex items-center justify-center text-on-surface-variant hover:bg-primary hover:text-white transition-all shadow-sm active:scale-90"><span class="material-symbols-outlined text-xl">edit</span></button>
-					<button onclick={handleDelete} class="h-12 w-12 rounded-2xl bg-white border border-outline-variant/10 flex items-center justify-center text-error hover:bg-error hover:text-white transition-all shadow-sm active:scale-90"><span class="material-symbols-outlined text-xl">delete</span></button>
+					{#if confirmDelete}
+						<button onclick={handleDelete} class="h-12 px-4 rounded-2xl bg-error text-white flex items-center gap-1.5 text-[9px] font-black uppercase tracking-widest shadow-lg active:scale-90">
+							<span class="material-symbols-outlined text-sm">check</span> Confirm
+						</button>
+						<button onclick={() => confirmDelete = false} class="h-12 w-12 rounded-2xl bg-white border border-outline-variant/10 flex items-center justify-center text-on-surface-variant shadow-sm active:scale-90"><span class="material-symbols-outlined text-xl">close</span></button>
+					{:else}
+						<button onclick={handleDelete} class="h-12 w-12 rounded-2xl bg-white border border-outline-variant/10 flex items-center justify-center text-error hover:bg-error hover:text-white transition-all shadow-sm active:scale-90"><span class="material-symbols-outlined text-xl">delete</span></button>
+					{/if}
 				</div>
 
 				<div class="mb-8">
 					<div class="h-32 w-32 rounded-[2.5rem] bg-white border-4 border-white flex items-center justify-center overflow-hidden shadow-2xl relative z-10">
 						{#if selectedUser.avatar}
-							<img alt={selectedUser.name} class="h-full w-full object-cover" src={pb.files.getUrl(selectedUser, selectedUser.avatar)} />
+							<img alt={selectedUser.name} class="h-full w-full object-cover" src={fileUrl(selectedUser, selectedUser.avatar)} />
 						{:else}
 							<div class="text-primary font-black text-4xl uppercase opacity-20">{selectedUser.name?.substring(0, 2) || 'US'}</div>
 						{/if}
@@ -350,7 +371,7 @@
 					<h3 class="text-3xl font-black text-on-surface mb-2 font-serif tracking-tight">{selectedUser.name || 'Unnamed Staff'}</h3>
 					<div class="flex items-center gap-3">
 						<span class="rounded-lg bg-primary text-white px-3 py-1 text-[10px] font-black uppercase tracking-widest">
-							{selectedUser.role || 'Staff'}
+							{selectedUser.role || 'staff'}
 						</span>
 						<span class="text-[10px] font-black text-on-surface-variant uppercase tracking-widest opacity-60">• ID: #{selectedUser.id.substring(0, 8)}</span>
 					</div>
@@ -391,7 +412,7 @@
 							</div>
 							<div>
 								<h5 class="text-xs font-black text-on-surface uppercase tracking-tight">System Privileges</h5>
-								<p class="text-xs text-on-surface-variant font-medium mt-1 leading-relaxed">This member has {selectedUser.role === 'Admin' ? 'full administrative control over production and finance' : 'restricted access limited to storefront sales and terminal operations'}.</p>
+								<p class="text-xs text-on-surface-variant font-medium mt-1 leading-relaxed">This member has {selectedUser.role === 'admin' ? 'full administrative control over production and finance' : 'restricted access limited to storefront sales and terminal operations'}.</p>
 							</div>
 						</div>
 						
@@ -402,11 +423,11 @@
 							</div>
 							<div class="flex items-center justify-between">
 								<span class="text-xs font-bold text-on-surface">Inventory Management</span>
-								<div class="h-2 w-2 rounded-full {selectedUser.role === 'Admin' ? 'bg-tertiary shadow-[0_0_8px_rgba(125,162,122,0.5)]' : 'bg-outline-variant/30'}"></div>
+								<div class="h-2 w-2 rounded-full {selectedUser.role === 'admin' ? 'bg-tertiary shadow-[0_0_8px_rgba(125,162,122,0.5)]' : 'bg-outline-variant/30'}"></div>
 							</div>
 							<div class="flex items-center justify-between">
 								<span class="text-xs font-bold text-on-surface">Financial Auditing</span>
-								<div class="h-2 w-2 rounded-full {selectedUser.role === 'Admin' ? 'bg-tertiary shadow-[0_0_8px_rgba(125,162,122,0.5)]' : 'bg-outline-variant/30'}"></div>
+								<div class="h-2 w-2 rounded-full {selectedUser.role === 'admin' ? 'bg-tertiary shadow-[0_0_8px_rgba(125,162,122,0.5)]' : 'bg-outline-variant/30'}"></div>
 							</div>
 						</div>
 					</div>

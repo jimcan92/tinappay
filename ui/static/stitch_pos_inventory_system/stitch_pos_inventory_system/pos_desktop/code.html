@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed": "#351000",
+                        "secondary": "#895033",
+                        "primary-container": "#b15f00",
+                        "inverse-on-surface": "#f3f0ef",
+                        "primary-fixed": "#ffdcc3",
+                        "surface": "#fcf9f8",
+                        "on-secondary-container": "#794227",
+                        "surface-container-lowest": "#ffffff",
+                        "error": "#ba1a1a",
+                        "error-container": "#ffdad6",
+                        "surface-container-low": "#f6f3f2",
+                        "on-error-container": "#93000a",
+                        "inverse-surface": "#303030",
+                        "primary": "#8d4b00",
+                        "secondary-fixed-dim": "#ffb694",
+                        "on-tertiary-fixed-variant": "#76330d",
+                        "tertiary-fixed-dim": "#ffb693",
+                        "on-primary-container": "#fffbff",
+                        "on-background": "#1b1c1c",
+                        "surface-container-highest": "#e4e2e1",
+                        "tertiary-container": "#af5f36",
+                        "surface-variant": "#e4e2e1",
+                        "tertiary-fixed": "#ffdbcc",
+                        "primary-fixed-dim": "#ffb77d",
+                        "surface-bright": "#fcf9f8",
+                        "on-tertiary-container": "#fffbff",
+                        "secondary-fixed": "#ffdbcc",
+                        "surface-tint": "#904d00",
+                        "inverse-primary": "#ffb77d",
+                        "surface-container": "#f0eded",
+                        "on-primary-fixed-variant": "#6e3900",
+                        "outline-variant": "#dbc2b0",
+                        "on-surface": "#1b1c1c",
+                        "tertiary": "#904821",
+                        "on-secondary-fixed": "#351000",
+                        "secondary-container": "#feb28f",
+                        "surface-container-high": "#eae7e7",
+                        "on-surface-variant": "#554336",
+                        "on-primary-fixed": "#2f1500",
+                        "background": "#fcf9f8",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed-variant": "#6d391e",
+                        "on-error": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "surface-dim": "#dcd9d9",
+                        "on-primary": "#ffffff",
+                        "outline": "#887364"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Plus Jakarta Sans"],
+                        "body": ["Plus Jakarta Sans"],
+                        "label": ["Plus Jakarta Sans"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #dbc2b0; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-background text-on-surface antialiased">
+<!-- Shared SideNavBar Component -->
+<aside class="w-[280px] fixed h-full left-0 top-0 z-40 bg-[#f6f3f2]/85 dark:bg-[#1b1c1c]/85 backdrop-blur-xl flex flex-col h-screen p-8 gap-10 shadow-[8px_0_24px_rgba(137,80,51,0.06)]">
+<!-- Brand Header -->
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-primary rounded-xl flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">bakery_dining</span>
+</div>
+<div>
+<h1 class="text-lg font-bold tracking-tight text-[#1b1c1c] dark:text-[#fcf9f8]">Lenie's Choice</h1>
+<p class="text-[10px] uppercase tracking-widest text-on-surface-variant font-bold">TinAPPay ERP</p>
+</div>
+</div>
+<!-- Navigation Links -->
+<nav class="flex flex-col gap-2">
+<!-- Dashboard -->
+<a class="text-[#554336] dark:text-[#dbc2b0] hover:bg-[#fcf9f8]/50 dark:hover:bg-stone-800/50 rounded-full px-4 py-3 flex items-center gap-4 transition-all duration-300 active:scale-[0.98] font-medium text-sm" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                Dashboard
+            </a>
+<!-- POS (ACTIVE) -->
+<a class="bg-[#ffdcc3] text-[#2f1500] rounded-full px-4 py-3 flex items-center gap-4 transition-all duration-300 active:scale-[0.98] font-medium text-sm" href="#">
+<span class="material-symbols-outlined" data-icon="point_of_sale" style="font-variation-settings: 'FILL' 1;">point_of_sale</span>
+                POS
+            </a>
+<!-- Inventory -->
+<a class="text-[#554336] dark:text-[#dbc2b0] hover:bg-[#fcf9f8]/50 dark:hover:bg-stone-800/50 rounded-full px-4 py-3 flex items-center gap-4 transition-all duration-300 active:scale-[0.98] font-medium text-sm" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+                Inventory
+            </a>
+<!-- Users -->
+<a class="text-[#554336] dark:text-[#dbc2b0] hover:bg-[#fcf9f8]/50 dark:hover:bg-stone-800/50 rounded-full px-4 py-3 flex items-center gap-4 transition-all duration-300 active:scale-[0.98] font-medium text-sm" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+                Users
+            </a>
+<!-- Settings -->
+<a class="text-[#554336] dark:text-[#dbc2b0] hover:bg-[#fcf9f8]/50 dark:hover:bg-stone-800/50 rounded-full px-4 py-3 flex items-center gap-4 transition-all duration-300 active:scale-[0.98] font-medium text-sm" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+                Settings
+            </a>
+</nav>
+<!-- Bottom Profile -->
+<div class="mt-auto pt-6 border-t border-outline-variant/15">
+<div class="flex items-center gap-3 px-2">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container-high">
+<img class="w-full h-full object-cover" data-alt="Portrait of a smiling professional female bakery manager in a clean white uniform" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZr58HYqGMY-Jew0gc4I0l9jeXoMSqC8f-JC8HTS0iWbCg73jkSqI4OyViFLtJceZ2ahAnkC7H9WLpZg7HojpFqCa3rrB9PE-JJpN-HB5EZLwaSl3LweyEdAouNgjeLTYl76whDMZcOLRMnVLyDSg093RY0TNPkXtgDYxvPi4q28yUwuVh6o8w5ktPvggPY-hvCCqKyXMRkIttQJ__Eh2bUbDd0fl0_mzzZi0_IjdxfDohpa0kdSQnhEVtbqX3ycRw6WmPzxfO5cE"/>
+</div>
+<div>
+<p class="text-sm font-bold text-on-surface">Elena Reyes</p>
+<p class="text-[11px] text-on-surface-variant">Head Baker</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-[280px] flex h-screen overflow-hidden">
+<!-- Product Selection Grid (Canvas) -->
+<section class="flex-1 overflow-y-auto p-8 bg-surface-container-low">
+<!-- Header & Search -->
+<div class="flex items-end justify-between mb-10">
+<div>
+<span class="text-xs font-bold text-secondary uppercase tracking-[0.2em] mb-2 block">Terminal 01</span>
+<h2 class="text-3xl font-extrabold text-on-surface tracking-tight">Point of Sale</h2>
+</div>
+<div class="relative w-80">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full bg-surface-container-lowest border-none rounded-xl py-3 pl-12 pr-4 focus:ring-2 focus:ring-primary/40 text-sm placeholder:text-on-surface-variant/50" placeholder="Search products..." type="text"/>
+</div>
+</div>
+<!-- Category Filter Bar -->
+<div class="flex gap-3 mb-8 overflow-x-auto pb-2">
+<button class="bg-primary text-on-primary px-6 py-2.5 rounded-full text-sm font-semibold whitespace-nowrap shadow-md">All Items</button>
+<button class="bg-surface-container-lowest text-on-surface-variant hover:bg-white px-6 py-2.5 rounded-full text-sm font-semibold transition-colors whitespace-nowrap">Bread</button>
+<button class="bg-surface-container-lowest text-on-surface-variant hover:bg-white px-6 py-2.5 rounded-full text-sm font-semibold transition-colors whitespace-nowrap">Pastries</button>
+<button class="bg-surface-container-lowest text-on-surface-variant hover:bg-white px-6 py-2.5 rounded-full text-sm font-semibold transition-colors whitespace-nowrap">Coffee</button>
+<button class="bg-surface-container-lowest text-on-surface-variant hover:bg-white px-6 py-2.5 rounded-full text-sm font-semibold transition-colors whitespace-nowrap">Cakes</button>
+<button class="bg-surface-container-lowest text-on-surface-variant hover:bg-white px-6 py-2.5 rounded-full text-sm font-semibold transition-colors whitespace-nowrap">Breakfast</button>
+</div>
+<!-- Bento-style Product Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+<!-- Product Card 1 -->
+<button class="group relative flex flex-col text-left bg-surface-container-lowest rounded-xl p-4 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 active:scale-95">
+<div class="w-full aspect-[4/3] rounded-lg overflow-hidden mb-4 bg-surface-container-high">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Golden brown artisan sourdough bread loaf with a crispy crust on a wooden table" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBV7jOCw4E_4cq25bv_lRzLCGcJ0HBcVtYHnk1viMpMhtEUMpfmLAF_1v9jwjJbM5AV-MdxMz2uuAmph3LwvH_4D68ms2466oToFXLQQq9DIsYE-_AMIhKd-vWdEOkXGIXseZox0MgR4iXQ495EVv7e7rslTDcj8ylwdkE7uoiTDrpxCOg_TlJP4r2E8RToUijMBS_b3Tg7IViQ0kTHj1O-5nS8xHykiaM7yQWs-GDY4yt2IyABcwHK-Gi7UjxRpp-Kh9OXeZ_RVSY"/>
+</div>
+<p class="text-[10px] font-bold text-tertiary uppercase tracking-wider mb-1">Bread</p>
+<h3 class="font-bold text-on-surface mb-2">Classic Sourdough</h3>
+<div class="mt-auto flex items-center justify-between">
+<span class="text-primary font-extrabold">₱185.00</span>
+<div class="w-8 h-8 rounded-full bg-primary-fixed flex items-center justify-center text-on-primary-fixed group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined text-sm">add</span>
+</div>
+</div>
+</button>
+<!-- Product Card 2 -->
+<button class="group relative flex flex-col text-left bg-surface-container-lowest rounded-xl p-4 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 active:scale-95">
+<div class="w-full aspect-[4/3] rounded-lg overflow-hidden mb-4 bg-surface-container-high">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Flaky buttery croissants stacked on a wire cooling rack in a professional bakery kitchen" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCiy3_XOW2WvAKp84XaH0EiF0ZyTwNONdpNU85NH51zsYuATfH8lxJauOiPeNahg8BZn3q5LSrMAK4-Q1yx1kS8zohlPteZbUPynVQ5CIWJzditAwcvZGKiCp3bu6lLJ5BsWt-BcnlAAKBtl4tmV3_qEuVVXMydIzX1iXtR4m8570AsyF8qU79VW48FWN9-tciHB80LKPoKcEplpXNwvW3vTI7NhnKGDNAS4dDm-uMUjRUlY5-8VmSnDeaETBJanc0BgSq0vmY9I3w"/>
+</div>
+<p class="text-[10px] font-bold text-tertiary uppercase tracking-wider mb-1">Pastries</p>
+<h3 class="font-bold text-on-surface mb-2">Buttery Croissant</h3>
+<div class="mt-auto flex items-center justify-between">
+<span class="text-primary font-extrabold">₱95.00</span>
+<div class="w-8 h-8 rounded-full bg-primary-fixed flex items-center justify-center text-on-primary-fixed group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined text-sm">add</span>
+</div>
+</div>
+</button>
+<!-- Product Card 3 -->
+<button class="group relative flex flex-col text-left bg-surface-container-lowest rounded-xl p-4 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 active:scale-95">
+<div class="w-full aspect-[4/3] rounded-lg overflow-hidden mb-4 bg-surface-container-high">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Hot cappuccino with latte art heart in a white ceramic cup on a dark stone coaster" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBB2Spra06e64mxFDEiGW2BdmIEgY7RV9T989eho-nmdpYFCrsBdqvPBntQH_zRu-zxiLhkz26uVmWaVr-4vS5PsJRlQyGZy3i6abKYE6OVACj0tWcCnCOtCKs_jG7jIUAFmlWi1Qh3uVXTM269DChlHjRGCvT_sQmAnWDNpEKnhu_A_08E9BZ8G5YBrc5Nul-JqLeIXnu6XDoyQfW7bshNQjFudxnk1uu9RpI8dCifrhv4npfp5SsHH9IDMmL3kjPfbosSFGs9LCk"/>
+</div>
+<p class="text-[10px] font-bold text-tertiary uppercase tracking-wider mb-1">Coffee</p>
+<h3 class="font-bold text-on-surface mb-2">Spanish Latte</h3>
+<div class="mt-auto flex items-center justify-between">
+<span class="text-primary font-extrabold">₱160.00</span>
+<div class="w-8 h-8 rounded-full bg-primary-fixed flex items-center justify-center text-on-primary-fixed group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined text-sm">add</span>
+</div>
+</div>
+</button>
+<!-- Product Card 4 -->
+<button class="group relative flex flex-col text-left bg-surface-container-lowest rounded-xl p-4 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 active:scale-95">
+<div class="w-full aspect-[4/3] rounded-lg overflow-hidden mb-4 bg-surface-container-high">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Warm blueberry muffin with bursting berries on a white plate with soft morning light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAcAMkpFOcadsxBSUfHt4IlvXUg2CdjwOQgLBSZc2LuXBxIzmlJVs9ZPyubumurIz08Ph0M_tCEOwMTYMFA4k41Ykq4XfHddG_qVCwO9pDzUm_jjNAi1z2bSL0VizVDvZ9dI6lSkP_BoySabvYyL8ueoPIeSIneioexEwWVN9an9ubJCMPf5tLDPSrOMZ_N1uJgSYOn4Ct7FAxwZFEkHxlHjkyAK13obhUpoz0GBcl29-1ccUJj5RYys_pN8g9ZapHF3eu6dq5gB1o"/>
+</div>
+<p class="text-[10px] font-bold text-tertiary uppercase tracking-wider mb-1">Pastries</p>
+<h3 class="font-bold text-on-surface mb-2">Blueberry Muffin</h3>
+<div class="mt-auto flex items-center justify-between">
+<span class="text-primary font-extrabold">₱75.00</span>
+<div class="w-8 h-8 rounded-full bg-primary-fixed flex items-center justify-center text-on-primary-fixed group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined text-sm">add</span>
+</div>
+</div>
+</button>
+<!-- Product Card 5 -->
+<button class="group relative flex flex-col text-left bg-surface-container-lowest rounded-xl p-4 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 active:scale-95">
+<div class="w-full aspect-[4/3] rounded-lg overflow-hidden mb-4 bg-surface-container-high">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Decadent chocolate cake slice with rich dark ganache frosting on a marble plate" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjT_6iGxNG0A8OlPaMNHKnavOU9AEtVcyBq8Q6nmvDXqJd4TLDmQ5cb0RvQJgWw54n83rQSVlJpwW19VxTxcuktnRhJPYhDuBzmZU4BIAagHTfKrAr0_AM-lIc6mLZE20w7BzXmeIeoOY_fYL8mhDUJYlWw5zLMNzJ6A2cMQn2qyecIr_kxX2FC2rf8ITsFW17o4c_2nSf9WRnyaEiGuWjQUCWtsZt64sKA4ADbcuxdMM1Zv8IKRVO5AKChaiNQSaRWd0gjyg8q9k"/>
+</div>
+<p class="text-[10px] font-bold text-tertiary uppercase tracking-wider mb-1">Cakes</p>
+<h3 class="font-bold text-on-surface mb-2">Ube Overload Cake</h3>
+<div class="mt-auto flex items-center justify-between">
+<span class="text-primary font-extrabold">₱220.00</span>
+<div class="w-8 h-8 rounded-full bg-primary-fixed flex items-center justify-center text-on-primary-fixed group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined text-sm">add</span>
+</div>
+</div>
+</button>
+<!-- Product Card 6 -->
+<button class="group relative flex flex-col text-left bg-surface-container-lowest rounded-xl p-4 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 active:scale-95">
+<div class="w-full aspect-[4/3] rounded-lg overflow-hidden mb-4 bg-surface-container-high">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Traditional Spanish churros with cinnamon sugar and a bowl of chocolate dipping sauce" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDEEFrQtBLw26EYEaGHhn-zHOoKE97x1GgIXRJc15TmXNUeqZn5O3jq3KOv0sYBC-0w5klW3J-Q-Qxetpk-0O8590JZrdSCxrWSb8R_Z0zRCWEAkeGkLTd3Za08nDqKYaJMiXYUYfVqkjmgDXw-erZq97IA3lK0o_gDpeEZyczOdkLfofqdZ_RMTxIc4BOtogxPFyTPYTYn-iHGWBkwfCyy9KU3H2P5nmKcXO2hlkRkkZ3m_2SI8qN-DY0VecseBRxTiK4bxaCyIdU"/>
+</div>
+<p class="text-[10px] font-bold text-tertiary uppercase tracking-wider mb-1">Pastries</p>
+<h3 class="font-bold text-on-surface mb-2">Churros con Chocolate</h3>
+<div class="mt-auto flex items-center justify-between">
+<span class="text-primary font-extrabold">₱140.00</span>
+<div class="w-8 h-8 rounded-full bg-primary-fixed flex items-center justify-center text-on-primary-fixed group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined text-sm">add</span>
+</div>
+</div>
+</button>
+</div>
+</section>
+<!-- Current Order Sidebar -->
+<section class="w-[420px] bg-white border-l border-outline-variant/10 flex flex-col shadow-[-16px_0_40px_rgba(0,0,0,0.02)]">
+<div class="p-8">
+<div class="flex items-center justify-between mb-8">
+<h2 class="text-xl font-extrabold text-on-surface tracking-tight">Current Order</h2>
+<span class="bg-surface-container px-3 py-1 rounded-full text-[11px] font-bold text-on-surface-variant uppercase tracking-wider">Order #4402</span>
+</div>
+<!-- Order Items List -->
+<div class="space-y-6 max-h-[460px] overflow-y-auto pr-2">
+<!-- Item 1 -->
+<div class="flex items-center gap-4 group">
+<div class="w-16 h-16 rounded-lg bg-surface-container overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="Close-up of artisan bread texture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuABFmaGDOE5NLPQFnK_GIonAZn2uGfLWl3ZIiXDVQaQIxaZRx2v0R2raDQvVTT4hTnryR4nsmakH5JKAxwfi47KHH3IPqo-X9GElwJfqR_ZQMzn4_pWFX6nZHBspooC8WSRMmmI6xxb2j9swPPFDIErQauYukgLGM79xd4NdcL2AnMHLenCCoF9xXPEcn7QL2n2lXgSCnClVysfd58dZ-SdasDi3rOrR8eiKDg6s7yJgHMjJQ0M33ySlCJrklJv4Lz8NK9B22GYrlA"/>
+</div>
+<div class="flex-1">
+<h4 class="font-bold text-sm text-on-surface">Classic Sourdough</h4>
+<p class="text-xs text-on-surface-variant">Whole Loaf</p>
+</div>
+<div class="flex items-center gap-3">
+<div class="flex items-center bg-surface-container rounded-full px-2 py-1">
+<button class="w-6 h-6 flex items-center justify-center text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined text-base">remove</span></button>
+<span class="w-6 text-center text-sm font-bold">1</span>
+<button class="w-6 h-6 flex items-center justify-center text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined text-base">add</span></button>
+</div>
+<span class="text-sm font-bold w-16 text-right">₱185.00</span>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="flex items-center gap-4 group">
+<div class="w-16 h-16 rounded-lg bg-surface-container overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="Espresso in a white cup" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZI6R1WGorw3hVjsfT_mOqXbkksBSLFQ7FghTOmSgccoY_uqQXmJ9o92eHx-eo2Ym8S1o_RJooaSQ22q7gJtfjCRu9B_5dw94_MKGWZrLe9357BKWaec-p2HZIXI3WvvA-ZovdBMeVZdIw-c9QXeyyyc12HdwBEgYe-1c-UdVgAeEGjkX4O3x_sdr0kp7kpWsQK2ALyLRLeCb10aNBXw_fPFszrPaQTKuJ5i-fGdz7ZHK8lEL2-jkjO_WBx6usyZ71x0WCPnJSMGk"/>
+</div>
+<div class="flex-1">
+<h4 class="font-bold text-sm text-on-surface">Spanish Latte</h4>
+<p class="text-xs text-on-surface-variant">Large, Less Ice</p>
+</div>
+<div class="flex items-center gap-3">
+<div class="flex items-center bg-surface-container rounded-full px-2 py-1">
+<button class="w-6 h-6 flex items-center justify-center text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined text-base">remove</span></button>
+<span class="w-6 text-center text-sm font-bold">2</span>
+<button class="w-6 h-6 flex items-center justify-center text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined text-base">add</span></button>
+</div>
+<span class="text-sm font-bold w-16 text-right">₱320.00</span>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="flex items-center gap-4 group">
+<div class="w-16 h-16 rounded-lg bg-surface-container overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="Detail of a muffin" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDslv6eTGGfwA8zTihMAfQBnC7Bk4hvTCASgbgVBg4TFCdQOV0xmsiofJ9aeBVaEa34e_jNrKf-PNEJp9Cp3P31-mdzyWuxyvZKeP0Yi52Wa1EEG7MSmtC4sY1vPEpysU6ReRP68XrpIo0AGi9bLyGDlW5wRT1T6ZZQyNK5NOEZAPOLTJ9LaRZXejUJYqII1-Q1Pxu1qDNDwAT5OeW8cEJmQnITe-k_B3mBQ5fw9AhDYzbxuwEoqBBPJYcqt23OluDGK1-btUB9cAw"/>
+</div>
+<div class="flex-1">
+<h4 class="font-bold text-sm text-on-surface">Blueberry Muffin</h4>
+<p class="text-xs text-on-surface-variant">Warm</p>
+</div>
+<div class="flex items-center gap-3">
+<div class="flex items-center bg-surface-container rounded-full px-2 py-1">
+<button class="w-6 h-6 flex items-center justify-center text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined text-base">remove</span></button>
+<span class="w-6 text-center text-sm font-bold">1</span>
+<button class="w-6 h-6 flex items-center justify-center text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined text-base">add</span></button>
+</div>
+<span class="text-sm font-bold w-16 text-right">₱75.00</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Calculation & Checkout -->
+<div class="mt-auto p-8 bg-surface-container-low/50">
+<div class="space-y-3 mb-8">
+<div class="flex justify-between text-sm">
+<span class="text-on-surface-variant">Subtotal</span>
+<span class="font-bold">₱580.00</span>
+</div>
+<div class="flex justify-between text-sm">
+<span class="text-on-surface-variant">Service Tax (12%)</span>
+<span class="font-bold">₱69.60</span>
+</div>
+<div class="flex justify-between text-sm">
+<span class="text-on-surface-variant">Discount</span>
+<span class="text-primary font-bold">-₱20.00</span>
+</div>
+<div class="pt-4 mt-2 border-t border-outline-variant/20 flex justify-between">
+<span class="text-lg font-extrabold text-on-surface">Total</span>
+<span class="text-2xl font-black text-primary tracking-tight">₱629.60</span>
+</div>
+</div>
+<!-- Payment Methods -->
+<div class="grid grid-cols-3 gap-3 mb-8">
+<button class="flex flex-col items-center gap-2 p-3 rounded-xl border border-outline-variant hover:bg-white hover:shadow-md transition-all">
+<span class="material-symbols-outlined text-on-surface-variant">payments</span>
+<span class="text-[10px] font-bold uppercase">Cash</span>
+</button>
+<button class="flex flex-col items-center gap-2 p-3 rounded-xl border-2 border-primary bg-white shadow-md transition-all">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">credit_card</span>
+<span class="text-[10px] font-bold uppercase text-primary">Card</span>
+</button>
+<button class="flex flex-col items-center gap-2 p-3 rounded-xl border border-outline-variant hover:bg-white hover:shadow-md transition-all">
+<span class="material-symbols-outlined text-on-surface-variant">qr_code_2</span>
+<span class="text-[10px] font-bold uppercase">E-Wallet</span>
+</button>
+</div>
+<!-- Action Button -->
+<button class="w-full bg-primary hover:bg-primary-container text-on-primary py-5 rounded-2xl font-extrabold text-lg shadow-xl shadow-primary/20 transition-all active:scale-[0.98] flex items-center justify-center gap-3">
+<span class="material-symbols-outlined">shopping_cart_checkout</span>
+                    Complete Transaction
+                </button>
+</div>
+</section>
+</main>
+<!-- FAB Contextual (Only shown for quick actions like new customer) -->
+<button class="fixed bottom-8 right-[452px] w-16 h-16 bg-secondary text-on-secondary rounded-full flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all z-50">
+<span class="material-symbols-outlined text-3xl">person_add</span>
+</button>
+</body></html>

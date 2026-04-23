@@ -1,294 +1,436 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-	import { pb } from '$lib/pocketbase';
 	import ArtisanalCard from '$lib/components/artisanal/ArtisanalCard.svelte';
-    import BakingLoader from '$lib/components/BakingLoader.svelte';
+	import BakingLoader from '$lib/components/BakingLoader.svelte';
+	import PaginatedTable from '$lib/components/PaginatedTable.svelte';
+	import { branchesState } from '$lib/states/branches.svelte';
+	import { reportsState } from '$lib/states/reports.svelte';
+	import { onMount } from 'svelte';
 
-	let totalRevenue = $state(0);
-	let orderCount = $state(0);
-	let avgTicket = $state(0);
-	let bestSeller = $state<any>(null);
-	let recentOrders = $state<any[]>([]);
-	let loading = $state(true);
+	const PIE_COLORS = ['text-primary', 'text-primary-container', 'text-secondary-container'];
+	const PIE_DOT_COLORS = [
+		'bg-primary shadow-[0_0_8px_rgba(155,64,0,0.4)]',
+		'bg-primary-container/60',
+		'bg-surface-container-highest'
+	];
 
-	onMount(async () => {
-		try {
-			const startOfDay = new Date();
-			startOfDay.setHours(0, 0, 0, 0);
+	let maxVal = $derived(
+		Math.max(...reportsState.weeklyData.map((d) => Math.max(d.revenue, d.expense)), 1)
+	);
+	let selectedBranchName = $derived(branchesState.selectedBranchId || 'All Operations');
 
-			// Clean format for PocketBase
-			const filterDate = startOfDay.toISOString().replace('T', ' ').split('.')[0];
-			const filter = `created >= '${filterDate}'`;
+	onMount(() => reportsState.load());
 
-			const [orders, orderItems] = await Promise.all([
-				pb.collection('orders').getFullList({ 
-					filter,
-					sort: '-created',
-					expand: 'cashier',
-					requestKey: null
-				}),
-				pb.collection('order_items').getFullList({
-					filter,
-					expand: 'product',
-					requestKey: null
-				})
-			]);
-
-			recentOrders = orders;
-			orderCount = orders.length;
-			totalRevenue = orders.reduce((acc, o) => acc + o.total, 0);
-			avgTicket = orderCount > 0 ? totalRevenue / orderCount : 0;
-
-			const salesMap = new Map();
-			orderItems.forEach((item) => {
-				const prodId = item.product;
-				if (item.expand?.product) {
-					const current = salesMap.get(prodId) || { name: item.expand.product.name, count: 0, image: item.expand.product.image, product: item.expand.product };
-					current.count += item.quantity;
-					salesMap.set(prodId, current);
-				}
-			});
-
-			const sorted = Array.from(salesMap.values()).sort((a, b) => b.count - a.count);
-			if (sorted.length > 0) {
-				bestSeller = sorted[0];
-			}
-		} catch (error: any) {
-			console.error('--- Reports Error Info ---');
-			console.error('Error Object:', error);
-			if (error.data) console.error('Error Data:', JSON.stringify(error.data, null, 2));
-			if (error.originalError) console.error('Original Error:', error.originalError);
-			console.error('--------------------------');
-		} finally {
-			loading = false;
+	$effect(() => {
+		if (branchesState.selectedBranchId) {
+			reportsState.load();
 		}
 	});
 </script>
 
-<div class="px-6 py-10 md:px-12 max-w-[1600px] mx-auto overflow-hidden">
-	<!-- Top Bar / Actions (Desktop) -->
-	<header class="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
+<svelte:head>
+	<title>Analytics & Yields | tinAPPay ERP</title>
+</svelte:head>
+
+<div class="mx-auto max-w-[1600px] animate-in px-6 py-10 duration-700 fade-in md:px-12">
+	<header class="mb-12 flex flex-col justify-between gap-6 md:flex-row md:items-end">
 		<div>
-			<h1 class="text-4xl md:text-5xl font-black text-on-surface tracking-tight mb-3 font-serif">Analytics & Reports</h1>
-			<p class="text-on-surface-variant text-lg max-w-2xl font-medium leading-relaxed">Real-time performance metrics and deep financial auditing for your bakery.</p>
-		</div>
-		<div class="flex items-center gap-3">
-			<button class="flex items-center gap-2 px-6 py-3 rounded-full border border-outline-variant/20 bg-surface-container-lowest text-sm font-bold hover:bg-surface-container-low transition-all">
-				<span class="material-symbols-outlined text-primary">calendar_today</span>
-				Oct 24, 2024
-			</button>
-			<button class="flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-white text-sm font-bold shadow-lg shadow-primary/20 hover:scale-105 transition-all uppercase tracking-widest">
-				<span class="material-symbols-outlined">file_download</span>
-				Export
-			</button>
+			<h1 class="font-serif text-4xl font-black tracking-tight text-on-surface md:text-5xl">
+				Analytics & Reports
+			</h1>
+			<p class="mt-3 max-w-2xl text-lg leading-relaxed font-medium text-on-surface-variant">
+				Comprehensive audit for <span class="font-bold text-primary">{selectedBranchName}</span>.
+				Monitoring throughput, sales velocity, and fiscal yields.
+			</p>
 		</div>
 	</header>
 
-	{#if loading}
+	{#if reportsState.loading}
 		<div class="flex h-64 items-center justify-center">
 			<BakingLoader />
 		</div>
 	{:else}
-		<!-- TOP ROW: HERO METRICS -->
-		<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-10 animate-in fade-in slide-in-from-bottom-4 duration-500">
-			<!-- Revenue -->
-			<ArtisanalCard level="lowest" class="relative overflow-hidden border border-outline-variant/10 shadow-sm group hover:shadow-md">
-				<div class="absolute -top-10 -right-10 h-32 w-32 rounded-full bg-primary/5 group-hover:scale-110 transition-transform"></div>
-				<div class="flex items-center justify-between mb-6">
-					<div class="h-12 w-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary shadow-inner">
+		<!-- HERO METRICS BENTO -->
+		<div class="mb-12 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+			<!-- Net Yield (The most important) -->
+			<div
+				class="group relative overflow-hidden rounded-[2.5rem] border border-primary/20 bg-gradient-to-br from-primary to-primary-container p-8 text-white shadow-2xl shadow-primary/20 transition-all hover:scale-[1.02]"
+			>
+				<div class="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent"></div>
+				<div class="relative z-10">
+					<div class="mb-8 flex items-center justify-between">
+						<div
+							class="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/20 shadow-inner backdrop-blur-md"
+						>
+							<span class="material-symbols-outlined text-3xl text-white"
+								>account_balance_wallet</span
+							>
+						</div>
+						<span
+							class="rounded-full bg-white/10 px-3 py-1 text-[10px] font-black tracking-widest text-white/70 uppercase"
+							>Weekly Profit</span
+						>
+					</div>
+					<p class="mb-1 text-[10px] font-black tracking-[0.2em] text-white/70 uppercase">
+						Fiscal Balance
+					</p>
+					<h3 class="font-serif text-5xl font-black tracking-tighter text-white">
+						₱{reportsState.netProfit.toLocaleString(undefined, { minimumFractionDigits: 2 })}
+					</h3>
+					<div
+						class="mt-6 flex items-center gap-2 text-[10px] font-bold tracking-widest text-white/60 uppercase"
+					>
+						<span class="material-symbols-outlined text-sm">info</span>
+						After Weekly Expenses
+					</div>
+				</div>
+				<div
+					class="absolute right-4 bottom-4 transform opacity-20 transition-transform duration-700 group-hover:rotate-12"
+				>
+					<span class="material-symbols-outlined text-9xl">show_chart</span>
+				</div>
+			</div>
+
+			<!-- Gross Revenue -->
+			<ArtisanalCard
+				level="lowest"
+				class="group relative overflow-hidden border border-outline-variant/10 shadow-sm"
+			>
+				<div class="mb-6 flex items-center justify-between">
+					<div
+						class="flex h-12 w-12 items-center justify-center rounded-2xl bg-tertiary/10 text-tertiary shadow-inner"
+					>
 						<span class="material-symbols-outlined">payments</span>
 					</div>
-					<span class="text-[10px] font-black text-tertiary bg-tertiary-container/20 px-2 py-1 rounded-lg tracking-widest">+12.4%</span>
+					<span
+						class="rounded-lg bg-tertiary/10 px-2 py-1 text-[10px] font-black tracking-widest text-tertiary uppercase"
+						>Inflow</span
+					>
 				</div>
-				<p class="text-[10px] font-black text-on-surface-variant uppercase tracking-[0.2em] mb-1">Total Revenue</p>
-				<h3 class="text-4xl font-serif font-black text-on-surface tracking-tighter">${totalRevenue.toFixed(2)}</h3>
+				<p class="mb-1 text-[10px] font-black tracking-[0.2em] text-on-surface-variant uppercase">
+					Today's Revenue
+				</p>
+				<h3 class="font-serif text-4xl font-black tracking-tighter text-on-surface">
+					₱{reportsState.totalRevenue.toLocaleString()}
+				</h3>
+				<p
+					class="mt-4 flex items-center gap-1 text-[9px] font-bold tracking-widest text-on-surface-variant/60 uppercase"
+				>
+					<span class="material-symbols-outlined text-xs">receipt</span>
+					{reportsState.orderCount} Orders Processed
+				</p>
 			</ArtisanalCard>
 
-			<!-- Orders -->
-			<ArtisanalCard level="lowest" class="relative overflow-hidden border border-outline-variant/10 shadow-sm group hover:shadow-md">
-				<div class="flex items-center justify-between mb-6">
-					<div class="h-12 w-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary shadow-inner">
-						<span class="material-symbols-outlined">receipt_long</span>
+			<!-- Inventory Health -->
+			<ArtisanalCard
+				level="lowest"
+				class="group relative overflow-hidden border border-outline-variant/10 shadow-sm"
+			>
+				<div class="mb-6 flex items-center justify-between">
+					<div
+						class="flex h-12 w-12 items-center justify-center rounded-2xl bg-secondary/10 text-secondary shadow-inner"
+					>
+						<span class="material-symbols-outlined">inventory_2</span>
 					</div>
-					<span class="text-[10px] font-black text-error bg-error-container/10 px-2 py-1 rounded-lg tracking-widest">-4.2%</span>
+					<span
+						class="rounded-lg bg-secondary/10 px-2 py-1 text-[10px] font-black tracking-widest text-secondary uppercase"
+						>Assets</span
+					>
 				</div>
-				<p class="text-[10px] font-black text-on-surface-variant uppercase tracking-[0.2em] mb-1">Total Orders</p>
-				<h3 class="text-4xl font-serif font-black text-on-surface tracking-tighter">{orderCount}</h3>
+				<p class="mb-1 text-[10px] font-black tracking-[0.2em] text-on-surface-variant uppercase">
+					Inventory Value
+				</p>
+				<h3 class="font-serif text-4xl font-black tracking-tighter text-on-surface">
+					₱{reportsState.inventoryValue.toLocaleString()}
+				</h3>
+				<div class="mt-4 flex items-center gap-2">
+					<span
+						class="rounded-md bg-error/10 px-2 py-0.5 text-[9px] font-black tracking-tighter text-error uppercase"
+					>
+						{reportsState.criticalItems} Critical Items
+					</span>
+				</div>
 			</ArtisanalCard>
 
-			<!-- Average Ticket -->
-			<ArtisanalCard level="lowest" class="relative overflow-hidden border border-outline-variant/10 shadow-sm group hover:shadow-md">
-				<div class="flex items-center justify-between mb-6">
-					<div class="h-12 w-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary shadow-inner">
-						<span class="material-symbols-outlined">trending_up</span>
+			<!-- Labor Productivity -->
+			<ArtisanalCard
+				level="lowest"
+				class="group relative overflow-hidden border border-outline-variant/10 shadow-sm"
+			>
+				<div class="mb-6 flex items-center justify-between">
+					<div
+						class="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 text-primary shadow-inner"
+					>
+						<span class="material-symbols-outlined">groups</span>
 					</div>
-					<span class="text-[10px] font-black text-tertiary bg-tertiary-container/20 px-2 py-1 rounded-lg tracking-widest">+18%</span>
+					<span
+						class="rounded-lg bg-primary/10 px-2 py-1 text-[10px] font-black tracking-widest text-primary uppercase"
+						>Staff</span
+					>
 				</div>
-				<p class="text-[10px] font-black text-on-surface-variant uppercase tracking-[0.2em] mb-1">Avg Ticket</p>
-				<h3 class="text-4xl font-serif font-black text-on-surface tracking-tighter">${avgTicket.toFixed(2)}</h3>
+				<p class="mb-1 text-[10px] font-black tracking-[0.2em] text-on-surface-variant uppercase">
+					Sales / Labor Hour
+				</p>
+				<h3 class="font-serif text-4xl font-black tracking-tighter text-on-surface">
+					₱{reportsState.salesPerLaborHour.toLocaleString(undefined, { maximumFractionDigits: 0 })}
+				</h3>
+				<p class="mt-4 text-[9px] font-bold tracking-widest text-on-surface-variant/60 uppercase">
+					Across {reportsState.totalLaborHours.toFixed(1)} Man-Hours (Week)
+				</p>
 			</ArtisanalCard>
-
-			<!-- Top Performer -->
-			{#if bestSeller}
-				<div class="relative overflow-hidden rounded-[2rem] border border-primary/20 bg-gradient-to-br from-primary to-primary-container text-white p-8 shadow-xl shadow-primary/20 group hover:scale-[1.02] transition-all">
-					<div class="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent"></div>
-					<p class="relative z-10 text-[10px] font-black text-on-primary/70 uppercase tracking-[0.3em] mb-6">Top Performer</p>
-					<h3 class="relative z-10 text-2xl font-serif font-black mb-1 leading-tight">{bestSeller.name}</h3>
-					<p class="relative z-10 text-sm font-bold text-on-primary/80 uppercase tracking-widest">{bestSeller.count} Sold Today</p>
-					<div class="absolute bottom-4 right-4 opacity-20 transform group-hover:rotate-12 transition-transform duration-700">
-						<span class="material-symbols-outlined text-7xl">star</span>
-					</div>
-				</div>
-			{/if}
 		</div>
 
-		<!-- MIDDLE ROW: TRENDS & ANALYTICS -->
-		<div class="grid grid-cols-1 xl:grid-cols-3 gap-8 mb-12">
-			<!-- Sales Trend Chart -->
-			<ArtisanalCard level="lowest" class="xl:col-span-2 border border-outline-variant/10 shadow-sm">
-				<div class="flex items-center justify-between mb-12">
+		<!-- SECOND ROW: TRENDS & MIX -->
+		<div class="mb-12 grid grid-cols-1 gap-8 xl:grid-cols-3">
+			<!-- Revenue vs Expense Chart -->
+			<ArtisanalCard
+				level="lowest"
+				class="border border-outline-variant/10 p-10 shadow-sm xl:col-span-2"
+			>
+				<div class="mb-12 flex items-center justify-between">
 					<div>
-						<h3 class="text-2xl font-black text-on-surface font-serif tracking-tight">Sales Velocity</h3>
-						<p class="text-xs text-on-surface-variant font-bold uppercase tracking-widest mt-1">Revenue trend over the last cycle</p>
+						<h3 class="font-serif text-2xl font-black tracking-tight text-on-surface uppercase">
+							Financial Velocity
+						</h3>
+						<p
+							class="mt-1 text-[10px] font-black tracking-widest text-on-surface-variant uppercase"
+						>
+							Weekly Income vs Operational Expenses
+						</p>
 					</div>
-					<div class="flex p-1 bg-surface-container rounded-xl">
-						<button class="px-4 py-2 rounded-lg bg-white shadow-sm text-[10px] font-black text-primary uppercase tracking-widest">Revenue</button>
-						<button class="px-4 py-2 rounded-lg text-[10px] font-black text-on-surface-variant uppercase tracking-widest hover:text-on-surface transition-all">Volume</button>
+					<div class="flex items-center gap-6">
+						<div class="flex items-center gap-2">
+							<span class="h-3 w-3 rounded-full bg-primary shadow-lg shadow-primary/20"></span>
+							<span class="text-[9px] font-black tracking-widest text-on-surface-variant uppercase"
+								>Revenue</span
+							>
+						</div>
+						<div class="flex items-center gap-2">
+							<span class="h-3 w-3 rounded-full bg-surface-container-highest"></span>
+							<span class="text-[9px] font-black tracking-widest text-on-surface-variant uppercase"
+								>Expense</span
+							>
+						</div>
 					</div>
 				</div>
-				
-				<div class="relative flex h-64 w-full items-end justify-between px-4 pb-2">
-					<!-- Grid Lines -->
-					<div class="absolute inset-0 flex flex-col justify-between opacity-[0.03] pointer-events-none px-4">
-						{#each Array(5) as _}
-							<div class="w-full h-px bg-on-surface"></div>
+
+				<div class="relative flex h-80 w-full items-end justify-between px-4 pb-4">
+					<div
+						class="pointer-events-none absolute inset-0 flex flex-col justify-between px-4 opacity-[0.05]"
+					>
+						{#each Array(6) as _}
+							<div class="h-px w-full bg-on-surface"></div>
 						{/each}
 					</div>
-					
-					{#each ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'] as day, i}
-						<div class="group relative flex flex-col items-center gap-6 w-full">
-							<div class="absolute -top-14 opacity-0 group-hover:opacity-100 transition-all bg-on-surface text-surface text-[10px] font-black px-3 py-1.5 rounded-full shadow-2xl whitespace-nowrap z-10">
-								$ {(Math.random() * 500 + 300).toFixed(2)}
+
+					{#each reportsState.weeklyData as day}
+						<div class="group relative flex w-full flex-col items-center gap-6">
+							<!-- Tooltip -->
+							<div
+								class="absolute -top-20 z-10 flex flex-col gap-1 rounded-2xl bg-on-surface p-4 text-[10px] font-black whitespace-nowrap text-surface opacity-0 shadow-2xl transition-all group-hover:opacity-100"
+							>
+								<span class="text-surface/50">{day.fullDate}</span>
+								<span class="text-primary">REV: ₱{day.revenue.toLocaleString()}</span>
+								<span class="text-surface/70">EXP: ₱{day.expense.toLocaleString()}</span>
+								<span class="mt-1 border-t border-surface/20 pt-1 text-white"
+									>NET: ₱{day.profit.toLocaleString()}</span
+								>
 							</div>
-							<div 
-								class="w-10 md:w-14 lg:w-20 rounded-t-[1.5rem] transition-all duration-700 cursor-pointer shadow-inner
-								{i === 3 ? 'bg-primary shadow-[0_0_20px_rgba(155,64,0,0.3)] h-full' : 'bg-surface-container-high group-hover:bg-primary-container/40'}" 
-								style="height: {Math.random() * 150 + 50}px"
-							></div>
-							<span class="text-[10px] font-black {i === 3 ? 'text-primary' : 'text-on-surface-variant'} uppercase tracking-[0.2em]">{day}</span>
+
+							<div class="flex items-end gap-1">
+								<!-- Revenue Bar -->
+								<div
+									class="w-4 rounded-t-xl bg-primary shadow-lg shadow-primary/10 transition-all duration-700 group-hover:scale-x-110 sm:w-6 lg:w-8"
+									style="height: {(day.revenue / maxVal) * 260 || 4}px"
+								></div>
+								<!-- Expense Bar -->
+								<div
+									class="w-4 rounded-t-xl bg-surface-container-highest transition-all duration-700 group-hover:scale-x-110 sm:w-6 lg:w-8"
+									style="height: {(day.expense / maxVal) * 260 || 4}px"
+								></div>
+							</div>
+							<span class="text-[10px] font-black tracking-[0.2em] text-on-surface-variant/40"
+								>{day.label}</span
+							>
 						</div>
 					{/each}
 				</div>
 			</ArtisanalCard>
 
-			<!-- Distribution -->
-			<ArtisanalCard level="lowest" class="border border-outline-variant/10 shadow-sm flex flex-col">
-				<h3 class="text-2xl font-black text-on-surface font-serif tracking-tight mb-10">Category Mix</h3>
-				<div class="flex-1 flex flex-col justify-center">
-					<div class="relative h-56 w-56 mx-auto mb-12">
-						<svg viewBox="0 0 36 36" class="w-full h-full transform -rotate-90">
-							<circle cx="18" cy="18" r="16" fill="none" stroke="currentColor" stroke-width="4" class="text-surface-container-low"></circle>
-							<circle cx="18" cy="18" r="16" fill="none" stroke="currentColor" stroke-width="4" class="text-primary shadow-xl" stroke-dasharray="65 100"></circle>
-							<circle cx="18" cy="18" r="16" fill="none" stroke="currentColor" stroke-width="4" class="text-primary-container/40" stroke-dasharray="25 100" stroke-dashoffset="-65"></circle>
-						</svg>
-						<div class="absolute inset-0 flex flex-col items-center justify-center">
-							<span class="text-4xl font-serif font-black text-on-surface tracking-tighter">65%</span>
-							<span class="text-[9px] font-black text-on-surface-variant uppercase tracking-[0.2em] mt-1">Sourdough</span>
+			<!-- Category Mix -->
+			<ArtisanalCard
+				level="lowest"
+				class="flex flex-col border border-outline-variant/10 p-10 shadow-sm"
+			>
+				<h3 class="mb-12 font-serif text-2xl font-black tracking-tight text-on-surface uppercase">
+					Portfolio Mix
+				</h3>
+				<div class="flex flex-1 flex-col justify-center">
+					{#if reportsState.categoryBreakdown.length === 0}
+						<div class="flex flex-col items-center justify-center py-20 text-center opacity-40">
+							<span class="material-symbols-outlined mb-4 text-5xl text-primary">donut_large</span>
+							<p class="text-[10px] font-black tracking-widest text-on-surface-variant uppercase">
+								No data to display
+							</p>
 						</div>
-					</div>
-					<div class="space-y-4 px-4">
-						<div class="flex items-center justify-between group cursor-pointer">
-							<div class="flex items-center gap-3">
-								<div class="h-2.5 w-2.5 rounded-full bg-primary shadow-[0_0_8px_rgba(155,64,0,0.4)]"></div>
-								<span class="text-xs font-bold text-on-surface group-hover:text-primary transition-colors uppercase tracking-widest">Artisan Breads</span>
+					{:else}
+						<div class="relative mx-auto mb-16 h-64 w-64">
+							<svg viewBox="0 0 36 36" class="h-full w-full -rotate-90 transform drop-shadow-2xl">
+								<circle
+									cx="18"
+									cy="18"
+									r="16"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="4"
+									class="text-surface-container-low"
+								></circle>
+								{#each reportsState.categoryBreakdown as cat, i}
+									<circle
+										cx="18"
+										cy="18"
+										r="16"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="4"
+										class={PIE_COLORS[i] || 'text-outline-variant'}
+										stroke-dasharray="{cat.pct} 100"
+										stroke-dashoffset={-cat.offset}
+										stroke-linecap="round"
+									></circle>
+								{/each}
+							</svg>
+							<div class="absolute inset-0 flex flex-col items-center justify-center">
+								<span class="font-serif text-5xl font-black tracking-tighter text-on-surface"
+									>{reportsState.categoryBreakdown[0]?.pct ?? 0}%</span
+								>
+								<span
+									class="mt-2 text-[10px] font-black tracking-[0.2em] text-on-surface-variant uppercase"
+									>{reportsState.categoryBreakdown[0]?.name ?? ''}</span
+								>
 							</div>
-							<span class="text-xs font-black text-on-surface">65.2%</span>
 						</div>
-						<div class="flex items-center justify-between group cursor-pointer">
-							<div class="flex items-center gap-3">
-								<div class="h-2.5 w-2.5 rounded-full bg-primary-container/40"></div>
-								<span class="text-xs font-bold text-on-surface group-hover:text-primary transition-colors uppercase tracking-widest">Pastries</span>
-							</div>
-							<span class="text-xs font-black text-on-surface">24.8%</span>
+						<div class="space-y-6 px-4">
+							{#each reportsState.categoryBreakdown as cat, i}
+								<div class="group flex cursor-pointer items-center justify-between">
+									<div class="flex items-center gap-3">
+										<div
+											class="h-3 w-3 rounded-full {PIE_DOT_COLORS[i] || 'bg-outline-variant'}"
+										></div>
+										<span
+											class="text-xs font-black tracking-widest text-on-surface uppercase transition-colors group-hover:text-primary"
+											>{cat.name}</span
+										>
+									</div>
+									<div class="flex items-center gap-4">
+										<span class="text-[10px] font-bold text-on-surface-variant"
+											>{cat.count} Units</span
+										>
+										<span class="text-sm font-black text-on-surface">{cat.pct}%</span>
+									</div>
+								</div>
+							{/each}
 						</div>
-						<div class="flex items-center justify-between group cursor-pointer">
-							<div class="flex items-center gap-3">
-								<div class="h-2.5 w-2.5 rounded-full bg-surface-container-highest"></div>
-								<span class="text-xs font-bold text-on-surface group-hover:text-primary transition-colors uppercase tracking-widest">Beverages</span>
-							</div>
-							<span class="text-xs font-black text-on-surface">10.0%</span>
-						</div>
-					</div>
+					{/if}
 				</div>
 			</ArtisanalCard>
 		</div>
 
-		<!-- BOTTOM ROW: DATA TABLES -->
+		<!-- RECENT THROUGHPUT -->
 		<section class="mb-12">
-			<div class="flex items-center justify-between mb-8 px-2">
+			<div class="mb-8 flex items-center justify-between px-2">
 				<div>
-					<h3 class="text-3xl font-black text-on-surface font-serif tracking-tight">Recent Transactions</h3>
-					<p class="text-xs text-on-surface-variant font-bold uppercase tracking-widest mt-1">Full audit log of bakery sales terminal</p>
+					<h3 class="font-serif text-3xl font-black tracking-tight text-on-surface uppercase">
+						Throughput Audit
+					</h3>
+					<p class="mt-1 text-xs font-bold tracking-widest text-on-surface-variant uppercase">
+						Verified log of today's terminal activity
+					</p>
 				</div>
-				<button class="text-[10px] font-black text-primary uppercase tracking-[0.3em] border-b-2 border-primary/10 hover:border-primary transition-all pb-1 active:scale-95">Full Ledger Access</button>
+				<button
+					class="text-[10px] font-black tracking-[0.2em] text-primary uppercase hover:underline"
+					>View Full Archive</button
+				>
 			</div>
 
-			<ArtisanalCard level="lowest" class="p-0 overflow-hidden border border-outline-variant/10 shadow-sm">
-				<div class="overflow-x-auto no-scrollbar">
-					<table class="w-full text-left border-collapse">
-						<thead>
-							<tr class="bg-surface-container-low text-on-surface-variant text-[10px] font-black uppercase tracking-[0.2em]">
-								<th class="px-8 py-5">Transaction ID</th>
-								<th class="px-8 py-5">Timestamp</th>
-								<th class="px-8 py-5">Operator</th>
-								<th class="px-8 py-5 text-right">Amount</th>
-								<th class="px-8 py-5 text-center">Status</th>
-								<th class="px-8 py-5 text-right">Action</th>
-							</tr>
-						</thead>
-						<tbody class="divide-y divide-outline-variant/5">
-							{#each recentOrders as order}
-								<tr class="hover:bg-surface-container-low/40 transition-colors group cursor-pointer">
-									<td class="px-8 py-6">
-										<span class="text-sm font-black text-on-surface uppercase tracking-tight">#TXN-{order.id.substring(0, 8)}</span>
-									</td>
-									<td class="px-8 py-6">
-										<div class="flex flex-col">
-											<span class="text-sm font-bold text-on-surface">{new Date(order.created).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
-											<span class="text-[9px] font-black text-on-surface-variant uppercase tracking-widest opacity-60">{new Date(order.created).toLocaleDateString()}</span>
-										</div>
-									</td>
-									<td class="px-8 py-6">
-										<div class="flex items-center gap-3">
-											<div class="h-9 w-9 rounded-full bg-primary/5 border border-primary/10 flex items-center justify-center text-primary text-[10px] font-black uppercase shadow-inner">
-												{order.expand?.cashier?.name?.substring(0, 2) || 'US'}
-											</div>
-											<span class="text-sm font-bold text-on-surface">{order.expand?.cashier?.name || 'Authorized Staff'}</span>
-										</div>
-									</td>
-									<td class="px-8 py-6 text-right">
-										<span class="font-serif font-black text-primary text-base">${order.total.toFixed(2)}</span>
-									</td>
-									<td class="px-8 py-6 text-center">
-										<span class="inline-flex items-center px-3 py-1 rounded-lg text-[9px] font-black uppercase tracking-[0.2em] bg-tertiary-container/30 text-tertiary border border-tertiary/10">
-											{order.status}
-										</span>
-									</td>
-									<td class="px-8 py-6 text-right">
-										<button class="h-10 w-10 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant hover:bg-primary hover:text-white transition-all active:scale-90 shadow-sm mx-auto">
-											<span class="material-symbols-outlined text-lg">arrow_forward</span>
-										</button>
-									</td>
-								</tr>
-							{/each}
-							{#if recentOrders.length === 0}
-								<tr>
-									<td colspan="6" class="px-8 py-24 text-center text-on-surface-variant opacity-40 font-black uppercase tracking-[0.3em] text-xs">The ledger is currently clear.</td>
-								</tr>
-							{/if}
-						</tbody>
-					</table>
-				</div>
+			<ArtisanalCard
+				level="lowest"
+				class="overflow-hidden border border-outline-variant/10 p-0 shadow-sm"
+			>
+				<PaginatedTable
+					items={reportsState.recentOrders}
+					pageSize={10}
+					tableClass="w-full border-collapse text-left"
+					emptyMessage="No throughput detected for this cycle."
+				>
+					{#snippet header()}
+						<tr
+							class="bg-surface-container text-[10px] font-black tracking-[0.2em] text-on-surface-variant uppercase"
+						>
+							<th class="px-8 py-6">Transaction ID</th>
+							<th class="px-8 py-6">Timestamp</th>
+							<th class="px-8 py-6">Operator</th>
+							<th class="px-8 py-6 text-right">Yield</th>
+							<th class="px-8 py-6 text-center">Status</th>
+							<th class="px-8 py-6 text-right">Audit</th>
+						</tr>
+					{/snippet}
+					{#snippet row(order)}
+						<tr
+							class="group cursor-pointer border-b border-outline-variant/5 transition-colors hover:bg-surface-container-low/40"
+						>
+							<td class="px-8 py-6">
+								<span class="text-xs font-black tracking-widest text-on-surface uppercase"
+									>#TXN-{order.id.substring(0, 8)}</span
+								>
+							</td>
+							<td class="px-8 py-6">
+								<div class="flex flex-col">
+									<span class="text-sm font-bold text-on-surface"
+										>{new Date(order.created).toLocaleTimeString([], {
+											hour: '2-digit',
+											minute: '2-digit'
+										})}</span
+									>
+									<span
+										class="text-[9px] font-black tracking-widest text-on-surface-variant uppercase opacity-60"
+										>{new Date(order.created).toLocaleDateString()}</span
+									>
+								</div>
+							</td>
+							<td class="px-8 py-6">
+								<div class="flex items-center gap-3">
+									<div
+										class="flex h-10 w-10 items-center justify-center rounded-xl border border-primary/10 bg-primary/5 text-[10px] font-black text-primary uppercase shadow-inner"
+									>
+										{order.expand?.cashier?.name?.substring(0, 2) || 'US'}
+									</div>
+									<span class="text-sm font-bold text-on-surface"
+										>{order.expand?.cashier?.name || 'Staff'}</span
+									>
+								</div>
+							</td>
+							<td class="px-8 py-6 text-right">
+								<span class="font-serif text-xl font-black tracking-tighter text-primary"
+									>₱{order.total.toLocaleString()}</span
+								>
+							</td>
+							<td class="px-8 py-6 text-center">
+								<span
+									class="inline-flex items-center rounded-lg border border-tertiary/10 bg-tertiary-container/30 px-3 py-1 text-[9px] font-black tracking-[0.2em] text-tertiary uppercase"
+								>
+									{order.status}
+								</span>
+							</td>
+							<td class="px-8 py-6 text-right">
+								<button
+									class="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-surface-container text-on-surface-variant shadow-sm transition-all hover:bg-primary hover:text-on-primary active:scale-90"
+								>
+									<span class="material-symbols-outlined text-lg">arrow_forward</span>
+								</button>
+							</td>
+						</tr>
+					{/snippet}
+				</PaginatedTable>
 			</ArtisanalCard>
 		</section>
 	{/if}
@@ -301,9 +443,5 @@
 	.no-scrollbar {
 		-ms-overflow-style: none;
 		scrollbar-width: none;
-	}
-	
-	table {
-		border-spacing: 0;
 	}
 </style>

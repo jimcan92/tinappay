@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TinAPPay Procurement | Artisan Hearth ERP</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-low": "#f3f0ec",
+                        "on-secondary": "#fff0e7",
+                        "on-primary-fixed-variant": "#5a2200",
+                        "on-tertiary": "#fcf1e6",
+                        "surface-tint": "#9b4000",
+                        "background": "#f9f6f2",
+                        "secondary-fixed": "#f1dfd4",
+                        "outline": "#787774",
+                        "tertiary": "#615a52",
+                        "primary-fixed": "#fe8848",
+                        "error-dim": "#b92902",
+                        "on-secondary-container": "#5c4f47",
+                        "tertiary-dim": "#554f46",
+                        "inverse-on-surface": "#9e9d99",
+                        "inverse-primary": "#fe8848",
+                        "outline-variant": "#afada9",
+                        "surface": "#f9f6f2",
+                        "tertiary-fixed-dim": "#e8ded3",
+                        "surface-dim": "#d6d4cf",
+                        "on-tertiary-fixed": "#4b453d",
+                        "on-error": "#ffefec",
+                        "secondary-fixed-dim": "#e3d1c6",
+                        "surface-bright": "#f9f6f2",
+                        "surface-container-high": "#e5e2de",
+                        "primary-dim": "#883700",
+                        "error": "#b02500",
+                        "secondary-dim": "#594d45",
+                        "surface-variant": "#dfddd8",
+                        "on-surface-variant": "#5c5b59",
+                        "on-background": "#2f2f2c",
+                        "on-tertiary-fixed-variant": "#686259",
+                        "on-secondary-fixed-variant": "#665950",
+                        "surface-container-highest": "#dfddd8",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed": "#1b0600",
+                        "on-tertiary-container": "#5e574f",
+                        "primary-container": "#fe8848",
+                        "on-secondary-fixed": "#483d35",
+                        "error-container": "#f95630",
+                        "surface-container": "#eae8e3",
+                        "primary": "#9b4000",
+                        "secondary-container": "#f1dfd4",
+                        "inverse-surface": "#0e0e0c",
+                        "tertiary-fixed": "#f7ece1",
+                        "on-primary": "#fff0ea",
+                        "tertiary-container": "#f7ece1",
+                        "on-surface": "#2f2f2c",
+                        "secondary": "#665950",
+                        "on-primary-container": "#4b1b00",
+                        "on-error-container": "#520c00",
+                        "primary-fixed-dim": "#ee7c3d"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Plus Jakarta Sans"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Manrope', sans-serif; }
+        h1, h2, h3 { font-family: 'Plus Jakarta Sans', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen">
+<!-- SideNavBar -->
+<aside class="h-screen w-72 fixed left-0 top-0 bg-[#f3f0ec] dark:bg-stone-900 backdrop-blur-xl flex flex-col h-full p-6 space-y-2 z-50">
+<div class="mb-10 px-4">
+<h1 class="font-plus-jakarta-sans text-xl font-black text-orange-900 dark:text-orange-500">TinAPPay</h1>
+<p class="font-manrope text-xs font-medium text-stone-600 dark:text-stone-400">Lenie's Choice</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="text-stone-600 dark:text-stone-400 px-4 py-3 hover:translate-x-1 transition-transform flex items-center gap-3" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-manrope text-sm font-medium">Dashboard</span>
+</a>
+<a class="text-stone-600 dark:text-stone-400 px-4 py-3 hover:translate-x-1 transition-transform flex items-center gap-3" href="#">
+<span class="material-symbols-outlined">point_of_sale</span>
+<span class="font-manrope text-sm font-medium">POS</span>
+</a>
+<a class="text-stone-600 dark:text-stone-400 px-4 py-3 hover:translate-x-1 transition-transform flex items-center gap-3" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-manrope text-sm font-medium">Inventory</span>
+</a>
+<a class="text-stone-600 dark:text-stone-400 px-4 py-3 hover:translate-x-1 transition-transform flex items-center gap-3" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-manrope text-sm font-medium">Finance</span>
+</a>
+<a class="bg-orange-100/80 dark:bg-orange-950/30 text-orange-900 dark:text-orange-100 rounded-lg border-l-4 border-orange-800 px-4 py-3 font-bold flex items-center gap-3" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">shopping_cart</span>
+<span class="font-manrope text-sm font-medium">Procurement</span>
+</a>
+<a class="text-stone-600 dark:text-stone-400 px-4 py-3 hover:translate-x-1 transition-transform flex items-center gap-3" href="#">
+<span class="material-symbols-outlined">groups</span>
+<span class="font-manrope text-sm font-medium">HR Management</span>
+</a>
+</nav>
+<div class="pt-6 mt-6 border-t border-stone-200 dark:border-stone-800 space-y-1">
+<a class="text-stone-600 dark:text-stone-400 px-4 py-3 hover:translate-x-1 transition-transform flex items-center gap-3" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-manrope text-sm font-medium">Settings</span>
+</a>
+<a class="text-stone-600 dark:text-stone-400 px-4 py-3 hover:translate-x-1 transition-transform flex items-center gap-3" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="font-manrope text-sm font-medium">Support</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Stage -->
+<main class="ml-72 min-h-screen">
+<!-- TopAppBar -->
+<header class="bg-[#f9f6f2]/90 dark:bg-stone-950/90 backdrop-blur-md sticky top-0 z-40 flex justify-between items-center w-full px-8 py-4 shadow-sm dark:shadow-none">
+<div class="flex items-center gap-4">
+<h2 class="text-2xl font-extrabold text-orange-950 dark:text-orange-100 font-plus-jakarta-sans tracking-tight">Procurement</h2>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center bg-surface-container-low px-4 py-2 rounded-full text-stone-500">
+<span class="material-symbols-outlined text-xl mr-2">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm font-body p-0" placeholder="Search orders..." type="text"/>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-stone-600 hover:bg-stone-200/50 rounded-full transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="flex items-center gap-3 pl-4 border-l border-stone-200">
+<img class="w-8 h-8 rounded-full object-cover" data-alt="Portrait of a professional baker in a clean white uniform smiling confidently in a warm kitchen setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcjTprRrb7fz9G0FO5cagC0Em469Hj4WRTRI_PG2Z04C21tVk5p7u2stzZF7_xREiH9-Z4U-IxCF5Qr0UXBzwtQqSeSQO7q8RghFh-GhqI0Tj0q8elKr0wyQ7LpR3GlN82AN7pGGjAbP4T7yWckr5rImHUDV8Fydrj0PSU_uZ6p260u6GXUl2Y1ZHsYP35UQLM1TPEtkTZ4W9fIaOiLLUD0yhv0DN0TAkrS9B8JUWa83jByKT5YV3ULT6ZXaIY_ypVEpEIflH_Vyg"/>
+<span class="font-manrope text-sm font-semibold text-stone-800">Admin</span>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Canvas -->
+<div class="p-8 space-y-8">
+<!-- Hero Header Section -->
+<div class="flex justify-between items-end">
+<div class="max-w-2xl">
+<p class="text-orange-900 font-bold tracking-widest text-xs uppercase mb-2">SUPPLY CHAIN OVERVIEW</p>
+<h3 class="text-4xl font-headline font-extrabold text-on-background leading-tight">Replenish the Hearth</h3>
+<p class="text-on-surface-variant mt-2 leading-relaxed">Manage your artisan ingredient flow from premium suppliers. Ensure your flour silos and yeast stocks never run low.</p>
+</div>
+<button class="bg-gradient-to-r from-primary to-primary-container text-on-primary font-bold px-8 py-4 rounded-full flex items-center gap-2 shadow-lg shadow-primary/20 transform active:scale-95 transition-all">
+<span class="material-symbols-outlined">add</span>
+                    New Order
+                </button>
+</div>
+<!-- Bento Grid - Quick Stats -->
+<div class="grid grid-cols-12 gap-6">
+<div class="col-span-8 grid grid-cols-3 gap-6">
+<!-- Active Orders Card -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm space-y-4">
+<div class="flex justify-between items-start">
+<div class="p-3 bg-tertiary-container text-on-tertiary-fixed rounded-lg">
+<span class="material-symbols-outlined">local_shipping</span>
+</div>
+<span class="text-xs font-bold text-tertiary-dim">+12% vs LY</span>
+</div>
+<div>
+<p class="text-on-surface-variant text-xs font-semibold">Active Orders</p>
+<p class="text-3xl font-headline font-bold text-on-background">14</p>
+</div>
+</div>
+<!-- Pending Approval -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm space-y-4">
+<div class="flex justify-between items-start">
+<div class="p-3 bg-secondary-container text-on-secondary-fixed rounded-lg">
+<span class="material-symbols-outlined">pending_actions</span>
+</div>
+<span class="text-xs font-bold text-orange-800">4 Critical</span>
+</div>
+<div>
+<p class="text-on-surface-variant text-xs font-semibold">Pending Approval</p>
+<p class="text-3xl font-headline font-bold text-on-background">08</p>
+</div>
+</div>
+<!-- Total Spend -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm space-y-4 border-l-4 border-primary">
+<div class="flex justify-between items-start">
+<div class="p-3 bg-primary-container/20 text-primary rounded-lg">
+<span class="material-symbols-outlined">payments</span>
+</div>
+<span class="text-xs font-bold text-stone-400">Monthly</span>
+</div>
+<div>
+<p class="text-on-surface-variant text-xs font-semibold">Monthly Spend</p>
+<p class="text-3xl font-headline font-bold text-on-background">₱124,500</p>
+</div>
+</div>
+</div>
+<!-- Featured Supplier / Highlight Card -->
+<div class="col-span-4 relative overflow-hidden rounded-2xl bg-on-background group h-full">
+<img class="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:scale-110 transition-transform duration-700" data-alt="Rustic close-up of high-quality bread flour dusting a dark wooden surface with golden lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJQZlr4vAR_lrFJGPX3IDk_ZXdF5MZXZ9Dk0unqGghZ7VFclN9ipSP1pOg3pqc2_HR7Et3zRBYTAx0l_W11MdJTUiP-9uVAnPLFrMlqcyrifvkwFrPIRGRSd7PLBDB0iKq0ByLjzh08HgY4C70PPnk_9ESlcpiVijXQXcMN8KzcXx6E0Sxi9E-dsHaPrq2bBgfpplDetL6Ka8HxAcBQKbKRGRvWv3yRe4W6CH2jMTpBLpIupZmZO8cFACPLPFSokEnV4RG17myJPU"/>
+<div class="relative z-10 p-8 flex flex-col justify-end h-full">
+<div class="bg-primary/90 text-on-primary text-[10px] font-bold px-2 py-1 rounded w-fit mb-4">PREFERRED PARTNER</div>
+<h4 class="text-2xl font-headline font-bold text-white mb-1">Golden Grain Mills</h4>
+<p class="text-stone-300 text-sm mb-4">Specialist in Stone-Ground Sourdough Flour</p>
+<button class="text-on-primary flex items-center gap-2 text-xs font-bold uppercase tracking-widest hover:gap-4 transition-all">
+                            Browse Catalog <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Main Data Section - Asymmetric Layout -->
+<div class="grid grid-cols-12 gap-8 items-start">
+<!-- Active Purchase Orders Table -->
+<div class="col-span-8 bg-surface-container-lowest rounded-2xl overflow-hidden shadow-sm">
+<div class="px-8 py-6 flex justify-between items-center border-b border-surface-container-low">
+<h4 class="text-xl font-headline font-bold text-on-background">Active Purchase Orders</h4>
+<button class="text-sm font-bold text-primary flex items-center gap-1 hover:underline">
+                            View All <span class="material-symbols-outlined text-base">expand_more</span>
+</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low/50">
+<th class="px-8 py-4 text-[10px] font-black text-on-surface-variant uppercase tracking-[0.15em]">Order ID</th>
+<th class="px-8 py-4 text-[10px] font-black text-on-surface-variant uppercase tracking-[0.15em]">Supplier</th>
+<th class="px-8 py-4 text-[10px] font-black text-on-surface-variant uppercase tracking-[0.15em]">Items</th>
+<th class="px-8 py-4 text-[10px] font-black text-on-surface-variant uppercase tracking-[0.15em]">Status</th>
+<th class="px-8 py-4 text-[10px] font-black text-on-surface-variant uppercase tracking-[0.15em]">Total</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container-low">
+<tr class="hover:bg-surface-container-low/20 transition-colors">
+<td class="px-8 py-5 font-headline font-bold text-on-background">PO-2409-01</td>
+<td class="px-8 py-5">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center text-primary font-bold text-xs">GG</div>
+<span class="text-sm font-semibold text-on-surface">Golden Grain Mills</span>
+</div>
+</td>
+<td class="px-8 py-5 text-sm text-on-surface-variant">25x Bread Flour (50kg)</td>
+<td class="px-8 py-5">
+<span class="bg-tertiary-container text-on-tertiary-fixed text-[10px] font-bold px-2 py-1 rounded">IN TRANSIT</span>
+</td>
+<td class="px-8 py-5 font-headline font-bold text-on-background">₱45,200</td>
+</tr>
+<tr class="hover:bg-surface-container-low/20 transition-colors">
+<td class="px-8 py-5 font-headline font-bold text-on-background">PO-2409-02</td>
+<td class="px-8 py-5">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-stone-200 flex items-center justify-center text-stone-600 font-bold text-xs">SY</div>
+<span class="text-sm font-semibold text-on-surface">Sweet Yields Co.</span>
+</div>
+</td>
+<td class="px-8 py-5 text-sm text-on-surface-variant">10x Organic Cane Sugar</td>
+<td class="px-8 py-5">
+<span class="bg-secondary-container text-on-secondary-fixed text-[10px] font-bold px-2 py-1 rounded">PENDING</span>
+</td>
+<td class="px-8 py-5 font-headline font-bold text-on-background">₱12,800</td>
+</tr>
+<tr class="hover:bg-surface-container-low/20 transition-colors">
+<td class="px-8 py-5 font-headline font-bold text-on-background">PO-2408-98</td>
+<td class="px-8 py-5">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold text-xs">AF</div>
+<span class="text-sm font-semibold text-on-surface">Artisan Fermentory</span>
+</div>
+</td>
+<td class="px-8 py-5 text-sm text-on-surface-variant">5x Fresh Yeast blocks</td>
+<td class="px-8 py-5">
+<span class="bg-error-container text-on-error-container text-[10px] font-bold px-2 py-1 rounded">DELAYED</span>
+</td>
+<td class="px-8 py-5 font-headline font-bold text-on-background">₱3,450</td>
+</tr>
+<tr class="hover:bg-surface-container-low/20 transition-colors">
+<td class="px-8 py-5 font-headline font-bold text-on-background">PO-2408-97</td>
+<td class="px-8 py-5">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center text-primary font-bold text-xs">GG</div>
+<span class="text-sm font-semibold text-on-surface">Golden Grain Mills</span>
+</div>
+</td>
+<td class="px-8 py-5 text-sm text-on-surface-variant">5x Rye Flour (25kg)</td>
+<td class="px-8 py-5">
+<span class="bg-surface-container text-on-surface-variant text-[10px] font-bold px-2 py-1 rounded">COMPLETED</span>
+</td>
+<td class="px-8 py-5 font-headline font-bold text-on-background">₱8,900</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Right Column: Critical Stock & History -->
+<div class="col-span-4 space-y-6">
+<!-- Critical Low Stock Alerts -->
+<div class="bg-error-container/5 p-6 rounded-2xl border-2 border-dashed border-error-container/20">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-error">warning</span>
+<h4 class="text-sm font-black text-on-background uppercase tracking-wider">Critical Inventory</h4>
+</div>
+<div class="space-y-4">
+<div class="bg-surface-container-lowest p-4 rounded-xl shadow-sm">
+<div class="flex justify-between items-start mb-2">
+<span class="text-sm font-bold text-on-surface">Yeast (Fresh)</span>
+<span class="text-xs font-black text-error">2.4kg LEFT</span>
+</div>
+<div class="w-full bg-surface-container-low h-1.5 rounded-full">
+<div class="bg-error h-full rounded-full" style="width: 15%"></div>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-4 rounded-xl shadow-sm">
+<div class="flex justify-between items-start mb-2">
+<span class="text-sm font-bold text-on-surface">Molasses</span>
+<span class="text-xs font-black text-error">1.0L LEFT</span>
+</div>
+<div class="w-full bg-surface-container-low h-1.5 rounded-full">
+<div class="bg-error h-full rounded-full" style="width: 8%"></div>
+</div>
+</div>
+<button class="w-full py-3 bg-error text-on-error rounded-xl font-bold text-xs uppercase tracking-widest hover:opacity-90 transition-opacity">
+                                Quick Restock Critical Items
+                            </button>
+</div>
+</div>
+<!-- Recent Activity -->
+<div class="bg-surface-container-low/50 p-6 rounded-2xl">
+<h4 class="text-sm font-black text-on-background uppercase tracking-wider mb-4">Recent Activity</h4>
+<div class="space-y-6">
+<div class="flex gap-4">
+<div class="w-1 bg-primary rounded-full"></div>
+<div>
+<p class="text-xs font-black text-primary">TODAY, 10:45 AM</p>
+<p class="text-sm font-medium text-on-surface mt-1">Order <span class="font-bold">PO-2409-01</span> shipped from Golden Grain Mills.</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="w-1 bg-stone-300 rounded-full"></div>
+<div>
+<p class="text-xs font-black text-stone-500">YESTERDAY</p>
+<p class="text-sm font-medium text-on-surface mt-1">Payment verified for Sweet Yields Co. (₱12,800)</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="w-1 bg-stone-300 rounded-full"></div>
+<div>
+<p class="text-xs font-black text-stone-500">2 DAYS AGO</p>
+<p class="text-sm font-medium text-on-surface mt-1">New supplier "Global Spices Ltd" added to directory.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- FAB (Suppressed based on context rules, but included here for "Order" context on dashboard) -->
+<button class="fixed bottom-8 right-8 w-16 h-16 bg-primary text-on-primary rounded-full shadow-2xl flex items-center justify-center transform hover:scale-110 active:scale-95 transition-all z-50">
+<span class="material-symbols-outlined text-3xl">shopping_cart_checkout</span>
+</button>
+</body></html>
