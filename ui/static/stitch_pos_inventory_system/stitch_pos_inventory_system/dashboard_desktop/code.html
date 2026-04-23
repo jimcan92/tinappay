@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed": "#351000",
+                        "secondary": "#895033",
+                        "primary-container": "#b15f00",
+                        "inverse-on-surface": "#f3f0ef",
+                        "primary-fixed": "#ffdcc3",
+                        "surface": "#fcf9f8",
+                        "on-secondary-container": "#794227",
+                        "surface-container-lowest": "#ffffff",
+                        "error": "#ba1a1a",
+                        "error-container": "#ffdad6",
+                        "surface-container-low": "#f6f3f2",
+                        "on-error-container": "#93000a",
+                        "inverse-surface": "#303030",
+                        "primary": "#8d4b00",
+                        "secondary-fixed-dim": "#ffb694",
+                        "on-tertiary-fixed-variant": "#76330d",
+                        "tertiary-fixed-dim": "#ffb693",
+                        "on-primary-container": "#fffbff",
+                        "on-background": "#1b1c1c",
+                        "surface-container-highest": "#e4e2e1",
+                        "tertiary-container": "#af5f36",
+                        "surface-variant": "#e4e2e1",
+                        "tertiary-fixed": "#ffdbcc",
+                        "primary-fixed-dim": "#ffb77d",
+                        "surface-bright": "#fcf9f8",
+                        "on-tertiary-container": "#fffbff",
+                        "secondary-fixed": "#ffdbcc",
+                        "surface-tint": "#904d00",
+                        "inverse-primary": "#ffb77d",
+                        "surface-container": "#f0eded",
+                        "on-primary-fixed-variant": "#6e3900",
+                        "outline-variant": "#dbc2b0",
+                        "on-surface": "#1b1c1c",
+                        "tertiary": "#904821",
+                        "on-secondary-fixed": "#351000",
+                        "secondary-container": "#feb28f",
+                        "surface-container-high": "#eae7e7",
+                        "on-surface-variant": "#554336",
+                        "on-primary-fixed": "#2f1500",
+                        "background": "#fcf9f8",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed-variant": "#6d391e",
+                        "on-error": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "surface-dim": "#dcd9d9",
+                        "on-primary": "#ffffff",
+                        "outline": "#887364"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Plus Jakarta Sans"],
+                        "body": ["Plus Jakarta Sans"],
+                        "label": ["Plus Jakarta Sans"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-on-surface">
+<!-- SideNavBar Integration from JSON -->
+<aside class="w-[280px] fixed h-full left-0 top-0 z-40 bg-[#f6f3f2]/85 backdrop-blur-xl flex flex-col h-screen p-8 gap-10 shadow-[8px_0_24px_rgba(137,80,51,0.06)]">
+<!-- Header/Brand Cluster -->
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-primary flex items-center justify-center overflow-hidden">
+<img alt="Lenie's Choice Logo" data-alt="close-up of a minimalist bakery logo with a stylized wheat stalk in warm copper tones on a cream background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAbrI-dQAjKbXvyHjq2kbdKaOsu09a7fNcidy-b5nEbRR-il57j6YUZSdnZ89JNTzzO7xUP1UHSnVhARKFCgJjKV2XVgu0UnPYOaEAgBrKfW2CRtHYwDmaWbIb0OJqaxmyiV0XUFDO_6hDdAmB_iUKprmm_c2ZSsyPkjVVWMHLKqbm6wmUg2czew-ny5gxwWkVjfO1I37OJ_KMmN2msLMr6PRAwwsI7LIa5xJQ6QSk_g9LMygC7bHeWmn9YpdIRURDBzxCrVyOH5ZI"/>
+</div>
+<div class="flex flex-col">
+<span class="text-lg font-bold tracking-tight text-[#1b1c1c]">Lenie's Choice</span>
+<span class="text-xs font-medium text-on-surface-variant uppercase tracking-widest opacity-70">TinAPPay ERP</span>
+</div>
+</div>
+</div>
+<!-- Navigation Tabs -->
+<nav class="flex flex-col gap-2">
+<a class="bg-[#ffdcc3] text-[#2f1500] rounded-full px-4 py-3 flex items-center gap-4 transition-all duration-300 active:scale-[0.98] font-['Plus_Jakarta_Sans'] text-sm font-medium" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="text-[#554336] hover:bg-[#fcf9f8]/50 rounded-full px-4 py-3 flex items-center gap-4 transition-all duration-300 active:scale-[0.98] font-['Plus_Jakarta_Sans'] text-sm font-medium" href="#">
+<span class="material-symbols-outlined">point_of_sale</span>
+<span>POS</span>
+</a>
+<a class="text-[#554336] hover:bg-[#fcf9f8]/50 rounded-full px-4 py-3 flex items-center gap-4 transition-all duration-300 active:scale-[0.98] font-['Plus_Jakarta_Sans'] text-sm font-medium" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span>Inventory</span>
+</a>
+<a class="text-[#554336] hover:bg-[#fcf9f8]/50 rounded-full px-4 py-3 flex items-center gap-4 transition-all duration-300 active:scale-[0.98] font-['Plus_Jakarta_Sans'] text-sm font-medium" href="#">
+<span class="material-symbols-outlined">group</span>
+<span>Users</span>
+</a>
+<a class="text-[#554336] hover:bg-[#fcf9f8]/50 rounded-full px-4 py-3 flex items-center gap-4 transition-all duration-300 active:scale-[0.98] font-['Plus_Jakarta_Sans'] text-sm font-medium" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+<!-- Bottom User Section -->
+<div class="mt-auto flex items-center gap-3 p-2 bg-surface-container-highest/30 rounded-xl">
+<img alt="User" class="w-10 h-10 rounded-full border-2 border-primary-fixed" data-alt="professional portrait of a bakery manager in a clean white apron with soft morning light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCp2lZI4r0zkmS2lvSBA17IzGw0wgi8jtdFXt8D1V36Jaifz-AABRzHchBcDmIC2UOSSqv--7Fu2MBH0vjEWA9SSsYd8CO7NFHwRm-Il8wmdB8bi0-NoKcsiCDMgJaaBnPZx--E29uwCJjkdHW8ooDJeAHXipFwCnUERjf70ajZuUTH0yWDZtn5SaIVtXcsmAkxv9qX89bXStpADnzEPfENhjIV22rfNf2sDlsJnTTeyCYVIEaxVSKT7vJrG8s-4u1m7aR_QsHxiFo"/>
+<div class="flex flex-col">
+<span class="text-sm font-bold text-on-surface">Lenie Admin</span>
+<span class="text-[10px] text-on-surface-variant">Master Baker</span>
+</div>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="ml-[280px] p-10 min-h-screen">
+<!-- Header Content -->
+<header class="flex justify-between items-end mb-10">
+<div>
+<h1 class="text-4xl font-extrabold tracking-tight text-on-surface">Daily Performance</h1>
+<p class="text-on-surface-variant font-medium mt-1">Lenie’s Choice Bakeshop • Monday, Oct 23</p>
+</div>
+<div class="flex gap-3">
+<button class="bg-surface-container-highest px-5 py-2.5 rounded-lg text-sm font-bold flex items-center gap-2 hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined text-sm">download</span>
+                    Export Report
+                </button>
+<button class="bg-gradient-to-br from-primary to-primary-container px-5 py-2.5 rounded-lg text-on-primary text-sm font-bold shadow-lg shadow-primary/20 flex items-center gap-2 active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-sm">add</span>
+                    New Sale
+                </button>
+</div>
+</header>
+<!-- Bento Grid Dashboard -->
+<div class="grid grid-cols-12 gap-6">
+<!-- Quick Metrics -->
+<div class="col-span-12 md:col-span-4 bg-surface-container-lowest p-8 rounded-xl shadow-[8px_8px_32px_rgba(137,80,51,0.04)] flex flex-col gap-6">
+<div>
+<span class="text-on-surface-variant text-xs font-bold uppercase tracking-widest">Daily Revenue</span>
+<div class="flex items-baseline gap-2 mt-1">
+<span class="text-3xl font-extrabold text-on-surface">₱42,580.00</span>
+<span class="text-tertiary text-xs font-bold flex items-center">+12% vs LW</span>
+</div>
+</div>
+<div class="h-24 flex items-end gap-1.5">
+<div class="flex-1 bg-primary/10 rounded-t h-[40%]"></div>
+<div class="flex-1 bg-primary/10 rounded-t h-[60%]"></div>
+<div class="flex-1 bg-primary/10 rounded-t h-[55%]"></div>
+<div class="flex-1 bg-primary/10 rounded-t h-[85%]"></div>
+<div class="flex-1 bg-primary/10 rounded-t h-[70%]"></div>
+<div class="flex-1 bg-primary/10 rounded-t h-[95%]"></div>
+<div class="flex-1 bg-primary rounded-t h-full"></div>
+</div>
+</div>
+<div class="col-span-12 md:col-span-4 bg-surface-container-lowest p-8 rounded-xl shadow-[8px_8px_32px_rgba(137,80,51,0.04)] flex flex-col justify-between">
+<div>
+<span class="text-on-surface-variant text-xs font-bold uppercase tracking-widest">Total Orders</span>
+<div class="flex items-baseline gap-2 mt-1">
+<span class="text-3xl font-extrabold text-on-surface">156</span>
+<span class="text-on-surface-variant text-xs font-medium">/ 200 Target</span>
+</div>
+</div>
+<div class="relative pt-4">
+<div class="overflow-hidden h-2 mb-4 text-xs flex rounded bg-surface-container-highest">
+<div class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-secondary" style="width:78%"></div>
+</div>
+<span class="text-xs text-on-surface-variant font-medium">Baguette and Ensaymada trending high today</span>
+</div>
+</div>
+<div class="col-span-12 md:col-span-4 bg-tertiary-container text-on-tertiary-container p-8 rounded-xl shadow-[8px_8px_32px_rgba(137,80,51,0.08)] flex flex-col justify-between relative overflow-hidden">
+<div class="relative z-10">
+<span class="text-on-tertiary-container/80 text-xs font-bold uppercase tracking-widest">Staff Online</span>
+<div class="flex items-center gap-3 mt-1">
+<span class="text-3xl font-extrabold">08</span>
+<span class="text-xs bg-white/20 px-2 py-0.5 rounded-full backdrop-blur-sm">Full Shift</span>
+</div>
+</div>
+<div class="flex -space-x-2 mt-4 relative z-10">
+<img alt="Baker 1" class="w-8 h-8 rounded-full border-2 border-tertiary-container" data-alt="close-up of a baker in a kitchen" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHo2QQuaUAC_Sym5Acyo03n0N_xSJBCHyALYHT8MzQOSOOBS3DqcTsGAUe8blHR-dskOy9spg18bAHao7hrtaN0IUk40Wb96W8wuA3w0FITXvWbFp7S1xQ3zaXom-Lk9WaxbNKBBVKhMXr_WDn19NvByxD5TPqTh0HwoxZGqsTGwNujcXn5Pfu0eaN_kmjPmOTsLromagJfLJefTQV_Mpv2hRynRSjYVo8JVIYOI2UkrJVNQgXI0GhRuE6q1mV3Cg7X3nvPDFppNc"/>
+<img alt="Baker 2" class="w-8 h-8 rounded-full border-2 border-tertiary-container" data-alt="headshot of a smiling pastry chef" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-UEw4rZeedPffRSslQRUS7oaoAbm3SMRwBJCpM0bTU4iv-xuQLN7U4Jwd0AOgy48kuZwCLH8cb8q1LJoQjbexD42BEVC5JIGORURDGUyKJYw9NrbxCwqUXlr8ycqjW3xw3cMo5fWwtRPOXJpwY-sIdhzQk-pkoPzF-QlsehedPxdyhdmHJbHqsMsrq_SBP4ZKKXWZ0Igmi-JLQ3kKSczAAmuXoj2gtu7TWf9LaIO5jGFwffIA6Ivunr_PcTg6golvdvJWAD4XTzI"/>
+<img alt="Baker 3" class="w-8 h-8 rounded-full border-2 border-tertiary-container" data-alt="portrait of a focused culinary professional" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC9lX991xR_tuuEcHJ5x6YrkcmiOMrTklVEHYgpW4cquBDBJ1tLfr5kPz2pafu5mfiTMSdG9fBCpXjWY99gurwXZUddcND23CVdupJm6LiRjl997ncU_5ydpuYVCgmYSe6_9WKk3G3X4G-owCIOMpQsog4ZsXYCn9TJHu0b380nQY9mCt7c4MLqarXkjQc3CN5qybpy_ZCXHIT4edfj2tYpAZnIbsoSwVZ6MEpb_donJtTcWXSLFJ5kiOPd_9WtlxJBACq_IQzrWyQ"/>
+<div class="w-8 h-8 rounded-full border-2 border-tertiary-container bg-surface-container-highest text-primary flex items-center justify-center text-[10px] font-bold">+5</div>
+</div>
+<div class="absolute right-[-20px] top-[-20px] opacity-10">
+<span class="material-symbols-outlined !text-9xl">oven_gen</span>
+</div>
+</div>
+<!-- Revenue Trend Chart Placeholder -->
+<div class="col-span-12 lg:col-span-8 bg-surface-container-lowest p-8 rounded-xl shadow-[8px_8px_32px_rgba(137,80,51,0.04)]">
+<div class="flex justify-between items-start mb-8">
+<div>
+<h3 class="text-xl font-bold text-on-surface">Revenue Trend</h3>
+<p class="text-on-surface-variant text-sm">Monthly comparison of gross sales</p>
+</div>
+<select class="bg-surface-container-low border-none rounded-lg text-sm font-bold text-on-surface focus:ring-primary">
+<option>Last 30 Days</option>
+<option>Last Quarter</option>
+</select>
+</div>
+<div class="relative h-64 w-full bg-gradient-to-t from-surface-container-low/30 to-transparent rounded-lg flex items-end p-4">
+<!-- Faux Chart Implementation -->
+<div class="flex items-end justify-between w-full h-full gap-4 px-2">
+<div class="w-full bg-primary/20 rounded-t-lg h-[40%] group relative">
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-on-surface text-surface text-[10px] py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity">₱12k</div>
+</div>
+<div class="w-full bg-primary/20 rounded-t-lg h-[65%] group relative"></div>
+<div class="w-full bg-primary/20 rounded-t-lg h-[50%] group relative"></div>
+<div class="w-full bg-primary/20 rounded-t-lg h-[85%] group relative"></div>
+<div class="w-full bg-primary/20 rounded-t-lg h-[75%] group relative"></div>
+<div class="w-full bg-primary/20 rounded-t-lg h-[90%] group relative"></div>
+<div class="w-full bg-primary/20 rounded-t-lg h-[60%] group relative"></div>
+<div class="w-full bg-primary/20 rounded-t-lg h-[95%] group relative"></div>
+<div class="w-full bg-primary rounded-t-lg h-[70%] group relative"></div>
+<div class="w-full bg-primary rounded-t-lg h-full group relative">
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-on-surface text-surface text-[10px] py-1 px-2 rounded opacity-100 transition-opacity">₱42.5k</div>
+</div>
+</div>
+</div>
+<div class="flex justify-between mt-4 px-2 text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">
+<span>Oct 14</span>
+<span>Oct 17</span>
+<span>Oct 20</span>
+<span>Today</span>
+</div>
+</div>
+<!-- Critical Inventory Alerts -->
+<div class="col-span-12 lg:col-span-4 flex flex-col gap-6">
+<div class="bg-surface-container-low p-8 rounded-xl flex-1">
+<div class="flex items-center justify-between mb-6">
+<h3 class="text-xl font-bold text-on-surface">Critical Alerts</h3>
+<span class="bg-error-container text-on-error-container text-[10px] font-bold px-2 py-0.5 rounded-full">3 ACTION REQ.</span>
+</div>
+<div class="space-y-4">
+<div class="bg-surface-container-lowest p-4 rounded-lg flex items-center gap-4 transition-transform hover:scale-[1.02]">
+<div class="w-12 h-12 bg-error/10 rounded-lg flex items-center justify-center text-error">
+<span class="material-symbols-outlined">warning</span>
+</div>
+<div>
+<h4 class="text-sm font-bold text-on-surface">Low Stock: Rye Flour</h4>
+<p class="text-xs text-on-surface-variant">Only 2.5kg remaining in silo.</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-4 rounded-lg flex items-center gap-4 transition-transform hover:scale-[1.02]">
+<div class="w-12 h-12 bg-secondary/10 rounded-lg flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">timer</span>
+</div>
+<div>
+<h4 class="text-sm font-bold text-on-surface">Maintenance: Oven #2</h4>
+<p class="text-xs text-on-surface-variant">Filter cleaning due in 48 hours.</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-4 rounded-lg flex items-center gap-4 transition-transform hover:scale-[1.02]">
+<div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">local_shipping</span>
+</div>
+<div>
+<h4 class="text-sm font-bold text-on-surface">Incoming: Yeast Pack</h4>
+<p class="text-xs text-on-surface-variant">Scheduled for delivery by 2:00 PM.</p>
+</div>
+</div>
+</div>
+<button class="w-full mt-6 py-3 border-2 border-outline-variant/30 rounded-lg text-sm font-bold text-on-surface-variant hover:bg-surface-container-highest transition-colors">
+                        View All Alerts
+                    </button>
+</div>
+</div>
+<!-- Recent Orders/Production Status -->
+<div class="col-span-12 bg-surface-container-lowest p-8 rounded-xl shadow-[8px_8px_32px_rgba(137,80,51,0.04)] overflow-hidden">
+<div class="flex justify-between items-center mb-8">
+<h3 class="text-xl font-bold text-on-surface">Production Queue</h3>
+<div class="flex gap-2">
+<span class="px-3 py-1 rounded-full bg-primary-fixed text-on-primary-fixed text-[10px] font-bold">ALL</span>
+<span class="px-3 py-1 rounded-full bg-surface-container-low text-on-surface-variant text-[10px] font-bold">BAKING</span>
+<span class="px-3 py-1 rounded-full bg-surface-container-low text-on-surface-variant text-[10px] font-bold">READY</span>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="text-on-surface-variant text-[10px] font-bold uppercase tracking-widest">
+<th class="pb-4">Order ID</th>
+<th class="pb-4">Batch Item</th>
+<th class="pb-4">Quantity</th>
+<th class="pb-4">Status</th>
+<th class="pb-4 text-right">Progress</th>
+</tr>
+</thead>
+<tbody class="text-sm">
+<tr class="hover:bg-surface-container-low/50 transition-colors cursor-pointer group">
+<td class="py-5 font-bold text-on-surface">#LC-8921</td>
+<td class="py-5">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-primary-fixed/30 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-sm">bakery_dining</span>
+</div>
+<span class="font-medium">Sourdough Classic</span>
+</div>
+</td>
+<td class="py-5 font-medium">24 Units</td>
+<td class="py-5">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-tertiary/10 text-tertiary text-xs font-bold">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary animate-pulse"></span>
+                                        Oven Phase
+                                    </span>
+</td>
+<td class="py-5 text-right">
+<div class="w-32 inline-block bg-surface-container-highest h-1.5 rounded-full overflow-hidden">
+<div class="bg-tertiary h-full w-[85%]"></div>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/50 transition-colors cursor-pointer group">
+<td class="py-5 font-bold text-on-surface">#LC-8922</td>
+<td class="py-5">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-primary-fixed/30 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-sm">bakery_dining</span>
+</div>
+<span class="font-medium">Spanish Bread</span>
+</div>
+</td>
+<td class="py-5 font-medium">50 Units</td>
+<td class="py-5">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-secondary-container text-on-secondary-container text-xs font-bold">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                                        Proofing
+                                    </span>
+</td>
+<td class="py-5 text-right">
+<div class="w-32 inline-block bg-surface-container-highest h-1.5 rounded-full overflow-hidden">
+<div class="bg-secondary h-full w-[40%]"></div>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/50 transition-colors cursor-pointer group">
+<td class="py-5 font-bold text-on-surface">#LC-8923</td>
+<td class="py-5">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-primary-fixed/30 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-sm">bakery_dining</span>
+</div>
+<span class="font-medium">Ensaymada Special</span>
+</div>
+</td>
+<td class="py-5 font-medium">12 Units</td>
+<td class="py-5">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-primary-fixed text-on-primary-fixed text-xs font-bold">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                                        Completed
+                                    </span>
+</td>
+<td class="py-5 text-right">
+<div class="w-32 inline-block bg-surface-container-highest h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-full"></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</main>
+<!-- FAB for quick action -->
+<button class="fixed bottom-10 right-10 w-16 h-16 bg-primary text-on-primary rounded-full shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all z-50">
+<span class="material-symbols-outlined !text-3xl">add_shopping_cart</span>
+</button>
+</body></html>

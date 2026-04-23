@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-fixed": "#351000",
+                    "background": "#fcf9f8",
+                    "tertiary-fixed": "#ffdbcc",
+                    "surface-container": "#f0eded",
+                    "surface-container-high": "#eae7e7",
+                    "primary": "#8d4b00",
+                    "on-secondary-fixed-variant": "#6d391e",
+                    "on-secondary": "#ffffff",
+                    "primary-container": "#b15f00",
+                    "on-surface": "#1b1c1c",
+                    "surface-dim": "#dcd9d9",
+                    "on-secondary-fixed": "#351000",
+                    "surface-container-highest": "#e4e2e1",
+                    "on-tertiary-container": "#fffbff",
+                    "on-primary-fixed-variant": "#6e3900",
+                    "surface-variant": "#e4e2e1",
+                    "on-tertiary-fixed-variant": "#76330d",
+                    "tertiary": "#904821",
+                    "secondary-fixed": "#ffdbcc",
+                    "tertiary-fixed-dim": "#ffb693",
+                    "inverse-primary": "#ffb77d",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary-container": "#fffbff",
+                    "inverse-surface": "#303030",
+                    "surface-container-low": "#f6f3f2",
+                    "error-container": "#ffdad6",
+                    "primary-fixed-dim": "#ffb77d",
+                    "outline": "#887364",
+                    "secondary": "#895033",
+                    "on-primary": "#ffffff",
+                    "secondary-fixed-dim": "#ffb694",
+                    "secondary-container": "#feb28f",
+                    "on-surface-variant": "#554336",
+                    "surface": "#fcf9f8",
+                    "tertiary-container": "#af5f36",
+                    "surface-tint": "#904d00",
+                    "on-tertiary": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "error": "#ba1a1a",
+                    "surface-bright": "#fcf9f8",
+                    "on-background": "#1b1c1c",
+                    "on-error": "#ffffff",
+                    "on-primary-fixed": "#2f1500",
+                    "outline-variant": "#dbc2b0",
+                    "inverse-on-surface": "#f3f0ef",
+                    "primary-fixed": "#ffdcc3",
+                    "on-secondary-container": "#794227"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Plus Jakarta Sans"],
+                    "body": ["Plus Jakarta Sans"],
+                    "label": ["Plus Jakarta Sans"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .tonal-nesting {
+            background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 100%);
+        }
+        .no-border { border: none !important; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background font-body text-on-surface">
+<!-- Mobile Top Bar -->
+<header class="sticky top-0 z-40 bg-stone-50/80 backdrop-blur-md px-6 h-20 flex items-center justify-between">
+<div class="flex items-center gap-4">
+<button class="p-2 -ml-2 hover:bg-stone-100 rounded-full transition-colors">
+<span class="material-symbols-outlined text-stone-900">menu</span>
+</button>
+<h1 class="text-xl font-extrabold text-stone-900 tracking-tighter">Categories</h1>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 hover:bg-stone-100 rounded-full transition-colors">
+<span class="material-symbols-outlined text-stone-600">notifications</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden bg-stone-200">
+<img class="w-full h-full object-cover" data-alt="Close-up portrait of a professional bakery manager smiling softly in a brightly lit industrial kitchen setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQV92MXEubn8-uOiM-HH-A08upihCYXKRNEgtrD3bmcZqEYBn5Kwr41f0akrzlNkFzoxgmaJkV4j-oEh4dOs4ZjU1wzTnyr3fEB6cCISpZ1ju3IOS9ZwdCdbk6i45LEkgG3q6EkwBnluGkI8Ylv679RTy0fFiHPPAzpHU5fjqyZ_5reH_VWG3gXcj-JZOMF_X_Z_RlgEYFAtyFjP1DeFa9mPlRojsdpcaCs5uTbwbLc5cFOMu1ANMpslDeCKyn8M7FNIlf9OMb8cg"/>
+</div>
+</div>
+</header>
+<main class="px-6 pb-32">
+<!-- Search & Filter Area -->
+<div class="flex items-center gap-2 mb-4 text-sm">
+<a class="text-stone-500 hover:text-primary transition-colors font-medium flex items-center gap-1.5" href="#">
+<span class="material-symbols-outlined text-lg">inventory_2</span>
+    Inventory
+  </a>
+<span class="material-symbols-outlined text-stone-300 text-sm">chevron_right</span>
+<span class="text-stone-900 font-bold tracking-tight">Categories</span>
+</div><div class="mt-4 mb-8">
+<div class="relative flex items-center group">
+<span class="material-symbols-outlined absolute left-4 text-stone-400 group-focus-within:text-amber-700 transition-colors">search</span>
+<input class="w-full pl-12 pr-4 py-4 bg-surface-container-low border-none rounded-2xl focus:ring-2 focus:ring-amber-500/40 text-on-surface placeholder-stone-400 font-medium" placeholder="Search categories..." type="text"/>
+</div>
+</div>
+<!-- Categories List -->
+<div class="space-y-4">
+<!-- Bread Category -->
+<div class="bg-surface-container-lowest p-5 rounded-[20px] shadow-[8px_0_24px_rgba(137,80,51,0.04)] flex items-center justify-between group active:scale-[0.98] transition-transform">
+<div class="flex items-center gap-4">
+<div class="w-14 h-14 rounded-2xl bg-orange-100 flex items-center justify-center text-amber-700">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">bakery_dining</span>
+</div>
+<div>
+<h3 class="font-bold text-stone-900 text-lg leading-tight">Artisan Breads</h3>
+<p class="text-stone-500 text-sm font-medium">24 Items • Stock: 1,204</p>
+</div>
+</div>
+<button class="text-stone-300 group-hover:text-amber-700 transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+<!-- Pastry Category -->
+<div class="bg-surface-container-lowest p-5 rounded-[20px] shadow-[8px_0_24px_rgba(137,80,51,0.04)] flex items-center justify-between group active:scale-[0.98] transition-transform">
+<div class="flex items-center gap-4">
+<div class="w-14 h-14 rounded-2xl bg-amber-100 flex items-center justify-center text-amber-700">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">cake</span>
+</div>
+<div>
+<h3 class="font-bold text-stone-900 text-lg leading-tight">Sweet Pastries</h3>
+<p class="text-stone-500 text-sm font-medium">42 Items • Stock: 856</p>
+</div>
+</div>
+<button class="text-stone-300 group-hover:text-amber-700 transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+<!-- Supplies Category -->
+<div class="bg-surface-container-lowest p-5 rounded-[20px] shadow-[8px_0_24px_rgba(137,80,51,0.04)] flex items-center justify-between group active:scale-[0.98] transition-transform">
+<div class="flex items-center gap-4">
+<div class="w-14 h-14 rounded-2xl bg-stone-100 flex items-center justify-center text-stone-600">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">egg_alt</span>
+</div>
+<div>
+<h3 class="font-bold text-stone-900 text-lg leading-tight">Raw Materials</h3>
+<p class="text-stone-500 text-sm font-medium">12 Items • Low Stock Alert</p>
+</div>
+</div>
+<button class="text-stone-300 group-hover:text-amber-700 transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+<!-- Seasonal Category -->
+<div class="bg-surface-container-lowest p-5 rounded-[20px] shadow-[8px_0_24px_rgba(137,80,51,0.04)] flex items-center justify-between group active:scale-[0.98] transition-transform">
+<div class="flex items-center gap-4">
+<div class="w-14 h-14 rounded-2xl bg-red-50 flex items-center justify-center text-red-700">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">holiday_village</span>
+</div>
+<div>
+<h3 class="font-bold text-stone-900 text-lg leading-tight">Holiday Special</h3>
+<p class="text-stone-500 text-sm font-medium">8 Items • Inactive</p>
+</div>
+</div>
+<button class="text-stone-300 group-hover:text-amber-700 transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+<!-- Beverage Category -->
+<div class="bg-surface-container-lowest p-5 rounded-[20px] shadow-[8px_0_24px_rgba(137,80,51,0.04)] flex items-center justify-between group active:scale-[0.98] transition-transform">
+<div class="flex items-center gap-4">
+<div class="w-14 h-14 rounded-2xl bg-blue-50 flex items-center justify-center text-blue-700">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">coffee</span>
+</div>
+<div>
+<h3 class="font-bold text-stone-900 text-lg leading-tight">Hot Beverages</h3>
+<p class="text-stone-500 text-sm font-medium">15 Items • Stock: 440</p>
+</div>
+</div>
+<button class="text-stone-300 group-hover:text-amber-700 transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</main>
+<!-- Floating Action Button (Optimized for One-Handed Thumb Reach) -->
+<div class="fixed bottom-10 right-6 z-50">
+<button class="w-16 h-16 rounded-full bg-primary text-on-primary shadow-xl flex items-center justify-center active:scale-90 transition-transform bg-gradient-to-br from-primary to-primary-container">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 0, 'wght' 600;">add</span>
+</button>
+</div>
+<!-- Bottom Nav Bar (Mobile-only replacement for SideNav) -->
+<nav class="fixed bottom-0 left-0 right-0 h-20 bg-stone-50/90 backdrop-blur-xl flex items-center justify-around px-4 border-t-0 shadow-[0_-8px_24px_rgba(137,80,51,0.04)] z-40">
+<button class="flex flex-col items-center gap-1 text-stone-400">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-[10px] font-bold">DASHBOARD</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-stone-400">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="text-[10px] font-bold">PRODUCTS</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-amber-800">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">category</span>
+<span class="text-[10px] font-extrabold border-b-2 border-amber-700 pb-0.5">CATEGORIES</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-stone-400">
+<span class="material-symbols-outlined">analytics</span>
+<span class="text-[10px] font-bold">REPORTS</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-stone-400">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-[10px] font-bold">SETTINGS</span>
+</button>
+</nav>
+<!-- Hidden Drawer Backdrop (Interactive Simulation) -->
+<div class="fixed inset-0 bg-stone-900/40 backdrop-blur-sm z-50 opacity-0 pointer-events-none transition-opacity duration-300">
+<!-- Sidebar Shell (JSON Logic Integrated) -->
+<div class="fixed left-0 top-0 h-full w-[280px] bg-stone-100/85 backdrop-blur-xl p-6 flex flex-col space-y-8 shadow-[8px_0_24px_rgba(137,80,51,0.06)] translate-x-[-100%] transition-transform duration-300">
+<!-- Brand Header -->
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-white" style="font-variation-settings: 'FILL' 1;">bakery_dining</span>
+</div>
+<div>
+<h2 class="text-xl font-extrabold text-stone-900 tracking-tighter">Lenie’s Choice</h2>
+<p class="text-[10px] font-bold text-amber-700 tracking-widest uppercase">TinAPPay ERP</p>
+</div>
+</div>
+<!-- Primary Navigation -->
+<div class="flex-1 space-y-2">
+<a class="text-stone-600 py-2 px-4 flex items-center gap-3 hover:bg-stone-200/50 rounded-full transition-all" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-medium text-sm tracking-tight">Dashboard</span>
+</a>
+<a class="text-stone-600 py-2 px-4 flex items-center gap-3 hover:bg-stone-200/50 rounded-full transition-all" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-medium text-sm tracking-tight">Products</span>
+</a>
+<a class="text-stone-600 py-2 px-4 flex items-center gap-3 hover:bg-stone-200/50 rounded-full transition-all" href="#">
+<span class="material-symbols-outlined">reorder</span>
+<span class="font-medium text-sm tracking-tight">Supplies</span>
+</a>
+<a class="bg-orange-100 text-orange-950 rounded-full py-2 px-4 flex items-center gap-3 font-semibold text-sm tracking-tight" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">category</span>
+<span>Categories</span>
+</a>
+<a class="text-stone-600 py-2 px-4 flex items-center gap-3 hover:bg-stone-200/50 rounded-full transition-all" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-medium text-sm tracking-tight">Reports</span>
+</a>
+</div>
+<!-- CTA -->
+<button class="w-full bg-primary text-white py-3 rounded-xl font-bold text-sm bg-gradient-to-r from-primary to-primary-container shadow-md">
+                New Production Run
+            </button>
+<!-- Footer Tabs -->
+<div class="pt-6 border-t border-stone-200 space-y-2">
+<a class="text-stone-600 py-2 px-4 flex items-center gap-3 hover:bg-stone-200/50 rounded-full transition-all" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-medium text-sm tracking-tight">Settings</span>
+</a>
+<a class="text-stone-600 py-2 px-4 flex items-center gap-3 hover:bg-stone-200/50 rounded-full transition-all" href="#">
+<span class="material-symbols-outlined">help_outline</span>
+<span class="font-medium text-sm tracking-tight">Support</span>
+</a>
+</div>
+</div>
+</div>
+</body></html>

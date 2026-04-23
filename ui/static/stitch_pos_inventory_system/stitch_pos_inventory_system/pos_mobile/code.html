@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Lenie's Choice - TinAPPay POS</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-tertiary-fixed": "#351000",
+                      "secondary": "#895033",
+                      "primary-container": "#b15f00",
+                      "inverse-on-surface": "#f3f0ef",
+                      "primary-fixed": "#ffdcc3",
+                      "surface": "#fcf9f8",
+                      "on-secondary-container": "#794227",
+                      "surface-container-lowest": "#ffffff",
+                      "error": "#ba1a1a",
+                      "error-container": "#ffdad6",
+                      "surface-container-low": "#f6f3f2",
+                      "on-error-container": "#93000a",
+                      "inverse-surface": "#303030",
+                      "primary": "#8d4b00",
+                      "secondary-fixed-dim": "#ffb694",
+                      "on-tertiary-fixed-variant": "#76330d",
+                      "tertiary-fixed-dim": "#ffb693",
+                      "on-primary-container": "#fffbff",
+                      "on-background": "#1b1c1c",
+                      "surface-container-highest": "#e4e2e1",
+                      "tertiary-container": "#af5f36",
+                      "surface-variant": "#e4e2e1",
+                      "tertiary-fixed": "#ffdbcc",
+                      "primary-fixed-dim": "#ffb77d",
+                      "surface-bright": "#fcf9f8",
+                      "on-tertiary-container": "#fffbff",
+                      "secondary-fixed": "#ffdbcc",
+                      "surface-tint": "#904d00",
+                      "inverse-primary": "#ffb77d",
+                      "surface-container": "#f0eded",
+                      "on-primary-fixed-variant": "#6e3900",
+                      "outline-variant": "#dbc2b0",
+                      "on-surface": "#1b1c1c",
+                      "tertiary": "#904821",
+                      "on-secondary-fixed": "#351000",
+                      "secondary-container": "#feb28f",
+                      "surface-container-high": "#eae7e7",
+                      "on-surface-variant": "#554336",
+                      "on-primary-fixed": "#2f1500",
+                      "background": "#fcf9f8",
+                      "on-tertiary": "#ffffff",
+                      "on-secondary-fixed-variant": "#6d391e",
+                      "on-error": "#ffffff",
+                      "on-secondary": "#ffffff",
+                      "surface-dim": "#dcd9d9",
+                      "on-primary": "#ffffff",
+                      "outline": "#887364"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "fontFamily": {
+                      "headline": ["Plus Jakarta Sans"],
+                      "body": ["Plus Jakarta Sans"],
+                      "label": ["Plus Jakarta Sans"]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface antialiased overflow-hidden">
+<!-- Mobile Top Bar -->
+<header class="h-16 flex items-center justify-between px-4 bg-surface-container-low z-30 relative">
+<div class="flex items-center gap-3">
+<button class="p-2 text-on-surface-variant active:scale-95 transition-transform">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="text-lg font-bold tracking-tight text-on-surface">Lenie's Choice</h1>
+</div>
+<div class="flex items-center gap-2">
+<div class="bg-primary-fixed text-on-primary-fixed px-3 py-1 rounded-full text-xs font-bold">
+                POS ACTIVE
+            </div>
+<button class="p-2 text-on-surface-variant">
+<span class="material-symbols-outlined">search</span>
+</button>
+</div>
+</header>
+<!-- Main Content Shell -->
+<main class="flex flex-col h-[calc(100vh-64px)]">
+<!-- Category Pill Navigation (Horizontal Scroll) -->
+<nav class="flex overflow-x-auto gap-2 px-4 py-3 bg-surface-container-low hide-scrollbar">
+<button class="bg-primary text-on-primary px-5 py-2 rounded-full text-sm font-semibold whitespace-nowrap active:scale-95 transition-transform">All Items</button>
+<button class="bg-surface-container-highest text-on-surface-variant px-5 py-2 rounded-full text-sm font-medium whitespace-nowrap">Bread</button>
+<button class="bg-surface-container-highest text-on-surface-variant px-5 py-2 rounded-full text-sm font-medium whitespace-nowrap">Pastries</button>
+<button class="bg-surface-container-highest text-on-surface-variant px-5 py-2 rounded-full text-sm font-medium whitespace-nowrap">Cakes</button>
+<button class="bg-surface-container-highest text-on-surface-variant px-5 py-2 rounded-full text-sm font-medium whitespace-nowrap">Beverages</button>
+<button class="bg-surface-container-highest text-on-surface-variant px-5 py-2 rounded-full text-sm font-medium whitespace-nowrap">Promos</button>
+</nav>
+<!-- Product Grid & Summary Container -->
+<div class="flex-1 flex flex-col overflow-hidden">
+<!-- Product Grid (Scrollable) -->
+<div class="flex-1 overflow-y-auto px-4 py-4 grid grid-cols-2 gap-3 content-start hide-scrollbar bg-surface">
+<!-- Product Card 1 -->
+<div class="bg-surface-container-lowest rounded-xl p-3 flex flex-col gap-2 shadow-[0_4px_12px_rgba(137,80,51,0.04)] active:scale-95 transition-transform">
+<div class="aspect-square rounded-lg overflow-hidden bg-surface-container-high">
+<img class="w-full h-full object-cover" data-alt="Close-up of golden brown artisan sourdough bread loaf on a wooden board in a bakery setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDl1azBP6V1dMbElhMBQFXGKKRBGC1KGATJK8AIOzBEGiHnixgLJdOjwEqFRoF2w9WC_0UdFnG9iz0DnOHaRyRf3LTHfMzm7Rb6r1iYuSqZqNsJ-ZeIGgTu5-Y7Tbb91AKtU8Ws-5VM5jRL1A_A1DSwF6FCuswKV_6PnaOtveoJpp8vUCfYowfdwdfHy1d1UoqcgCJTQKcxpRt3yk3KaTOpZxCDbA-wiwAV8GM-3WmNWD48J85oAM6K6t9CXbtMybWhRO6Q86sM6o"/>
+</div>
+<div>
+<p class="text-sm font-bold text-on-surface leading-tight">Artisan Pandesal</p>
+<p class="text-xs text-secondary font-bold">₱12.00 /pc</p>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="bg-surface-container-lowest rounded-xl p-3 flex flex-col gap-2 shadow-[0_4px_12px_rgba(137,80,51,0.04)] active:scale-95 transition-transform">
+<div class="aspect-square rounded-lg overflow-hidden bg-surface-container-high">
+<img class="w-full h-full object-cover" data-alt="Freshly baked chocolate croissants stacked neatly in a glass display case with warm lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_pduAkiAn2xmKzVltmC8QIQgyr2XDpm4Ti1LvJd5sK4e8OBAEh7HS2-iyp6tIsCRPuzZNYyrYt52gimYzr5ddzfOvEgR4e5U07mCHKt82Bm18dLT2t-Fw-0SQXMyWKQD4N2XXdNx7w7pidfiZ6WaLUaemr19V8EPsBg0RaBjCRQb58dnOkctS-jxmbzeRwde6VRVP8JT7X92GhoyFb8hONkiGjId9RgGA3Yex3U9SqNsfODq5F_QbDq7c24R7L6PVlW2oW_OYgUs"/>
+</div>
+<div>
+<p class="text-sm font-bold text-on-surface leading-tight">Choco Croissant</p>
+<p class="text-xs text-secondary font-bold">₱45.00</p>
+</div>
+</div>
+<!-- Product Card 3 -->
+<div class="bg-surface-container-lowest rounded-xl p-3 flex flex-col gap-2 shadow-[0_4px_12px_rgba(137,80,51,0.04)] active:scale-95 transition-transform">
+<div class="aspect-square rounded-lg overflow-hidden bg-surface-container-high">
+<img class="w-full h-full object-cover" data-alt="Slices of purple ube cake with creamy frosting on a white plate with soft morning light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBOGqWEVZdL_pqWxOypNUeKbEEZqq4s31PA-b0fWuKmQgICemwegaHGVqnC1oUMTtLWjHr4lHbwdJbJ9WXT7pE9t7xWoflzDf-bb3ZU2b1okP1fD5dj7MylIcccqaeR5qXJ7gCyGUT1Z4R5xhLUAWLv6mxRwmtK_rQuG61S_5ApyRoysxHAXL5nBFZiEuLQBfc_hqTDZ_D_BqAF6JiDiJVd8IZbBXE5UHnfXe5I5JhKXpgbnKfRANPTR96a4P6UD-a7WUv7jOBy_Fc"/>
+</div>
+<div>
+<p class="text-sm font-bold text-on-surface leading-tight">Ube Ensaymada</p>
+<p class="text-xs text-secondary font-bold">₱35.00</p>
+</div>
+</div>
+<!-- Product Card 4 -->
+<div class="bg-surface-container-lowest rounded-xl p-3 flex flex-col gap-2 shadow-[0_4px_12px_rgba(137,80,51,0.04)] active:scale-95 transition-transform">
+<div class="aspect-square rounded-lg overflow-hidden bg-surface-container-high">
+<img class="w-full h-full object-cover" data-alt="Spanish bread roll dusted with sugar and breadcrumbs on a rustic plate in a bakery" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDv2RoNA1coQM44ZPB-OoUzWUUousT4_aKwefkw5lqbmHJZY8DxD5iEbMNAUxWuXsZ8N-Xq91vqRQKgxMQAmvnIads-675GduJL-LBbbQXYZ2sj20FT7z94UKpEDFJGb2ed2yp5j6Y2uu6gu8XDNsrWU2c3_RcaOlS2Tml10Ip2JIZ2WR-WA8WKUvu4dZ_0VF4hDKFrXhas6CB9XwlofcEdL2UtTUL_UzHA0O6zNV-FhRAi4Q4clUNcjL3AYy7BXWV-TA7K9SPCLPY"/>
+</div>
+<div>
+<p class="text-sm font-bold text-on-surface leading-tight">Spanish Bread</p>
+<p class="text-xs text-secondary font-bold">₱15.00</p>
+</div>
+</div>
+<!-- Product Card 5 -->
+<div class="bg-surface-container-lowest rounded-xl p-3 flex flex-col gap-2 shadow-[0_4px_12px_rgba(137,80,51,0.04)] active:scale-95 transition-transform">
+<div class="aspect-square rounded-lg overflow-hidden bg-surface-container-high">
+<img class="w-full h-full object-cover" data-alt="Traditional Filipino cheese bread rolls with golden brown tops and light dusting of sugar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDawqScIasT19zcbqQL7fYN2rs2KWN1FPBRXUoAaIFW50kXYnTJVTulKfqhQpzHs7a4CWKHvrDTPy4UbVzvX0TctIHTRwR8gfUv19UWdYOjx0HGeL38xXYvxbrrHXFc0TqBvNeGVQUH7HtgZE2SIM0v5LsLuWtloUj2nJjEtvzJTlQLOsBMtBEWLt6bsecJV0EiJOosa_82H9JrHsHEOxv-WGK7OAD7zMbnF-SxYEioqpxH65e-nnsQq2KDmURYC2kPmZNjfby6qy8"/>
+</div>
+<div>
+<p class="text-sm font-bold text-on-surface leading-tight">Cheese Bread</p>
+<p class="text-xs text-secondary font-bold">₱10.00</p>
+</div>
+</div>
+<!-- Product Card 6 -->
+<div class="bg-surface-container-lowest rounded-xl p-3 flex flex-col gap-2 shadow-[0_4px_12px_rgba(137,80,51,0.04)] active:scale-95 transition-transform">
+<div class="aspect-square rounded-lg overflow-hidden bg-surface-container-high">
+<img class="w-full h-full object-cover" data-alt="Large glass bottle of fresh cold milk on a rustic kitchen counter with soft backlighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDiwRf10nbGds8M2L4mK08dpKX0mFvLif0BgxC5D48MQhySJ-FI2sYQ4oUiIClmDfDUGJGdAMlFn2v2obK30vDToWIoaxr-CROCgjRIFkD2o8tR92j5dbzh26RHI9_RzvfLsdzyVfGpE_0Je-hWSqRhLbJAP0Jd14w3hLfp1Qg4ujQQbEOh67Gn_lV8U00UikHCVbXzKDNv2z4295T4rj7Sq4KacZiyTKTFRp_kRSg025nGQziH7DtP-ZhAie4sXnnNCooO5Nk8ymw"/>
+</div>
+<div>
+<p class="text-sm font-bold text-on-surface leading-tight">Fresh Milk 1L</p>
+<p class="text-xs text-secondary font-bold">₱120.00</p>
+</div>
+</div>
+</div>
+<!-- Order Summary Tray (Sticky Bottom) -->
+<div class="bg-surface-container-lowest rounded-t-3xl shadow-[0_-12px_32px_rgba(137,80,51,0.1)] p-5 z-20">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">shopping_basket</span>
+<h2 class="text-sm font-bold text-on-surface">Current Order</h2>
+<span class="bg-primary-fixed text-on-primary-fixed px-2 py-0.5 rounded-full text-[10px] font-bold">3 ITEMS</span>
+</div>
+<button class="text-xs font-bold text-primary underline underline-offset-4">View All</button>
+</div>
+<!-- Quick Item List (Horizontal) -->
+<div class="flex gap-4 overflow-x-auto hide-scrollbar mb-6">
+<div class="flex flex-col items-center gap-1 shrink-0">
+<div class="w-12 h-12 rounded-full border-2 border-primary overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Small avatar of pandesal" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAhb1rv9idCEQcAosfjxruZM7wsVvgpzJkTKDO6ZOjd0bJn3Ydkw7zfzWJ7aKS7D7YCCNGY_hhrl09sUotaHfKz0QLstFv1gGXgVmHudP6T6gqrc0RTinvPsEaBpMoM2Qbyci-cTr1BUPcUoI-IjYvYw32bgitf6yf6tkuYpNzBXtWmBiUgICyWo7hAnV98iS_JiMjjCcvqAsRe7lskRfM7cG2qLbFbtQbNkS0J_oHZ5Qq8JWrTE8hS5fBjyEUS0HAbqOOkioY4W_Y"/>
+</div>
+<span class="text-[10px] font-bold">x10</span>
+</div>
+<div class="flex flex-col items-center gap-1 shrink-0">
+<div class="w-12 h-12 rounded-full border-2 border-primary overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Small avatar of croissant" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCrogMChssllX9IKS-1bzXin3F8_CZmXQWZAdPIlMeX3yUvhlOo6Go5nvBW2gfXmF6nxQcF-1gTXLujuCzp3KG5Yfy55mnozxU4pxZmzQMhuMmmwpC1Cpe_yF89HItNjm7t13XAJT8GCRRVvSXH85z6a-D7k4TLgCY1dapOncCF4ZpTV-YCS1hkbDuUeBYQ46d6fJt1qlT1_RPL1lNM_ZAGEd96BZnXynx3RhfjOWGpa9xu7deBjpV_JenG5kyY4QaThXSwHRmknbU"/>
+</div>
+<span class="text-[10px] font-bold">x2</span>
+</div>
+<div class="flex flex-col items-center gap-1 shrink-0">
+<div class="w-12 h-12 rounded-full border-2 border-primary overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Small avatar of spanish bread" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsu6r3XSZhh3kmWoFdQmCD8IB7UmG0rGJAklMV8qimWBhdGOgpw2sOYM57hZ_vDLqgxrbbStkBML3hteAmbaRSPwJ0NjTRIrPk0cLpzrJdV1qYiHP-SRHMdGzyGMNYzCHCi4y0VFkzI3VdrTCweq6Zj8zd2p4zOY1UCbSz1k21mBXvtJqspPbmEUx50fpZiIR0-KpE3CoJmSFEeOZCPj0DI5rovml_X1d17b1ZCMGtzkS-051wdzuwuej_nmAyOBGYVNgbyJ5Mfrc"/>
+</div>
+<span class="text-[10px] font-bold">x5</span>
+</div>
+</div>
+<!-- Checkout Button -->
+<button class="w-full bg-primary text-on-primary py-4 rounded-xl flex items-center justify-between px-6 active:scale-[0.98] transition-all bg-gradient-to-br from-primary to-primary-container">
+<div class="flex flex-col items-start">
+<span class="text-[10px] font-medium opacity-80 uppercase tracking-widest">Total Amount</span>
+<span class="text-lg font-extrabold">₱285.00</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-sm font-bold">PROCEED</span>
+<span class="material-symbols-outlined">arrow_forward</span>
+</div>
+</button>
+</div>
+</div>
+</main>
+<!-- Side Navigation Overlay (Hidden by default, triggered by JS-like behavior) -->
+<!-- Applying Shared Component JSON styles to the sidebar structure -->
+<div class="fixed inset-0 bg-on-background/20 backdrop-blur-sm z-50 pointer-events-none opacity-0 transition-opacity">
+<aside class="w-[280px] fixed h-full left-0 top-0 z-40 bg-[#f6f3f2]/85 dark:bg-[#1b1c1c]/85 backdrop-blur-xl flex flex-col h-screen p-8 gap-10 shadow-[8px_0_24px_rgba(137,80,51,0.06)] -translate-x-full transition-transform">
+<!-- Sidebar Header -->
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary" style="font-variation-settings: 'FILL' 1;">bakery_dining</span>
+</div>
+<div class="flex flex-col">
+<span class="text-lg font-bold tracking-tight text-[#1b1c1c] dark:text-[#fcf9f8]">Lenie's Choice</span>
+<span class="text-[10px] font-medium text-on-surface-variant uppercase tracking-widest">TinAPPay ERP</span>
+</div>
+</div>
+</div>
+<!-- Navigation Links -->
+<nav class="flex flex-col gap-2">
+<a class="text-[#554336] dark:text-[#dbc2b0] hover:bg-[#fcf9f8]/50 dark:hover:bg-stone-800/50 rounded-full px-4 py-3 flex items-center gap-4 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-['Plus_Jakarta_Sans'] text-sm font-medium">Dashboard</span>
+</a>
+<!-- Active State for POS -->
+<a class="bg-[#ffdcc3] text-[#2f1500] rounded-full px-4 py-3 flex items-center gap-4 transition-all duration-300 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">point_of_sale</span>
+<span class="font-['Plus_Jakarta_Sans'] text-sm font-medium">POS</span>
+</a>
+<a class="text-[#554336] dark:text-[#dbc2b0] hover:bg-[#fcf9f8]/50 dark:hover:bg-stone-800/50 rounded-full px-4 py-3 flex items-center gap-4 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-['Plus_Jakarta_Sans'] text-sm font-medium">Inventory</span>
+</a>
+<a class="text-[#554336] dark:text-[#dbc2b0] hover:bg-[#fcf9f8]/50 dark:hover:bg-stone-800/50 rounded-full px-4 py-3 flex items-center gap-4 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-['Plus_Jakarta_Sans'] text-sm font-medium">Users</span>
+</a>
+<a class="text-[#554336] dark:text-[#dbc2b0] hover:bg-[#fcf9f8]/50 dark:hover:bg-stone-800/50 rounded-full px-4 py-3 flex items-center gap-4 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-['Plus_Jakarta_Sans'] text-sm font-medium">Settings</span>
+</a>
+</nav>
+<!-- Bottom Branding -->
+<div class="mt-auto border-t border-outline-variant/10 pt-6">
+<div class="bg-surface-container rounded-2xl p-4 flex flex-col gap-2">
+<span class="text-[10px] font-bold text-on-surface-variant tracking-widest uppercase">Logged in as</span>
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-secondary text-on-secondary flex items-center justify-center text-xs font-bold">LC</div>
+<span class="text-sm font-bold text-on-surface">Head Baker</span>
+</div>
+</div>
+</div>
+</aside>
+</div>
+</body></html>

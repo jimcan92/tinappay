@@ -3,12 +3,17 @@
 */
 
 export enum Collections {
+    Attendance = "attendance",
     BakeryInfo = "bakery_info",
+    BranchStocks = "branch_stocks",
+    Branches = "branches",
     Categories = "categories",
+    Finances = "finances",
     InventoryLogs = "inventory_logs",
     OrderItems = "order_items",
     Orders = "orders",
     Products = "products",
+    PurchaseRequests = "purchase_requests",
     Suppliers = "suppliers",
     Supplies = "supplies",
     Users = "users",
@@ -35,15 +40,51 @@ export type BaseSystemFields<T = never> = {
 
 // Record types for each collection
 
+export type AttendanceRecord = {
+    user: string
+    clock_in: string
+    clock_out?: string
+    branch?: string
+    notes?: string
+}
+
 export type BakeryInfoRecord = {
     name: string
     description?: string
     logo?: string
+    receipt_footer?: string
+}
+
+export type BranchStocksRecord = {
+    branch: string
+    product?: string
+    supply?: string
+    quantity: number
+}
+
+export type BranchesRecord = {
+    name: string
+    location?: string
+    manager?: string
+    phone?: string
+    email?: string
+    bakery?: string
+    lat?: number
+    lng?: number
+    is_main?: boolean
 }
 
 export type CategoriesRecord = {
     name: string
     type?: "product" | "supply"
+}
+
+export type FinancesRecord = {
+    branch?: string
+    type: "revenue" | "expense"
+    amount: number
+    description: string
+    date: string
 }
 
 export type InventoryLogsRecord = {
@@ -66,17 +107,26 @@ export type OrdersRecord = {
     total: number
     cashier: string
     status?: "completed" | "cancelled"
+    branch?: string
 }
 
 export type ProductsRecord = {
     name: string
     description?: string
     unit?: "kg" | "g" | "mL" | "L" | "pcs"
-    stock?: number
     category: string
     images?: string[]
     price: number
     active?: boolean
+    barcode?: string
+}
+
+export type PurchaseRequestsRecord = {
+    branch?: string
+    supplies: string
+    quantity: number
+    status: "pending" | "approved" | "received"
+    requested_by?: string
 }
 
 export type SuppliersRecord = {
@@ -92,50 +142,69 @@ export type SuppliesRecord = {
     name: string
     description?: string
     unit?: "kg" | "g" | "mL" | "L" | "pcs"
-    current_stock?: number
     min_stock?: number
     max_stock?: number
     category?: string
     images?: string[]
+    barcode?: string
+    supplier?: string
 }
 
 export type UsersRecord = {
     name?: string
     avatar?: string
+    email: string
+    role?: "admin" | "staff" | "cashier" | "baker"
+    branch?: string
 }
 
 // Response types (Record + System Fields)
 
+export type AttendanceResponse<Texpand = unknown> = Required<AttendanceRecord> & BaseSystemFields<Texpand>
 export type BakeryInfoResponse<Texpand = unknown> = Required<BakeryInfoRecord> & BaseSystemFields<Texpand>
+export type BranchStocksResponse<Texpand = unknown> = Required<BranchStocksRecord> & BaseSystemFields<Texpand>
+export type BranchesResponse<Texpand = unknown> = Required<BranchesRecord> & BaseSystemFields<Texpand>
 export type CategoriesResponse<Texpand = unknown> = Required<CategoriesRecord> & BaseSystemFields<Texpand>
+export type FinancesResponse<Texpand = unknown> = Required<FinancesRecord> & BaseSystemFields<Texpand>
 export type InventoryLogsResponse<Texpand = unknown> = Required<InventoryLogsRecord> & BaseSystemFields<Texpand>
 export type OrderItemsResponse<Texpand = unknown> = Required<OrderItemsRecord> & BaseSystemFields<Texpand>
 export type OrdersResponse<Texpand = unknown> = Required<OrdersRecord> & BaseSystemFields<Texpand>
 export type ProductsResponse<Texpand = unknown> = Required<ProductsRecord> & BaseSystemFields<Texpand>
+export type PurchaseRequestsResponse<Texpand = unknown> = Required<PurchaseRequestsRecord> & BaseSystemFields<Texpand>
 export type SuppliersResponse<Texpand = unknown> = Required<SuppliersRecord> & BaseSystemFields<Texpand>
 export type SuppliesResponse<Texpand = unknown> = Required<SuppliesRecord> & BaseSystemFields<Texpand>
 export type UsersResponse<Texpand = unknown> = Required<UsersRecord> & AuthSystemFields<Texpand>
 
 // Overall type for all collection responses
 export type CollectionResponses = {
+    attendance: AttendanceResponse
     bakery_info: BakeryInfoResponse
+    branch_stocks: BranchStocksResponse
+    branches: BranchesResponse
     categories: CategoriesResponse
+    finances: FinancesResponse
     inventory_logs: InventoryLogsResponse
     order_items: OrderItemsResponse
     orders: OrdersResponse
     products: ProductsResponse
+    purchase_requests: PurchaseRequestsResponse
     suppliers: SuppliersResponse
     supplies: SuppliesResponse
     users: UsersResponse
 }
 
 export type CollectionRecords = {
+    attendance: AttendanceRecord
     bakery_info: BakeryInfoRecord
+    branch_stocks: BranchStocksRecord
+    branches: BranchesRecord
     categories: CategoriesRecord
+    finances: FinancesRecord
     inventory_logs: InventoryLogsRecord
     order_items: OrderItemsRecord
     orders: OrdersRecord
     products: ProductsRecord
+    purchase_requests: PurchaseRequestsRecord
     suppliers: SuppliersRecord
     supplies: SuppliesRecord
     users: UsersRecord

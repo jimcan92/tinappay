@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TinAPPay ERP - Main Inventory Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error-container": "#93000a",
+                        "tertiary": "#904821",
+                        "surface-dim": "#dcd9d9",
+                        "outline-variant": "#dbc2b0",
+                        "error": "#ba1a1a",
+                        "on-primary-fixed-variant": "#6e3900",
+                        "on-secondary-fixed-variant": "#6d391e",
+                        "primary-container": "#b15f00",
+                        "surface-container": "#f0eded",
+                        "on-surface": "#1b1c1c",
+                        "inverse-surface": "#303030",
+                        "primary": "#8d4b00",
+                        "surface": "#fcf9f8",
+                        "tertiary-container": "#af5f36",
+                        "outline": "#887364",
+                        "surface-variant": "#e4e2e1",
+                        "primary-fixed": "#ffdcc3",
+                        "surface-bright": "#fcf9f8",
+                        "secondary-fixed": "#ffdbcc",
+                        "inverse-primary": "#ffb77d",
+                        "surface-tint": "#904d00",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-container": "#fffbff",
+                        "tertiary-fixed-dim": "#ffb693",
+                        "primary-fixed-dim": "#ffb77d",
+                        "background": "#fcf9f8",
+                        "inverse-on-surface": "#f3f0ef",
+                        "on-tertiary-fixed-variant": "#76330d",
+                        "on-secondary": "#ffffff",
+                        "secondary": "#895033",
+                        "on-primary-fixed": "#2f1500",
+                        "on-tertiary-fixed": "#351000",
+                        "on-secondary-container": "#794227",
+                        "on-background": "#1b1c1c",
+                        "on-tertiary": "#ffffff",
+                        "on-surface-variant": "#554336",
+                        "on-secondary-fixed": "#351000",
+                        "surface-container-high": "#eae7e7",
+                        "on-primary-container": "#fffbff",
+                        "on-error": "#ffffff",
+                        "secondary-container": "#feb28f",
+                        "surface-container-low": "#f6f3f2",
+                        "secondary-fixed-dim": "#ffb694",
+                        "surface-container-highest": "#e4e2e1",
+                        "tertiary-fixed": "#ffdbcc",
+                        "error-container": "#ffdad6",
+                        "on-primary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.25rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Plus Jakarta Sans"],
+                        "body": ["Plus Jakarta Sans"],
+                        "label": ["Plus Jakarta Sans"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .glass-sidebar {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface antialiased min-h-screen flex">
+<!-- Sidebar Navigation Drawer (Glassmorphism) -->
+<!-- Managed as a sticky side element but behaves like a drawer in mobile context -->
+<aside class="w-[280px] h-screen sticky left-0 top-0 z-50 flex flex-col p-6 gap-2 bg-stone-100/85 backdrop-blur-xl dark:bg-stone-900/85 font-['Plus_Jakarta_Sans'] text-stone-800 dark:text-stone-100 shadow-[8px_0_24px_rgba(137,80,51,0.06)] glass-sidebar">
+<!-- Header Branding -->
+<div class="mb-8 px-2 flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-primary-container flex items-center justify-center text-white shadow-lg">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">bakery_dining</span>
+</div>
+<div>
+<h1 class="text-xl font-bold tracking-tight text-stone-900 dark:text-white leading-none">Lenie’s Choice</h1>
+<p class="text-[10px] uppercase tracking-widest text-on-surface-variant font-bold mt-1 opacity-70">Artisanal Inventory</p>
+</div>
+</div>
+<!-- Navigation Tabs -->
+<nav class="flex flex-col gap-1 flex-1">
+<a class="flex items-center gap-3 px-4 py-3 bg-amber-100 text-amber-900 dark:bg-amber-900/40 dark:text-amber-100 rounded-full font-semibold transition-transform scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-sm">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-600 hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-100 hover:bg-stone-200/40 dark:hover:bg-stone-800/40 transition-colors" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="text-sm">Inventory</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-600 hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-100 hover:bg-stone-200/40 dark:hover:bg-stone-800/40 transition-colors" href="#">
+<span class="material-symbols-outlined">bakery_dining</span>
+<span class="text-sm">Products</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-600 hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-100 hover:bg-stone-200/40 dark:hover:bg-stone-800/40 transition-colors" href="#">
+<span class="material-symbols-outlined">flatware</span>
+<span class="text-sm">Supplies</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-600 hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-100 hover:bg-stone-200/40 dark:hover:bg-stone-800/40 transition-colors" href="#">
+<span class="material-symbols-outlined">category</span>
+<span class="text-sm">Categories</span>
+</a>
+</nav>
+<!-- CTA and Profile -->
+<div class="mt-auto flex flex-col gap-4">
+<button class="bg-primary hover:bg-primary-container text-white py-3 px-4 rounded-lg font-bold flex items-center justify-center gap-2 shadow-lg transition-transform active:scale-95">
+<span class="material-symbols-outlined">add</span>
+<span>New Entry</span>
+</button>
+<div class="p-2 flex items-center gap-3 bg-stone-200/50 dark:bg-stone-800/50 rounded-xl">
+<img class="w-10 h-10 rounded-full object-cover" data-alt="Professional chef headshot wearing white uniform in a warm lit artisanal bakery environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB31mfJlxpyzS1pYWhFre6DPMYqe3yY7geHc66mpAGELd8BABxRVhXAgJMISBd0bP25rNrxCVi8dawo4WddcVXuYqFjecm4kvvz2QfUDdX3wm8TRRyswgxAcQSEreszP62-s3LTupVZqgIbA98q3hVcvqma-QqQzEnGlBJ6xhW6T3ylWu2WNNW92RuRAdk87Dj5k_o5AGJa6ftSwth0zXb7kanc1sG0XGRfa0Mqjlpq8lnu0GrDJGSlL_AC-ppC8Tt5GRBtAWM75dU"/>
+<div class="overflow-hidden">
+<p class="text-sm font-bold truncate">TinAPPay Manager</p>
+<p class="text-[10px] opacity-60">Admin Access</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 min-w-0 flex flex-col min-h-screen">
+<!-- TopAppBar -->
+<header class="w-full sticky top-0 z-40 bg-stone-50/50 backdrop-blur-md dark:bg-stone-950/50 flex justify-between items-center px-6 py-4 font-['Plus_Jakarta_Sans'] text-sm tracking-wide">
+<div class="flex items-center gap-3">
+<button class="material-symbols-outlined p-2 hover:bg-surface-container rounded-full text-stone-600">menu</button>
+<div class="flex flex-col">
+<span class="text-xs font-bold text-primary tracking-widest uppercase opacity-80">TinAPPay</span>
+<span class="text-lg font-black text-stone-900 dark:text-stone-50 leading-none">Lenie’s Choice</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined p-2 cursor-pointer active:opacity-80 text-stone-500 hover:text-amber-600">search</span>
+<span class="material-symbols-outlined p-2 cursor-pointer active:opacity-80 text-stone-500 hover:text-amber-600">notifications</span>
+<span class="material-symbols-outlined p-2 cursor-pointer active:opacity-80 text-stone-500 hover:text-amber-600">settings</span>
+</div>
+</header>
+<!-- Canvas Content -->
+<div class="px-6 py-8 flex flex-col gap-8 max-w-md mx-auto w-full"><nav aria-label="Breadcrumb" class="flex items-center gap-2 mb-2">
+<ol class="flex items-center gap-2">
+<li class="flex items-center gap-2">
+<a class="text-stone-400 hover:text-primary transition-colors flex items-center" href="#">
+<span class="material-symbols-outlined text-[18px]">home</span>
+</a>
+<span class="material-symbols-outlined text-stone-300 text-[18px]">chevron_right</span>
+</li>
+<li>
+<span class="text-xs font-bold uppercase tracking-widest text-primary">Inventory</span>
+</li>
+</ol>
+</nav>
+<!-- Summary Stats: Quick-view -->
+<section class="grid grid-cols-2 gap-4">
+<div class="bg-surface-container-lowest p-5 rounded-xl shadow-[0_8px_24px_rgba(137,80,51,0.04)] flex flex-col gap-2 relative overflow-hidden group">
+<div class="absolute -right-4 -top-4 w-16 h-16 bg-primary/5 rounded-full group-hover:scale-150 transition-transform duration-500"></div>
+<span class="text-[10px] font-bold text-on-surface-variant tracking-wider uppercase opacity-60">Total Items</span>
+<div class="flex items-baseline gap-1">
+<span class="text-3xl font-extrabold text-stone-900">482</span>
+<span class="text-xs text-tertiary font-bold">+12%</span>
+</div>
+</div>
+<div class="bg-error-container p-5 rounded-xl shadow-[0_8px_24px_rgba(186,26,26,0.08)] flex flex-col gap-2 relative overflow-hidden group">
+<div class="absolute -right-4 -top-4 w-16 h-16 bg-white/20 rounded-full"></div>
+<span class="text-[10px] font-bold text-on-error-container tracking-wider uppercase opacity-80">Stock Alerts</span>
+<div class="flex items-baseline gap-1">
+<span class="text-3xl font-extrabold text-on-error-container">08</span>
+<span class="material-symbols-outlined text-sm text-on-error-container" style="font-variation-settings: 'FILL' 1;">warning</span>
+</div>
+</div>
+</section>
+<!-- Navigation Cards Hub -->
+<section class="flex flex-col gap-6">
+<h2 class="text-lg font-extrabold text-on-surface tracking-tight flex items-center gap-2">
+<span class="w-1.5 h-6 bg-primary rounded-full"></span>
+                    Quick Navigation
+                </h2>
+<!-- Vertical Cards Stack -->
+<div class="flex flex-col gap-4">
+<!-- Products Card -->
+<div class="bg-surface-container-lowest p-1 rounded-2xl flex items-stretch shadow-sm hover:shadow-md transition-shadow group">
+<div class="w-24 bg-stone-100 rounded-xl overflow-hidden m-1 flex-shrink-0">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="Golden brown freshly baked artisanal baguettes lined up in a rustic bakery display" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDN19ZqBNUiuZTHT_8kisJrodfPpi3y99Ev7JdvR_SRv173Vl4hZJEXEaXNps2OAfHxCZn9FbYIaOXnvmADE1fkgWMKb5u7RmKoSgl6E6geize0mr7y-2HhPYpDwT8Z4XT29MHChOktSP-6fvFlBJjKLGfANnToIWap-wYZ2INEIt0EBgaV3yUIPLcq3za0QrKlXMrC6zk6tPWMF5Bq4Zo46KDWSygf9aaoNZopVhLat4v6ys2BlV3LeXo4pUqI6L_3BucUygRER5k"/>
+</div>
+<div class="p-4 flex flex-col justify-center gap-1 flex-1">
+<div class="flex justify-between items-start">
+<h3 class="text-base font-bold text-stone-900">Products</h3>
+<span class="material-symbols-outlined text-stone-400">chevron_right</span>
+</div>
+<p class="text-xs text-on-surface-variant">24 Active Bakery Items</p>
+<div class="mt-2 flex gap-1">
+<span class="px-2 py-0.5 bg-secondary-fixed text-[10px] font-bold rounded-full text-on-secondary-fixed">8 Pastries</span>
+<span class="px-2 py-0.5 bg-primary-fixed text-[10px] font-bold rounded-full text-on-primary-fixed">12 Breads</span>
+</div>
+</div>
+</div>
+<!-- Supplies Card -->
+<div class="bg-surface-container-lowest p-1 rounded-2xl flex items-stretch shadow-sm hover:shadow-md transition-shadow group">
+<div class="w-24 bg-stone-100 rounded-xl overflow-hidden m-1 flex-shrink-0">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="Close-up of premium organic flour being scooped from a burlap sack with dramatic warm lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB4sRJi4zpqOboS2yNYeDOlF5PoQJT58AL0agYvPPOWvjRXEYmMBeWNeLbPACSKpe0LaM31qJcBJVykYuIum3LKDo0qlyaQOPmWwy_U_qkj8so-AfE2MeKCZAOBiCABjfR1fzVuztA_V7vq3QLZS0OccpxmzaJmZw6C_8-aMuaBsC2SsqPV5mIqna3SOcamYym9Vo5b9ykCfiDbx9AY6fku1MUZnRwNRjOFUrK5LXL69TlBlORIZbu1O81gE8ofeg04UCtFDHDSe4E"/>
+</div>
+<div class="p-4 flex flex-col justify-center gap-1 flex-1">
+<div class="flex justify-between items-start">
+<h3 class="text-base font-bold text-stone-900">Supplies</h3>
+<span class="material-symbols-outlined text-stone-400">chevron_right</span>
+</div>
+<p class="text-xs text-on-surface-variant"><span class="text-error font-bold">12 Low Stock</span> Raw Materials</p>
+<div class="mt-2 flex gap-1">
+<span class="px-2 py-0.5 bg-surface-container-high text-[10px] font-bold rounded-full text-on-surface-variant">45kg Flour</span>
+<span class="px-2 py-0.5 bg-surface-container-high text-[10px] font-bold rounded-full text-on-surface-variant">12kg Butter</span>
+</div>
+</div>
+</div>
+<!-- Categories Card -->
+<div class="bg-surface-container-lowest p-1 rounded-2xl flex items-stretch shadow-sm hover:shadow-md transition-shadow group">
+<div class="w-24 bg-stone-100 rounded-xl overflow-hidden m-1 flex-shrink-0">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="Symmetric arrangement of bakery tools and ingredients on a clean stone countertop" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAEmBcMv9D0SKKzPfBP_lsPVcmLRiTR5CuspsxHwKE32GLlzEhNPuTOU-2aSxFJ1kf3ooBvhXjWhvAwFno2aDh1fOBev6AUf5j64GBfqknBzDSKB49p6c73kCCNhSyA0ipFVuUO5v7Bm0aHlsuj-t88MVGFHlYbCrtsPjTTMbwItXGFTeXTpps3L7FyJv2oFRrBOJ_zoGl-GA73IqVjl-Eau5X0ytkbiNCTqHkAVmFvORXE-f-uEbQfx1e56vQNaQd56Q4nNwnJNk4"/>
+</div>
+<div class="p-4 flex flex-col justify-center gap-1 flex-1">
+<div class="flex justify-between items-start">
+<h3 class="text-base font-bold text-stone-900">Categories</h3>
+<span class="material-symbols-outlined text-stone-400">chevron_right</span>
+</div>
+<p class="text-xs text-on-surface-variant">08 Organization Tags</p>
+<div class="mt-2 flex items-center gap-2">
+<div class="flex -space-x-2">
+<div class="w-6 h-6 rounded-full border-2 border-white bg-primary-container text-[8px] flex items-center justify-center text-white font-bold">B</div>
+<div class="w-6 h-6 rounded-full border-2 border-white bg-secondary text-[8px] flex items-center justify-center text-white font-bold">P</div>
+<div class="w-6 h-6 rounded-full border-2 border-white bg-tertiary text-[8px] flex items-center justify-center text-white font-bold">S</div>
+</div>
+<span class="text-[10px] text-stone-400 font-medium">+5 more</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Recent Activity Section (Bento Lite) -->
+<section class="flex flex-col gap-4">
+<div class="flex justify-between items-center">
+<h2 class="text-lg font-extrabold text-on-surface tracking-tight">Recent Updates</h2>
+<button class="text-xs font-bold text-primary uppercase tracking-wider">See History</button>
+</div>
+<div class="bg-surface-container-low rounded-2xl p-6 flex flex-col gap-4">
+<div class="flex items-start gap-4">
+<div class="w-10 h-10 rounded-full bg-secondary-fixed flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-on-secondary-fixed">update</span>
+</div>
+<div>
+<p class="text-sm font-bold text-stone-900">Sugar Stock Updated</p>
+<p class="text-xs text-on-surface-variant mt-0.5">25kg added to main pantry by Lenie.</p>
+<p class="text-[10px] text-stone-400 mt-2 font-medium uppercase tracking-tight">15 Minutes Ago</p>
+</div>
+</div>
+<div class="h-[1px] bg-outline-variant/15"></div>
+<div class="flex items-start gap-4">
+<div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-on-primary-fixed">local_shipping</span>
+</div>
+<div>
+<p class="text-sm font-bold text-stone-900">New Delivery Received</p>
+<p class="text-xs text-on-surface-variant mt-0.5">Premium Cocoa (Bulk) arrived from supplier.</p>
+<p class="text-[10px] text-stone-400 mt-2 font-medium uppercase tracking-tight">2 Hours Ago</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- FAB for Quick Action -->
+<div class="fixed bottom-8 right-6">
+<button class="w-16 h-16 rounded-2xl bg-primary text-white shadow-[0_8px_24px_rgba(141,75,0,0.3)] flex items-center justify-center hover:scale-105 active:scale-95 transition-transform group">
+<span class="material-symbols-outlined text-3xl transition-transform group-hover:rotate-90">add</span>
+</button>
+</div>
+</main>
+</body></html>

@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { categoriesState } from '$lib/state/categories.svelte';
+	import { categoriesState } from '$lib/states/categories.svelte';
+	import Select from '$lib/components/Select.svelte';
 
 	interface Props {
 		activeTab: 'products' | 'supplies' | 'categories';
@@ -8,50 +9,27 @@
 	}
 
 	let { activeTab, searchQuery = $bindable(), selectedCategoryId = $bindable() }: Props = $props();
+
+	let categoryOptions = $derived([
+		{ value: '', label: 'All Categories' },
+		...(activeTab === 'products' ? categoriesState.productCategories : categoriesState.supplyCategories).map((c) => ({ value: c.id, label: c.name }))
+	]);
 </script>
 
 {#if activeTab !== 'categories'}
-	<div class="flex flex-col gap-3 sm:flex-row">
-		<div class="group relative flex-1">
-			<span
-				class="material-symbols-outlined absolute top-1/2 left-4 -translate-y-1/2 text-on-surface-variant transition-colors group-focus-within:text-primary"
-			>
-				search
-			</span>
-			<input
-				bind:value={searchQuery}
-				class="w-full rounded-full border-none bg-surface-container-low py-3.5 pr-4 pl-12 text-sm font-medium transition-all focus:ring-2 focus:ring-primary/20"
-				placeholder="Search {activeTab === 'products' ? 'products' : 'supplies'}..."
-				type="text"
-			/>
+	<div class="flex flex-col gap-3 md:flex-row md:items-center">
+		<div class="relative flex-1">
+			<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+			<input bind:value={searchQuery} type="text" placeholder="Search {activeTab === 'products' ? 'products' : 'supplies'}..." class="h-12 w-full rounded-full border-none bg-surface-container-low pl-12 pr-4 text-sm font-medium shadow-inner outline-none focus:ring-2 focus:ring-primary/20" />
 		</div>
-		<div class="no-scrollbar flex gap-2 overflow-x-auto py-1">
-			<button
-				onclick={() => (selectedCategoryId = null)}
-				class="rounded-xl px-4 py-2.5 text-xs font-black tracking-widest whitespace-nowrap uppercase transition-all {selectedCategoryId ===
-				null
-					? 'bg-primary text-on-primary shadow-lg'
-					: 'bg-surface-container-low text-on-surface-variant'}">All</button
-			>
-			{#each activeTab === 'products' ? categoriesState.productCategories : categoriesState.supplyCategories as cat}
-				<button
-					onclick={() => (selectedCategoryId = cat.id)}
-					class="rounded-xl px-4 py-2.5 text-xs font-black tracking-widest whitespace-nowrap uppercase transition-all {selectedCategoryId ===
-					cat.id
-						? 'bg-primary text-on-primary shadow-lg'
-						: 'bg-surface-container-low text-on-surface-variant'}">{cat.name}</button
-				>
-			{/each}
+		<div class="flex w-full items-center gap-3 md:w-auto">
+			<Select
+				value={selectedCategoryId || ''}
+				onchange={(v) => { selectedCategoryId = v === '' ? null : v; }}
+				options={categoryOptions}
+				placeholder="All Categories"
+				class="flex-1 md:w-48 md:flex-none"
+			/>
 		</div>
 	</div>
 {/if}
-
-<style>
-	.no-scrollbar::-webkit-scrollbar {
-		display: none;
-	}
-	.no-scrollbar {
-		-ms-overflow-style: none;
-		scrollbar-width: none;
-	}
-</style>

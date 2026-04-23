@@ -1,53 +1,45 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
-	import { cn } from '$lib/utils';
 
 	interface Props {
 		children: Snippet;
-		class?: string;
-		variant?: 'primary' | 'secondary' | 'outline' | 'destructive' | 'ghost';
-		size?: 'sm' | 'md' | 'lg' | 'xl';
-		onclick?: () => void;
+		onclick?: (e: MouseEvent) => void;
 		disabled?: boolean;
-        type?: 'button' | 'submit';
+		class?: string;
+		variant?: 'primary' | 'outline' | 'ghost';
+        size?: 'sm' | 'md' | 'lg';
 	}
 
-	let { 
-        children, 
-        class: className, 
-        variant = 'primary', 
-        size = 'md', 
-        onclick, 
-        disabled = false,
-        type = 'button'
-    }: Props = $props();
+	let {
+		children,
+		onclick,
+		disabled = false,
+		class: className = '',
+		variant = 'primary',
+        size = 'md'
+	}: Props = $props();
 
 	const variants = {
-		primary: 'bg-gradient-to-br from-primary to-primary-container text-on-primary shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95',
-		secondary: 'bg-secondary-container text-on-secondary-container hover:bg-secondary-fixed-dim',
-		outline: 'bg-transparent border border-outline-variant/30 text-on-surface hover:bg-surface-container-low',
-		destructive: 'bg-error text-on-error shadow-lg shadow-error/20 hover:scale-[1.02] active:scale-95',
-        ghost: 'bg-transparent text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface'
+		primary:
+			'editorial-gradient text-on-primary shadow-[0px_8px_24px_rgba(140,65,0,0.25),inset_0_1px_0_rgba(255,255,255,0.15)] hover:shadow-[0px_12px_32px_rgba(140,65,0,0.35)] hover:-translate-y-0.5 active:translate-y-0 active:shadow-[0px_4px_12px_rgba(140,65,0,0.2)]',
+		outline:
+			'border-2 border-primary text-primary bg-transparent hover:bg-primary/5 active:bg-primary/10',
+		ghost: 'bg-transparent text-on-surface-variant hover:bg-surface-container-high active:bg-surface-container-highest'
 	};
 
-	const sizes = {
-		sm: 'px-4 py-2 text-xs font-black uppercase tracking-widest rounded-xl',
-		md: 'px-6 py-3 text-sm font-bold rounded-full',
-		lg: 'px-8 py-4 text-base font-black uppercase tracking-widest rounded-full',
-		xl: 'px-10 py-5 text-lg font-black uppercase tracking-[0.2em] rounded-full'
-	};
+    const sizes = {
+        sm: 'px-6 py-2.5 text-[9px]',
+        md: 'px-8 py-3.5 text-[10px]',
+        lg: 'px-10 py-5 text-xs'
+    };
 </script>
 
 <button
 	{onclick}
 	{disabled}
-    {type}
-	class={cn(
-		'inline-flex items-center justify-center gap-2 transition-all duration-300 disabled:opacity-50 disabled:grayscale disabled:pointer-events-none',
-		variants[variant],
-		sizes[size],
-		className
-	)}
+	class="flex items-center justify-center gap-3 rounded-full font-black uppercase tracking-[0.2em] transition-all duration-300 disabled:opacity-50 disabled:grayscale disabled:hover:translate-y-0 {variants[
+		variant
+	]} {sizes[size]} {className}"
 >
 	{@render children()}
 </button>

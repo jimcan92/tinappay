@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TinAPPay Finance | Lenie's Choice</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Manrope:wght@400;500;600;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-low": "#f3f0ec",
+                        "on-secondary": "#fff0e7",
+                        "on-primary-fixed-variant": "#5a2200",
+                        "on-tertiary": "#fcf1e6",
+                        "surface-tint": "#9b4000",
+                        "background": "#f9f6f2",
+                        "secondary-fixed": "#f1dfd4",
+                        "outline": "#787774",
+                        "tertiary": "#615a52",
+                        "primary-fixed": "#fe8848",
+                        "error-dim": "#b92902",
+                        "on-secondary-container": "#5c4f47",
+                        "tertiary-dim": "#554f46",
+                        "inverse-on-surface": "#9e9d99",
+                        "inverse-primary": "#fe8848",
+                        "outline-variant": "#afada9",
+                        "surface": "#f9f6f2",
+                        "tertiary-fixed-dim": "#e8ded3",
+                        "surface-dim": "#d6d4cf",
+                        "on-tertiary-fixed": "#4b453d",
+                        "on-error": "#ffefec",
+                        "secondary-fixed-dim": "#e3d1c6",
+                        "surface-bright": "#f9f6f2",
+                        "surface-container-high": "#e5e2de",
+                        "primary-dim": "#883700",
+                        "error": "#b02500",
+                        "secondary-dim": "#594d45",
+                        "surface-variant": "#dfddd8",
+                        "on-surface-variant": "#5c5b59",
+                        "on-background": "#2f2f2c",
+                        "on-tertiary-fixed-variant": "#686259",
+                        "on-secondary-fixed-variant": "#665950",
+                        "surface-container-highest": "#dfddd8",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed": "#1b0600",
+                        "on-tertiary-container": "#5e574f",
+                        "primary-container": "#fe8848",
+                        "on-secondary-fixed": "#483d35",
+                        "error-container": "#f95630",
+                        "surface-container": "#eae8e3",
+                        "primary": "#9b4000",
+                        "secondary-container": "#f1dfd4",
+                        "inverse-surface": "#0e0e0c",
+                        "tertiary-fixed": "#f7ece1",
+                        "on-primary": "#fff0ea",
+                        "tertiary-container": "#f7ece1",
+                        "on-surface": "#2f2f2c",
+                        "secondary": "#665950",
+                        "on-primary-container": "#4b1b00",
+                        "on-error-container": "#520c00",
+                        "primary-fixed-dim": "#ee7c3d"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Plus Jakarta Sans"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .signature-gradient {
+            background: linear-gradient(135deg, #9b4000 0%, #fe8848 100%);
+        }
+        .glass-surface {
+            backdrop-filter: blur(16px);
+            background: rgba(249, 246, 242, 0.85);
+        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #dfddd8; border-radius: 10px; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body min-h-screen">
+<!-- Sidebar Navigation (Drawer for Mobile) -->
+<aside class="h-screen w-72 fixed left-0 top-0 z-50 transform -translate-x-full transition-transform duration-300 ease-in-out bg-[#f3f0ec] dark:bg-stone-900 backdrop-blur-xl flex flex-col p-6 space-y-2" id="sidebar">
+<div class="flex items-center justify-between mb-8">
+<div class="flex flex-col">
+<span class="font-plus-jakarta-sans text-xl font-black text-orange-900 dark:text-orange-500">TinAPPay</span>
+<span class="text-xs text-stone-600 dark:text-stone-400 font-manrope">Lenie's Choice</span>
+</div>
+<button class="p-2 rounded-full hover:bg-stone-200/50" onclick="document.getElementById('sidebar').classList.add('-translate-x-full')">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center text-stone-600 dark:text-stone-400 px-4 py-3 hover:translate-x-1 transition-transform group" href="#">
+<span class="material-symbols-outlined mr-3">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center text-stone-600 dark:text-stone-400 px-4 py-3 hover:translate-x-1 transition-transform group" href="#">
+<span class="material-symbols-outlined mr-3">point_of_sale</span>
+<span>POS</span>
+</a>
+<a class="flex items-center text-stone-600 dark:text-stone-400 px-4 py-3 hover:translate-x-1 transition-transform group" href="#">
+<span class="material-symbols-outlined mr-3">inventory_2</span>
+<span>Inventory</span>
+</a>
+<a class="bg-orange-100/80 dark:bg-orange-950/30 text-orange-900 dark:text-orange-100 rounded-lg border-l-4 border-orange-800 px-4 py-3 font-bold flex items-center" href="#">
+<span class="material-symbols-outlined mr-3" style="font-variation-settings: 'FILL' 1;">payments</span>
+<span>Finance</span>
+</a>
+<a class="flex items-center text-stone-600 dark:text-stone-400 px-4 py-3 hover:translate-x-1 transition-transform group" href="#">
+<span class="material-symbols-outlined mr-3">shopping_cart</span>
+<span>Procurement</span>
+</a>
+<a class="flex items-center text-stone-600 dark:text-stone-400 px-4 py-3 hover:translate-x-1 transition-transform group" href="#">
+<span class="material-symbols-outlined mr-3">groups</span>
+<span>HR Management</span>
+</a>
+</nav>
+<div class="mt-auto pt-6 border-t border-stone-200/50 space-y-1">
+<a class="flex items-center text-stone-600 dark:text-stone-400 px-4 py-3 hover:translate-x-1 transition-transform" href="#">
+<span class="material-symbols-outlined mr-3">settings</span>
+<span>Settings</span>
+</a>
+<a class="flex items-center text-stone-600 dark:text-stone-400 px-4 py-3 hover:translate-x-1 transition-transform" href="#">
+<span class="material-symbols-outlined mr-3">help</span>
+<span>Support</span>
+</a>
+</div>
+</aside>
+<!-- Top AppBar -->
+<header class="bg-[#f9f6f2]/90 dark:bg-stone-950/90 backdrop-blur-md docked full-width top-0 sticky z-40 shadow-sm dark:shadow-none flex justify-between items-center w-full px-6 py-4">
+<div class="flex items-center gap-3">
+<button class="p-2 -ml-2 rounded-full hover:bg-stone-200/50 transition-colors" onclick="document.getElementById('sidebar').classList.remove('-translate-x-full')">
+<span class="material-symbols-outlined text-orange-900">menu</span>
+</button>
+<div class="flex flex-col">
+<h1 class="text-2xl font-extrabold text-orange-950 dark:text-orange-100 font-plus-jakarta-sans tracking-tight leading-none">TinAPPay</h1>
+<span class="text-[10px] uppercase tracking-widest text-stone-500 font-bold">Lenie's Choice</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 rounded-full hover:bg-stone-200/50 transition-colors">
+<span class="material-symbols-outlined text-stone-600">search</span>
+</button>
+<button class="p-2 rounded-full hover:bg-stone-200/50 transition-colors relative">
+<span class="material-symbols-outlined text-stone-600">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-primary rounded-full border-2 border-background"></span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-orange-200">
+<img class="w-full h-full object-cover" data-alt="professional portrait of a woman with a warm smile in an office setting with soft natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDs3ceQ5F_mnMcKQPUZxvy-9_wJIS-L9mP6_8xD238Bl-PA_sSUnbPnfoE5u6VdkNYtyVqyp6d-gFMT6WGxTLls4lXsEhXMmDWMokowCaayumzWPXkMac0vUqi3M7_yBBMrgWKJif8vxhyvKL3u9TWnB6Ht-M5Al9By75n9Wn0laK5SlF2GNpBixUgg8TvWawlv_eamDMH-LQwI2yxfZGGzOoHgphPa2FSzAeQS_pHZ61xl17e81nQq5ICsoFp33EzeGFNwCIxIvMw"/>
+</div>
+</div>
+</header>
+<main class="p-6 pb-24 space-y-8 max-w-lg mx-auto">
+<!-- Branch Selector Section -->
+<section class="space-y-4">
+<div class="flex items-center justify-between">
+<h2 class="font-headline font-bold text-lg text-on-background">Branch Overview</h2>
+<div class="flex items-center bg-surface-container-low rounded-full px-3 py-1 text-xs font-semibold text-primary">
+<span class="material-symbols-outlined text-sm mr-1">location_on</span>
+<span>Downtown Bakery</span>
+<span class="material-symbols-outlined text-sm ml-1">expand_more</span>
+</div>
+</div>
+</section>
+<!-- Revenue Summary (Artisanal Ledger Style) -->
+<section class="relative overflow-hidden bg-surface-container-lowest rounded-xl p-6 shadow-sm border border-stone-100">
+<div class="absolute -right-10 -top-10 w-40 h-40 bg-primary-container/10 rounded-full blur-3xl"></div>
+<div class="relative space-y-6">
+<div>
+<p class="text-xs font-bold text-stone-500 uppercase tracking-widest mb-1">Today's Revenue</p>
+<div class="flex items-baseline gap-2">
+<span class="text-4xl font-headline font-extrabold text-on-background">₱42,580</span>
+<span class="text-sm font-bold text-tertiary flex items-center bg-tertiary-container px-2 py-0.5 rounded-md">
+<span class="material-symbols-outlined text-xs mr-0.5">trending_up</span>
+                            12%
+                        </span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-surface-container-low/50 p-4 rounded-xl">
+<p class="text-[10px] font-bold text-stone-500 uppercase tracking-wider mb-1">Orders</p>
+<p class="text-xl font-headline font-bold text-on-background">156</p>
+</div>
+<div class="bg-surface-container-low/50 p-4 rounded-xl">
+<p class="text-[10px] font-bold text-stone-500 uppercase tracking-wider mb-1">Avg. Ticket</p>
+<p class="text-xl font-headline font-bold text-on-background">₱272</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Quick Transactions (Editorial List) -->
+<section class="space-y-4">
+<div class="flex items-center justify-between">
+<h2 class="font-headline font-bold text-lg text-on-background">Recent Transactions</h2>
+<button class="text-xs font-bold text-primary">View All</button>
+</div>
+<div class="space-y-1">
+<!-- Transaction Item -->
+<div class="flex items-center justify-between p-4 bg-surface-container-lowest rounded-xl transition-all active:scale-[0.98]">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined">restaurant</span>
+</div>
+<div>
+<p class="font-bold text-sm text-on-background leading-tight">Order #8902</p>
+<p class="text-[11px] text-stone-500">10:42 AM • Walk-in</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-bold text-sm text-on-background">+₱1,250.00</p>
+<p class="text-[10px] font-bold text-tertiary bg-tertiary-container/40 px-1.5 rounded inline-block">PAID</p>
+</div>
+</div>
+<!-- Transaction Item -->
+<div class="flex items-center justify-between p-4 bg-surface-container-low/40 rounded-xl transition-all active:scale-[0.98]">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-container/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">local_shipping</span>
+</div>
+<div>
+<p class="font-bold text-sm text-on-background leading-tight">Supplier: Flour Mill</p>
+<p class="text-[11px] text-stone-500">09:15 AM • Expense</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-bold text-sm text-error">-₱5,400.00</p>
+<p class="text-[10px] font-bold text-on-error-container bg-error-container/20 px-1.5 rounded inline-block">OUT</p>
+</div>
+</div>
+<!-- Transaction Item -->
+<div class="flex items-center justify-between p-4 bg-surface-container-lowest rounded-xl transition-all active:scale-[0.98]">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined">cake</span>
+</div>
+<div>
+<p class="font-bold text-sm text-on-background leading-tight">Custom Cake Dep.</p>
+<p class="text-[11px] text-stone-500">08:30 AM • Pre-order</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-bold text-sm text-on-background">+₱2,000.00</p>
+<p class="text-[10px] font-bold text-tertiary bg-tertiary-container/40 px-1.5 rounded inline-block">PENDING</p>
+</div>
+</div>
+<!-- Transaction Item -->
+<div class="flex items-center justify-between p-4 bg-surface-container-low/40 rounded-xl transition-all active:scale-[0.98]">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined">shopping_bag</span>
+</div>
+<div>
+<p class="font-bold text-sm text-on-background leading-tight">Order #8899</p>
+<p class="text-[11px] text-stone-500">Yesterday • GrabFood</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-bold text-sm text-on-background">+₱840.00</p>
+<p class="text-[10px] font-bold text-tertiary bg-tertiary-container/40 px-1.5 rounded inline-block">PAID</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Insights Bento Section -->
+<section class="grid grid-cols-2 gap-4">
+<div class="bg-tertiary-container p-4 rounded-2xl flex flex-col justify-between aspect-square">
+<span class="material-symbols-outlined text-on-tertiary-container">analytics</span>
+<div>
+<p class="text-2xl font-headline font-extrabold text-on-tertiary-container">88%</p>
+<p class="text-[11px] font-bold text-on-tertiary-container/70 leading-tight">Sales Target Reached</p>
+</div>
+</div>
+<div class="signature-gradient p-4 rounded-2xl flex flex-col justify-between aspect-square text-on-primary">
+<span class="material-symbols-outlined">payments</span>
+<div>
+<p class="text-2xl font-headline font-extrabold">₱15k</p>
+<p class="text-[11px] font-bold opacity-80 leading-tight">Net Profit This Week</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Floating Action Button -->
+<button class="fixed bottom-24 right-6 w-14 h-14 rounded-full signature-gradient shadow-lg flex items-center justify-center text-white z-40 active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-3xl">add</span>
+</button>
+<!-- Bottom Navigation Bar (Mobile) -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 glass-surface border-t border-stone-200/30 flex justify-around items-center px-6 py-4 z-40">
+<button class="flex flex-col items-center gap-1 text-stone-400">
+<span class="material-symbols-outlined">home</span>
+<span class="text-[10px] font-bold uppercase tracking-tighter">Home</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-stone-400">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="text-[10px] font-bold uppercase tracking-tighter">POS</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">account_balance_wallet</span>
+<span class="text-[10px] font-bold uppercase tracking-tighter">Finance</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-stone-400">
+<span class="material-symbols-outlined">inventory</span>
+<span class="text-[10px] font-bold uppercase tracking-tighter">Stock</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-stone-400">
+<span class="material-symbols-outlined">person</span>
+<span class="text-[10px] font-bold uppercase tracking-tighter">Profile</span>
+</button>
+</nav>
+</body></html>

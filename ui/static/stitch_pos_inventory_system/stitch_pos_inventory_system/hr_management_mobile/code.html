@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-low": "#f3f0ec",
+                    "on-secondary": "#fff0e7",
+                    "on-primary-fixed-variant": "#5a2200",
+                    "on-tertiary": "#fcf1e6",
+                    "surface-tint": "#9b4000",
+                    "background": "#f9f6f2",
+                    "secondary-fixed": "#f1dfd4",
+                    "outline": "#787774",
+                    "tertiary": "#615a52",
+                    "primary-fixed": "#fe8848",
+                    "error-dim": "#b92902",
+                    "on-secondary-container": "#5c4f47",
+                    "tertiary-dim": "#554f46",
+                    "inverse-on-surface": "#9e9d99",
+                    "inverse-primary": "#fe8848",
+                    "outline-variant": "#afada9",
+                    "surface": "#f9f6f2",
+                    "tertiary-fixed-dim": "#e8ded3",
+                    "surface-dim": "#d6d4cf",
+                    "on-tertiary-fixed": "#4b453d",
+                    "on-error": "#ffefec",
+                    "secondary-fixed-dim": "#e3d1c6",
+                    "surface-bright": "#f9f6f2",
+                    "surface-container-high": "#e5e2de",
+                    "primary-dim": "#883700",
+                    "error": "#b02500",
+                    "secondary-dim": "#594d45",
+                    "surface-variant": "#dfddd8",
+                    "on-surface-variant": "#5c5b59",
+                    "on-background": "#2f2f2c",
+                    "on-tertiary-fixed-variant": "#686259",
+                    "on-secondary-fixed-variant": "#665950",
+                    "surface-container-highest": "#dfddd8",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary-fixed": "#1b0600",
+                    "on-tertiary-container": "#5e574f",
+                    "primary-container": "#fe8848",
+                    "on-secondary-fixed": "#483d35",
+                    "error-container": "#f95630",
+                    "surface-container": "#eae8e3",
+                    "primary": "#9b4000",
+                    "secondary-container": "#f1dfd4",
+                    "inverse-surface": "#0e0e0c",
+                    "tertiary-fixed": "#f7ece1",
+                    "on-primary": "#fff0ea",
+                    "tertiary-fixed-dim": "#e8ded3",
+                    "on-surface": "#2f2f2c",
+                    "secondary": "#665950",
+                    "on-primary-container": "#4b1b00",
+                    "on-error-container": "#520c00",
+                    "primary-fixed-dim": "#ee7c3d"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Plus Jakarta Sans"],
+                    "body": ["Manrope"],
+                    "label": ["Manrope"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Manrope', sans-serif; }
+        h1, h2, h3, .font-headline { font-family: 'Plus Jakarta Sans', sans-serif; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen">
+<!-- TopAppBar -->
+<header class="bg-[#f9f6f2]/90 backdrop-blur-md sticky top-0 z-40 flex justify-between items-center w-full px-6 py-4 shadow-sm font-headline tracking-tight">
+<div class="flex items-center gap-3">
+<button class="p-2 -ml-2 hover:bg-stone-200/50 transition-colors rounded-full">
+<span class="material-symbols-outlined text-orange-950" data-icon="menu">menu</span>
+</button>
+<span class="text-2xl font-extrabold text-orange-950">TinAPPay</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 hover:bg-stone-200/50 transition-colors rounded-full">
+<span class="material-symbols-outlined text-orange-950" data-icon="search">search</span>
+</button>
+<button class="p-2 hover:bg-stone-200/50 transition-colors rounded-full relative">
+<span class="material-symbols-outlined text-orange-950" data-icon="notifications">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-orange-200">
+<img class="w-full h-full object-cover" data-alt="professional headshot of a female bakery manager with a warm smile in a brightly lit kitchen setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAU17ZEKdVUbt6q-T1mMwx_c371KvUDOxfZHxlgeu5E1AQ-NM4aOQDQXBRys1NeYsWYOXdzhbOY0GtJKmlNnDBaFU7g1lRx7iPUNXPvTcyGtYw3HTIXtSxoO-AwFghNPzbnefNWKUiNCoAmQhaBkdhjS8mSEcRaz-3kgBo3517S3ZU_syK-i5DKJIJhJJT2e_5ew6CskwVHylqHjNrQ8fhhFZDuq_vpqj3J_czo2aV1vHpKy055fOiPmNFwpXpvs-O83hU2WHiJSnY"/>
+</div>
+</div>
+</header>
+<main class="px-6 py-6 space-y-8 pb-24">
+<!-- Dashboard Header -->
+<header class="space-y-1">
+<p class="text-sm font-medium text-primary uppercase tracking-widest">Lenie's Choice</p>
+<h1 class="text-3xl font-extrabold tracking-tight text-on-surface">HR Management</h1>
+</header>
+<!-- Attendance Stats (Bento Grid Style) -->
+<section class="grid grid-cols-2 gap-4">
+<div class="bg-surface-container-lowest p-5 rounded-xl flex flex-col justify-between h-32">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-primary" data-icon="how_to_reg">how_to_reg</span>
+<span class="text-xs font-bold text-tertiary">ON-SITE</span>
+</div>
+<div>
+<div class="text-3xl font-headline font-extrabold">12/14</div>
+<div class="text-xs text-on-surface-variant font-medium">Staff Present</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-5 rounded-xl flex flex-col justify-between h-32">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-error" data-icon="event_busy">event_busy</span>
+<span class="text-xs font-bold text-tertiary">AWAY</span>
+</div>
+<div>
+<div class="text-3xl font-headline font-extrabold">2</div>
+<div class="text-xs text-on-surface-variant font-medium">Unscheduled</div>
+</div>
+</div>
+</section>
+<!-- Today's Shift Schedule -->
+<section class="space-y-4">
+<div class="flex justify-between items-end">
+<h2 class="text-xl font-bold tracking-tight">Today's Shift</h2>
+<button class="text-sm font-bold text-primary">View Full</button>
+</div>
+<div class="space-y-3">
+<!-- Shift Item -->
+<div class="bg-surface-container-low p-4 rounded-xl flex items-center gap-4">
+<div class="w-12 h-12 rounded-lg overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="portrait of a young male baker in a white uniform holding a flour-dusted rolling pin" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQAHExNEoflVISp8Unh1amU2XvN2UmJaJWN9oC9dG9OWv7QQZ5L9P-7VQ7k4FpL6nk-PRIcrg5UkP3VXvwq5XmL4EQKU9sBfMh19dtv_TqihKAiOAhzh_mCahaF3qZfGsX7-bRWJi6pXjUj-YzMmu-SMIfKstEAVpnG5bXSSL2B3Vhhv8TFzBEZIUWAvFM-F804TXC0Mw46z-wYfZZVAkXvKFy_xWZHIwJO4T3jaUet5p6okM-ociUD7XRMaE-byY--5472GYLIU8"/>
+</div>
+<div class="flex-1">
+<h4 class="font-bold text-on-surface">Marcus Chen</h4>
+<p class="text-xs text-on-surface-variant">Lead Baker • 04:00 - 12:00</p>
+</div>
+<div class="bg-tertiary-container text-on-tertiary-container px-3 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider">
+                        Active
+                    </div>
+</div>
+<!-- Shift Item -->
+<div class="bg-surface-container-low p-4 rounded-xl flex items-center gap-4">
+<div class="w-12 h-12 rounded-lg overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="candid shot of a female pastry chef concentrating on decorating a cake in a warm bakery lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJGEA9ehuHwLJ1zepa8hiPrQRWCxmklW6r6mi-jrieUY0qqvDTFogOxxHU-HVZFED_eY30g06vzu_tYIzDBP1tIn7xTYTRDAwKcuLfycv1z_7QMU800AOt9a_mYqvUTzsSlQvDSH5dyZqs8ESY8esvuLPpOj4yR3EADa9tEi5LcXWyV0Dpia96byabCh0yLC_7WTHqKAAXsyFdFzXPn5xsIuHdwd6L66z6tbuJxch6csHjswB37OYwRKEPwAS4jsOzkONlJM3CrLM"/>
+</div>
+<div class="flex-1">
+<h4 class="font-bold text-on-surface">Sarah Jenkins</h4>
+<p class="text-xs text-on-surface-variant">Pastry Chef • 06:00 - 14:00</p>
+</div>
+<div class="bg-primary-container text-on-primary-container px-3 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider">
+                        Clocked In
+                    </div>
+</div>
+<!-- Shift Item -->
+<div class="bg-surface-container-low/50 p-4 rounded-xl flex items-center gap-4 opacity-75">
+<div class="w-12 h-12 rounded-lg overflow-hidden shrink-0 grayscale">
+<img class="w-full h-full object-cover" data-alt="professional male kitchen assistant smiling in a rustic bakery background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsROJ4umifFBi18t8avDRd7HAbnumRyfN2nGYkM6LPCuU6LFYpRJBAZIJmrf9KV9BEsFPJrerHi0WDKtXwg08eSw4GaEk7ETuNlE7mGFqDIESygb7bA0tmKMFAsOSrzEP5cmhj_4R3ozALyJoMdXTR9y-FAf4d1RhIhhTEbjQai-8_OmuO-aHF6fxdrAZ8dfBynSM06msr1sdeHTs68y78PnfWbuz4xo29Nyme4o3HsQPDhiTnaSVLQ07e7SApDWq7MiwQRPSj1Xo"/>
+</div>
+<div class="flex-1">
+<h4 class="font-bold text-on-surface">Leo Rodriguez</h4>
+<p class="text-xs text-on-surface-variant">Counter Staff • 10:00 - 18:00</p>
+</div>
+<div class="bg-surface-variant text-on-surface-variant px-3 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider">
+                        Upcoming
+                    </div>
+</div>
+</div>
+</section>
+<!-- Quick Messaging -->
+<section class="space-y-4">
+<h2 class="text-xl font-bold tracking-tight">Quick Broadcast</h2>
+<div class="bg-surface-container-highest p-6 rounded-2xl relative overflow-hidden">
+<div class="relative z-10 space-y-4">
+<p class="text-sm text-on-surface leading-relaxed">
+                        Need to announce an emergency shift change or a store update?
+                    </p>
+<div class="flex gap-2">
+<button class="bg-primary text-on-primary px-6 py-3 rounded-full text-sm font-bold flex-1 flex items-center justify-center gap-2 shadow-lg">
+<span class="material-symbols-outlined text-sm" data-icon="campaign">campaign</span>
+                            Send Broadcast
+                        </button>
+<button class="bg-surface-container-lowest p-3 rounded-full border border-outline-variant/20 shadow-sm">
+<span class="material-symbols-outlined text-on-surface" data-icon="chat">chat</span>
+</button>
+</div>
+</div>
+<!-- Glassmorphism decorative element -->
+<div class="absolute -right-8 -bottom-8 w-32 h-32 bg-primary/10 rounded-full blur-2xl"></div>
+</div>
+</section>
+<!-- Staff Check-in Activity -->
+<section class="space-y-4">
+<h2 class="text-xl font-bold tracking-tight">Activity Log</h2>
+<div class="bg-surface-container-lowest rounded-2xl overflow-hidden shadow-sm">
+<table class="w-full text-left border-collapse">
+<tbody>
+<tr class="bg-surface-container-low/30">
+<td class="py-4 px-4 border-b border-surface-variant/10">
+<div class="flex flex-col">
+<span class="text-sm font-bold">Sarah Jenkins</span>
+<span class="text-[10px] text-on-surface-variant uppercase font-medium">Clock-in</span>
+</div>
+</td>
+<td class="py-4 px-4 border-b border-surface-variant/10 text-right">
+<span class="font-headline font-bold text-sm text-primary">05:58 AM</span>
+<p class="text-[10px] text-on-tertiary-fixed-variant">Main Entrance</p>
+</td>
+</tr>
+<tr>
+<td class="py-4 px-4 border-b border-surface-variant/10">
+<div class="flex flex-col">
+<span class="text-sm font-bold">Marcus Chen</span>
+<span class="text-[10px] text-on-surface-variant uppercase font-medium">Clock-in</span>
+</div>
+</td>
+<td class="py-4 px-4 border-b border-surface-variant/10 text-right">
+<span class="font-headline font-bold text-sm text-primary">03:52 AM</span>
+<p class="text-[10px] text-on-tertiary-fixed-variant">Kitchen Door</p>
+</td>
+</tr>
+<tr class="bg-surface-container-low/30">
+<td class="py-4 px-4">
+<div class="flex flex-col">
+<span class="text-sm font-bold">Julia Hart</span>
+<span class="text-[10px] text-on-surface-variant uppercase font-medium">Clock-out</span>
+</div>
+</td>
+<td class="py-4 px-4 text-right">
+<span class="font-headline font-bold text-sm text-on-surface-variant">11:15 PM</span>
+<p class="text-[10px] text-on-tertiary-fixed-variant">Yesterday</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</main>
+<!-- SideNavBar (Simulated as Drawer) -->
+<nav class="fixed inset-0 z-50 pointer-events-none">
+<div class="h-screen w-72 bg-[#f3f0ec] backdrop-blur-xl flex flex-col p-6 space-y-2 pointer-events-auto transform -translate-x-full transition-transform duration-300">
+<!-- SideNav Header -->
+<div class="flex items-center gap-3 mb-8">
+<div class="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center text-orange-900 shrink-0">
+<span class="material-symbols-outlined text-3xl" data-icon="bakery_dining">bakery_dining</span>
+</div>
+<div>
+<h2 class="font-plus-jakarta-sans text-xl font-black text-orange-900 leading-none">TinAPPay</h2>
+<p class="text-stone-600 text-xs font-medium mt-1">Lenie's Choice</p>
+</div>
+</div>
+<!-- SideNav Links -->
+<div class="space-y-1">
+<a class="text-stone-600 px-4 py-3 hover:translate-x-1 transition-transform flex items-center gap-3 font-manrope text-sm font-medium" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="dashboard">dashboard</span>
+                    Dashboard
+                </a>
+<a class="text-stone-600 px-4 py-3 hover:translate-x-1 transition-transform flex items-center gap-3 font-manrope text-sm font-medium" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="point_of_sale">point_of_sale</span>
+                    POS
+                </a>
+<a class="text-stone-600 px-4 py-3 hover:translate-x-1 transition-transform flex items-center gap-3 font-manrope text-sm font-medium" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="inventory_2">inventory_2</span>
+                    Inventory
+                </a>
+<a class="text-stone-600 px-4 py-3 hover:translate-x-1 transition-transform flex items-center gap-3 font-manrope text-sm font-medium" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="payments">payments</span>
+                    Finance
+                </a>
+<a class="text-stone-600 px-4 py-3 hover:translate-x-1 transition-transform flex items-center gap-3 font-manrope text-sm font-medium" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="shopping_cart">shopping_cart</span>
+                    Procurement
+                </a>
+<a class="bg-orange-100/80 text-orange-900 rounded-lg border-l-4 border-orange-800 px-4 py-3 font-bold flex items-center gap-3 font-manrope text-sm" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="groups">groups</span>
+                    HR Management
+                </a>
+</div>
+<div class="mt-auto space-y-1 pt-6 border-t border-stone-200">
+<a class="text-stone-600 px-4 py-3 hover:translate-x-1 transition-transform flex items-center gap-3 font-manrope text-sm font-medium" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="settings">settings</span>
+                    Settings
+                </a>
+<a class="text-stone-600 px-4 py-3 hover:translate-x-1 transition-transform flex items-center gap-3 font-manrope text-sm font-medium" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="help">help</span>
+                    Support
+                </a>
+</div>
+</div>
+<!-- Drawer Backdrop Overlay -->
+<div class="absolute inset-0 bg-stone-900/40 backdrop-blur-sm -z-10 opacity-0 pointer-events-none transition-opacity duration-300"></div>
+</nav>
+<!-- BottomNavBar (Mobile Shell Priority) -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 bg-background/80 backdrop-blur-xl flex justify-around items-center py-3 px-4 z-40 border-t border-transparent">
+<button class="flex flex-col items-center gap-1 p-2 text-stone-600">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-[10px] font-bold">Home</span>
+</button>
+<button class="flex flex-col items-center gap-1 p-2 text-stone-600">
+<span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
+<span class="text-[10px] font-bold">Schedule</span>
+</button>
+<div class="relative -top-6">
+<button class="bg-gradient-to-tr from-primary to-primary-container text-on-primary w-14 h-14 rounded-full flex items-center justify-center shadow-xl shadow-primary/20 scale-110 active:scale-95 duration-150">
+<span class="material-symbols-outlined text-3xl" data-icon="add" style="font-variation-settings: 'FILL' 1;">add</span>
+</button>
+</div>
+<button class="flex flex-col items-center gap-1 p-2 text-orange-800 font-bold">
+<span class="material-symbols-outlined" data-icon="groups" style="font-variation-settings: 'FILL' 1;">groups</span>
+<span class="text-[10px]">Staff</span>
+</button>
+<button class="flex flex-col items-center gap-1 p-2 text-stone-600">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span class="text-[10px] font-bold">Payroll</span>
+</button>
+</nav>
+</body></html>
