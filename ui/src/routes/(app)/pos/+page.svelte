@@ -312,9 +312,10 @@
 
 	async function handleCheckout() {
 		if (cartState.items.length === 0) return;
-		// Capture before checkout clears the cart
+		// Capture values before checkout clears the cart
 		const capturedItems = cartState.items.map((i) => ({ ...i }));
 		const capturedTotal = cartState.totalPrice;
+		const capturedChange = Math.max(0, cashTenderedNum - capturedTotal);
 		try {
 			const order = await cartState.checkout();
 			if (order) {
@@ -326,7 +327,7 @@
 					customerName: customerName.trim() || 'Walk-in Customer',
 					paymentMethod,
 					cashTendered: paymentMethod === 'cash' ? cashTenderedNum : undefined,
-					change: paymentMethod === 'cash' ? Math.max(0, changeAmount) : undefined
+					change: paymentMethod === 'cash' ? capturedChange : undefined
 				};
 				showPayment = false;
 				showSuccess = true;
