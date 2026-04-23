@@ -78,10 +78,9 @@
 				<div class="mb-8 space-y-4 text-center">
 					<div class="rounded-2xl border border-primary/10 bg-primary/5 p-4">
 						<p
-							class="text-[10px] leading-relaxed font-bold tracking-wider text-on-surface uppercase"
+							class="text-[10px] leading-relaxed font-bold tracking-wider text-on-surface/60 uppercase"
 						>
-							Login with your personal or any Google account then wait for the admin to confirm.
-							While waiting, you can contact the admin.
+							Login with your Google account then wait for the admin to confirm.
 						</p>
 					</div>
 					<p class="text-[9px] font-medium text-on-surface-variant/70 italic">
