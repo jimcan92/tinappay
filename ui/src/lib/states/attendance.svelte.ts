@@ -101,6 +101,33 @@ $effect.root(() => {
 	});
 });
 
+export async function performLogout() {
+	const userId = pb.authStore.record?.id;
+	if (userId) {
+		try {
+			const today = new Date();
+			today.setHours(0, 0, 0, 0);
+			const todayStr = today.toISOString().replace('T', ' ').split('.')[0];
+			const open = await pb.collection('attendance').getFirstListItem(
+				`user = '${userId}' && clock_in >= '${todayStr}' && clock_out = ''`,
+				{ requestKey: 'logout-attendance-check' }
+			).catch(() => null);
+
+			if (open) {
+				const now = new Date().toISOString().replace('T', ' ').split('.')[0];
+				await pb.collection('attendance').update(open.id, { clock_out: now });
+			}
+		} catch (e) {
+			console.error('Clock-out during logout failed:', e);
+		}
+	}
+
+	pb.authStore.clear();
+	if (typeof document !== 'undefined') {
+		document.cookie = 'pb_auth=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+	}
+}
+
 export function formatDuration(clockIn: string, clockOut?: string): string {
 	const start = new Date(clockIn);
 	const end = clockOut ? new Date(clockOut) : new Date();

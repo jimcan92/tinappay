@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { pb, performLogout } from '$lib/pocketbase';
+	import { pb } from '$lib/pocketbase';
+	import { performLogout } from '$lib/states/attendance.svelte';
 	import { goto } from '$app/navigation';
 
 	let { data } = $props();

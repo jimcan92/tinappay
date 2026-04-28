@@ -28,68 +28,68 @@ class FinanceState {
 		return this.totalRevenue - this.totalExpense;
 	}
 
-    get revenueByCategory() {
-        const map = new Map<string, number>();
-        this.records.filter(f => f.type === 'revenue').forEach(f => {
-            const cat = f.category || 'others';
-            map.set(cat, (map.get(cat) || 0) + f.amount);
-        });
-        return Array.from(map.entries()).map(([name, value]) => ({ name, value }));
-    }
+	get revenueByCategory() {
+		const map = new Map<string, number>();
+		this.records.filter(f => f.type === 'revenue').forEach(f => {
+			const cat = f.category || 'others';
+			map.set(cat, (map.get(cat) || 0) + f.amount);
+		});
+		return Array.from(map.entries()).map(([name, value]) => ({ name, value }));
+	}
 
-    get expenseByCategory() {
-        const map = new Map<string, number>();
-        this.records.filter(f => f.type === 'expense').forEach(f => {
-            const cat = f.category || 'others';
-            map.set(cat, (map.get(cat) || 0) + f.amount);
-        });
-        return Array.from(map.entries()).map(([name, value]) => ({ name, value }));
-    }
+	get expenseByCategory() {
+		const map = new Map<string, number>();
+		this.records.filter(f => f.type === 'expense').forEach(f => {
+			const cat = f.category || 'others';
+			map.set(cat, (map.get(cat) || 0) + f.amount);
+		});
+		return Array.from(map.entries()).map(([name, value]) => ({ name, value }));
+	}
 
 	async load() {
 		this.loading = true;
 		try {
 			const branch = branchesState.selectedBranchId;
-			let filters: string[] = [];
-            
-            if (branch) {
-                filters.push(`branch="${branch}"`);
-            }
+			const filters: string[] = [];
 
-            const now = new Date();
-            if (this.period === 'today') {
-                const start = new Date(now);
-                start.setHours(0,0,0,0);
-                filters.push(`date >= "${start.toISOString()}"`);
-            } else if (this.period === 'week') {
-                const start = new Date(now);
-                start.setDate(now.getDate() - now.getDay()); // Sunday
-                start.setHours(0,0,0,0);
-                filters.push(`date >= "${start.toISOString()}"`);
-            } else if (this.period === 'month') {
-                const start = new Date(now.getFullYear(), now.getMonth(), 1);
-                filters.push(`date >= "${start.toISOString()}"`);
-            }
+			if (branch) {
+				filters.push(`branch="${branch}"`);
+			}
+
+			const now = new Date();
+			if (this.period === 'today') {
+				const start = new Date(now);
+				start.setHours(0, 0, 0, 0);
+				filters.push(`date >= "${start.toISOString()}"`);
+			} else if (this.period === 'week') {
+				const start = new Date(now);
+				start.setDate(now.getDate() - now.getDay()); // Sunday
+				start.setHours(0, 0, 0, 0);
+				filters.push(`date >= "${start.toISOString()}"`);
+			} else if (this.period === 'month') {
+				const start = new Date(now.getFullYear(), now.getMonth(), 1);
+				filters.push(`date >= "${start.toISOString()}"`);
+			}
 
 			const filter = filters.join(' && ');
 			this.records = await pb.collection('finances').getFullList({
 				filter,
 				sort: '-date',
 				expand: 'branch',
-                requestKey: 'finance-list'
+				requestKey: 'finance-list'
 			});
 		} catch (err: any) {
-            if (err?.isAbort) return; // Ignore intentional aborts
+			if (err?.isAbort) return;
 			console.error('Finance load error:', err);
 		} finally {
 			this.loading = false;
 		}
 	}
 
-    setPeriod(p: FinancePeriod) {
-        this.period = p;
-        this.load();
-    }
+	setPeriod(p: FinancePeriod) {
+		this.period = p;
+		this.load();
+	}
 
 	async addExpense(amount: number, description: string, category: string = 'others') {
 		const branch = branchesState.selectedBranchId;
@@ -98,7 +98,7 @@ class FinanceState {
 			type: 'expense',
 			amount,
 			description,
-            category,
+			category,
 			date: new Date().toISOString()
 		});
 		await this.load();

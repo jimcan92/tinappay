@@ -1,7 +1,8 @@
 <script lang="ts">
 	import ArtisanalCard from '$lib/components/artisanal/ArtisanalCard.svelte';
 	import SignatureButton from '$lib/components/artisanal/SignatureButton.svelte';
-	import { pb, fileUrl } from '$lib/pocketbase';
+	import Dialog from '$lib/components/Dialog.svelte';
+	import { fileUrl, pb } from '$lib/pocketbase';
 	import { cartState } from '$lib/states/cart.svelte';
 	import { posState } from '$lib/states/pos.svelte';
 	import { settingsState } from '$lib/states/settings.svelte';
@@ -36,13 +37,6 @@
 		}
 	}
 
-	function heldQtyFor(productId: string): number {
-		return heldOrders.reduce(
-			(sum, o) => sum + (o.items.find((i) => i.productId === productId)?.quantity ?? 0),
-			0
-		);
-	}
-
 	type PayMethod = 'cash' | 'gcash' | 'maya' | 'card';
 
 	const PAY_METHODS: { id: PayMethod; label: string; icon: string; implemented: boolean }[] = [
@@ -63,6 +57,8 @@
 	let heldOrders = $state<HeldOrder[]>([]);
 	let editingQtyId = $state<string | null>(null);
 	let editingQtyValue = $state('');
+	let showRestockDialog = $state(false);
+	let productToRestock = $state<any>(null);
 	let paymentMethod = $state<PayMethod>('cash');
 	let cashTendered = $state('');
 	let customerName = $state('');
@@ -127,7 +123,8 @@
 		const inCart = cartQtyMap[product.id] ?? 0;
 		const available = product.branch_stock - (heldQtyMap[product.id] ?? 0);
 		if (available <= 0) {
-			toastState.error(`${product.name} is out of stock.`);
+			productToRestock = product;
+			showRestockDialog = true;
 			return;
 		}
 		if (inCart >= available) {
@@ -315,9 +312,10 @@
 
 	async function handleCheckout() {
 		if (cartState.items.length === 0) return;
-		// Capture before checkout clears the cart
+		// Capture values before checkout clears the cart
 		const capturedItems = cartState.items.map((i) => ({ ...i }));
 		const capturedTotal = cartState.totalPrice;
+		const capturedChange = Math.max(0, cashTenderedNum - capturedTotal);
 		try {
 			const order = await cartState.checkout();
 			if (order) {
@@ -329,7 +327,7 @@
 					customerName: customerName.trim() || 'Walk-in Customer',
 					paymentMethod,
 					cashTendered: paymentMethod === 'cash' ? cashTenderedNum : undefined,
-					change: paymentMethod === 'cash' ? Math.max(0, changeAmount) : undefined
+					change: paymentMethod === 'cash' ? capturedChange : undefined
 				};
 				showPayment = false;
 				showSuccess = true;
@@ -582,7 +580,6 @@
 					{#each filteredProducts as product (product.id)}
 						<button
 							onclick={() => addToCart(product)}
-							disabled={product.displayStock <= 0}
 							class="group flex h-max flex-col rounded-3xl border border-transparent bg-surface-container-lowest p-4 text-left transition-all hover:border-primary/10 hover:shadow-xl active:scale-95 disabled:cursor-not-allowed disabled:opacity-60"
 						>
 							<div
@@ -609,7 +606,19 @@
 											>{product.branch_stock === 0 ? 'Depleted' : 'In Cart'}</span
 										>
 									</div>
-								{:else if product.displayStock <= 5}
+								{:else if product.popularity > 5}
+									<div
+										class="absolute top-2 left-2 flex animate-bounce items-center gap-1 rounded-lg bg-tertiary px-2 py-1 text-[9px] font-black tracking-widest text-on-tertiary uppercase shadow-lg"
+									>
+										<span
+											class="material-symbols-outlined text-[10px]"
+											style="font-variation-settings: 'FILL' 1;">star</span
+										>
+										Popular
+									</div>
+								{/if}
+
+								{#if product.displayStock > 0 && product.displayStock <= 5}
 									<div
 										class="absolute top-2 right-2 animate-pulse rounded-lg bg-error px-2 py-1 text-[9px] font-black tracking-widest text-white uppercase shadow-lg"
 									>
@@ -1380,6 +1389,62 @@
 			</ArtisanalCard>
 		</div>
 	{/if}
+
+	<!-- Restock Dialog -->
+	<Dialog
+		open={showRestockDialog}
+		title="Item Depleted"
+		size="sm"
+		onClose={() => (showRestockDialog = false)}
+	>
+		<div class="space-y-6 text-center">
+			<div
+				class="mx-auto flex h-20 w-20 items-center justify-center rounded-3xl bg-error/10 text-error"
+			>
+				<span class="material-symbols-outlined text-4xl">inventory_2</span>
+			</div>
+			<div>
+				<h3 class="font-serif text-xl font-black text-on-surface">Restock Required</h3>
+				<p class="mt-2 text-sm font-medium text-on-surface-variant">
+					<span class="font-bold text-primary">{productToRestock?.name}</span> is currently out of stock
+					at this branch.
+				</p>
+			</div>
+			<div
+				class="rounded-2xl border border-outline-variant/10 bg-surface-container-low p-4 text-left"
+			>
+				<div class="mb-2 flex items-center justify-between">
+					<span class="text-[10px] font-black tracking-widest text-on-surface-variant uppercase"
+						>System Status</span
+					>
+					<span class="rounded bg-error/10 px-2 py-0.5 text-[8px] font-black text-error uppercase"
+						>Zero Stock</span
+					>
+				</div>
+				<p class="text-[11px] leading-relaxed font-medium text-on-surface-variant">
+					Sales for this item are restricted until inventory is replenished via procurement or
+					production logs.
+				</p>
+			</div>
+		</div>
+		{#snippet footer()}
+			<div class="flex flex-col gap-3">
+				<a
+					href="/inventory/products?product_id={productToRestock?.id}"
+					class="flex h-14 w-full items-center justify-center gap-2 rounded-2xl bg-primary text-xs font-black tracking-widest text-on-primary uppercase shadow-lg shadow-primary/20 transition-all hover:scale-[1.02] active:scale-95"
+				>
+					<span class="material-symbols-outlined text-sm">inventory</span>
+					Manage Inventory
+				</a>
+				<button
+					onclick={() => (showRestockDialog = false)}
+					class="h-12 w-full rounded-2xl bg-surface-container text-sm font-bold text-on-surface-variant transition-colors hover:bg-surface-container-high"
+				>
+					Close
+				</button>
+			</div>
+		{/snippet}
+	</Dialog>
 
 	<!-- Barcode Scanner Overlay -->
 	{#if showScanner}

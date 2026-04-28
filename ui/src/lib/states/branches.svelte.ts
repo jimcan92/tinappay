@@ -72,6 +72,10 @@ class BranchesState {
 	set selectedBranchId(id: string) {
 		this.#selectedBranchId = id;
 	}
+
+	selectedBranch = $derived(
+		this.items.find(branch => branch.id === this.#selectedBranchId) ?? null
+	);
 }
 
 export const branchesState = new BranchesState();

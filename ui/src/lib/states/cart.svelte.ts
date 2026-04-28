@@ -1,4 +1,5 @@
 import { pb, fileUrl } from '$lib/pocketbase';
+import { branchesState } from './branches.svelte';
 
 export interface CartItem {
 	productId: string;
@@ -67,7 +68,7 @@ class CartState {
 		}
 
 		try {
-			const branchId = currentUser?.branch;
+			const branchId = branchesState.selectedBranchId || currentUser?.branch;
 			const orderData = {
 				total: this.totalPrice,
 				status: 'completed',

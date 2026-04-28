@@ -10,6 +10,7 @@ export enum Collections {
     Categories = "categories",
     Finances = "finances",
     InventoryLogs = "inventory_logs",
+    Notifications = "notifications",
     OrderItems = "order_items",
     Orders = "orders",
     Products = "products",
@@ -85,6 +86,15 @@ export type FinancesRecord = {
     amount: number
     description: string
     date: string
+}
+
+export type NotificationsRecord = {
+    recipient: string
+    type: "pr_created" | "pr_updated" | "user_pending" | "low_stock"
+    title: string
+    body?: string
+    href?: string
+    read?: boolean
 }
 
 export type InventoryLogsRecord = {
@@ -166,6 +176,7 @@ export type BranchStocksResponse<Texpand = unknown> = Required<BranchStocksRecor
 export type BranchesResponse<Texpand = unknown> = Required<BranchesRecord> & BaseSystemFields<Texpand>
 export type CategoriesResponse<Texpand = unknown> = Required<CategoriesRecord> & BaseSystemFields<Texpand>
 export type FinancesResponse<Texpand = unknown> = Required<FinancesRecord> & BaseSystemFields<Texpand>
+export type NotificationsResponse<Texpand = unknown> = Required<NotificationsRecord> & BaseSystemFields<Texpand>
 export type InventoryLogsResponse<Texpand = unknown> = Required<InventoryLogsRecord> & BaseSystemFields<Texpand>
 export type OrderItemsResponse<Texpand = unknown> = Required<OrderItemsRecord> & BaseSystemFields<Texpand>
 export type OrdersResponse<Texpand = unknown> = Required<OrdersRecord> & BaseSystemFields<Texpand>
@@ -184,6 +195,7 @@ export type CollectionResponses = {
     categories: CategoriesResponse
     finances: FinancesResponse
     inventory_logs: InventoryLogsResponse
+    notifications: NotificationsResponse
     order_items: OrderItemsResponse
     orders: OrdersResponse
     products: ProductsResponse
@@ -201,6 +213,7 @@ export type CollectionRecords = {
     categories: CategoriesRecord
     finances: FinancesRecord
     inventory_logs: InventoryLogsRecord
+    notifications: NotificationsRecord
     order_items: OrderItemsRecord
     orders: OrdersRecord
     products: ProductsRecord

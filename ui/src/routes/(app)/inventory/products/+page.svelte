@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { page } from '$app/state';
 	import type { ProductsResponse } from '$lib/pocketbase-types';
 	import { categoriesState } from '$lib/states/categories.svelte';
 	import { inventoryState } from '$lib/states/inventory.svelte';
@@ -28,6 +29,12 @@
 	function handleClose() {
 		selectedItemId = null;
 	}
+
+	$effect(() => {
+		if (page.url.searchParams.get('product_id')) {
+			selectedItemId = page.url.searchParams.get('product_id');
+		}
+	});
 </script>
 
 <svelte:head>
@@ -45,20 +52,12 @@
 
 		<!-- List -->
 		<div class="no-scrollbar flex-1 overflow-y-auto px-6 pb-10 md:px-8 lg:px-10">
-			<InventoryList
-				type="product"
-				items={filteredProducts}
-				bind:selectedItemId
-			/>
+			<InventoryList type="product" items={filteredProducts} bind:selectedItemId />
 		</div>
 	</div>
 
 	<!-- Side Details -->
 	{#if selectedItemId}
-		<InventoryDetails
-			type="product"
-			item={selectedItem}
-			onClose={handleClose}
-		/>
+		<InventoryDetails type="product" item={selectedItem} onClose={handleClose} />
 	{/if}
 </div>

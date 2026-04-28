@@ -2,7 +2,9 @@
 	import { goto } from '$app/navigation';
 	import BranchDropdown from '$lib/components/BranchDropdown.svelte';
 	import GlobalSearchBar from '$lib/components/GlobalSearchBar.svelte';
-	import { fileUrl, pb, performLogout } from '$lib/pocketbase';
+	import { fileUrl, pb } from '$lib/pocketbase';
+	import { performLogout } from '$lib/states/attendance.svelte';
+	import NotificationBell from '$lib/components/NotificationBell.svelte';
 	import { branchesState } from '$lib/states/branches.svelte';
 	import { settingsState } from '$lib/states/settings.svelte';
 	import { onMount } from 'svelte';
@@ -78,40 +80,26 @@
 				>New Order</span
 			>
 		</a>
+
+		<NotificationBell />
+
 		<!-- Avatar Dropdown -->
 		<div class="avatar-dropdown relative">
 			<button
 				onclick={() => (isDropdownOpen = !isDropdownOpen)}
-				class="flex items-center gap-3 rounded-full py-1.5 pr-2 pl-2 transition-colors hover:bg-surface-container-highest md:pr-4 {isDropdownOpen
-					? 'bg-surface-container-highest'
+				class="flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-full border border-primary/10 bg-primary/10 transition-all hover:ring-2 hover:ring-primary/30 active:scale-90 {isDropdownOpen
+					? 'ring-2 ring-primary/30'
 					: ''}"
 			>
-				<div
-					class="flex h-8 w-8 items-center justify-center overflow-hidden rounded-full border border-primary/10 bg-primary/10"
-				>
-					{#if user?.avatar}
-						<img
-							class="h-full w-full object-cover"
-							src={fileUrl(user, user.avatar)}
-							alt={user.name}
-						/>
-					{:else}
-						<span class="material-symbols-outlined text-sm text-primary">person</span>
-					{/if}
-				</div>
-				<div class="hidden text-left lg:block">
-					<p class="text-xs leading-none font-bold text-on-surface">{user?.name || 'Baker'}</p>
-					<p
-						class="mt-0.5 text-[10px] font-black tracking-tighter text-on-surface-variant uppercase"
-					>
-						{user?.role || 'Staff'}
-					</p>
-				</div>
-				<span
-					class="material-symbols-outlined text-sm text-on-surface-variant transition-transform duration-300 {isDropdownOpen
-						? 'rotate-180'
-						: ''}">expand_more</span
-				>
+				{#if user?.avatar}
+					<img
+						class="h-full w-full object-cover"
+						src={fileUrl(user, user.avatar)}
+						alt={user.name}
+					/>
+				{:else}
+					<span class="material-symbols-outlined text-sm text-primary">person</span>
+				{/if}
 			</button>
 
 			{#if isDropdownOpen}
