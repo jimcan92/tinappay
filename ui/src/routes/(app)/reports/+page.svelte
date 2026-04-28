@@ -17,7 +17,7 @@
 		Math.max(...reportsState.weeklyData.map((d) => Math.max(d.revenue, d.expense)), 1)
 	);
 	let maxItemRevenue = $derived(Math.max(...reportsState.itemSales.map((i) => i.revenue), 1));
-	let selectedBranchName = $derived(branchesState.selectedBranchId || 'All Operations');
+	let selectedBranchName = $derived(branchesState.selectedBranch?.name || 'All Operations');
 
 	onMount(() => reportsState.load());
 

@@ -145,33 +145,32 @@ class ReportsState {
 
 			// 3. Finance (Week)
 			this.totalExpense = weekFinances.filter(f => f.type === 'expense').reduce((acc, f) => acc + (f.amount || 0), 0);
-            const weekRevenueFromFinance = weekFinances.filter(f => f.type === 'revenue').reduce((acc, f) => acc + (f.amount || 0), 0);
-			this.netProfit = weekRevenueFromFinance - this.totalExpense;
+			const weekOrderRevenue = weekOrders.reduce((acc, o) => acc + (o.total || 0), 0);
+			this.netProfit = weekOrderRevenue - this.totalExpense;
 
 			// 4. Weekly Chart Data (Revenue vs Expense)
+			// Revenue comes exclusively from weekOrders to avoid double-counting with finance records.
+			// Expenses come exclusively from weekFinances (the finance ledger).
 			const dayMap = new Map<string, {rev: number, exp: number}>();
 			for (let i = 6; i >= 0; i--) {
 				const d = new Date();
 				d.setDate(d.getDate() - i);
 				dayMap.set(d.toLocaleDateString('en-US', { weekday: 'short' }).toUpperCase(), {rev: 0, exp: 0});
 			}
-            
-            // Mix Orders and Finances for charts
+
 			weekOrders.forEach((o) => {
 				const key = new Date(o.created).toLocaleDateString('en-US', { weekday: 'short' }).toUpperCase();
 				const cur = dayMap.get(key) || {rev: 0, exp: 0};
-                cur.rev += (o.total || 0);
+				cur.rev += (o.total || 0);
 				dayMap.set(key, cur);
 			});
-            weekFinances.forEach((f) => {
-                const key = new Date(f.date).toLocaleDateString('en-US', { weekday: 'short' }).toUpperCase();
-                const cur = dayMap.get(key) || {rev: 0, exp: 0};
-                if (f.type === 'expense') cur.exp += (f.amount || 0);
-                else if (f.type === 'revenue') {
-                    if (!f.reference_id) cur.rev += (f.amount || 0);
-                }
-                dayMap.set(key, cur);
-            });
+			weekFinances.forEach((f) => {
+				if (f.type !== 'expense') return;
+				const key = new Date(f.date).toLocaleDateString('en-US', { weekday: 'short' }).toUpperCase();
+				const cur = dayMap.get(key) || {rev: 0, exp: 0};
+				cur.exp += (f.amount || 0);
+				dayMap.set(key, cur);
+			});
 
 			this.weeklyData = [...dayMap.entries()].map(([label, val], idx) => {
 				const d = new Date();
@@ -207,7 +206,7 @@ class ReportsState {
                 }
             });
             this.totalLaborHours = labor;
-            this.salesPerLaborHour = labor > 0 ? (weekRevenueFromFinance / labor) : 0;
+            this.salesPerLaborHour = labor > 0 ? (weekOrderRevenue / labor) : 0;
 
 			// 7. Category breakdown
 			const catCountMap = new Map<string, number>();

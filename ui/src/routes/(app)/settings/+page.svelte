@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import ArtisanalCard from '$lib/components/artisanal/ArtisanalCard.svelte';
-	import { pb, performLogout } from '$lib/pocketbase';
+	import { pb } from '$lib/pocketbase';
+	import { performLogout } from '$lib/states/attendance.svelte';
 	import { branchesState } from '$lib/states/branches.svelte';
 	import { settingsState } from '$lib/states/settings.svelte';
 	import { ARTISANAL_THEMES, themeState } from '$lib/states/theme.svelte';

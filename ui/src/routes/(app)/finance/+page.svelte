@@ -75,7 +75,7 @@
 	<title>Finance Treasury | tinAPPay ERP</title>
 </svelte:head>
 
-<div class="mx-auto max-w-7xl animate-in px-6 py-10 duration-700 fade-in md:px-10">
+<div class="@container animate-in px-6 py-10 duration-700 fade-in md:px-10">
 	<header class="mb-12 flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
 		<div>
 			<h1 class="mb-3 font-serif text-4xl font-black tracking-tight text-on-surface md:text-5xl">
@@ -116,7 +116,7 @@
 		</div>
 	{:else}
 		<!-- Stats Bento -->
-		<div class="mb-12 grid grid-cols-1 gap-6 md:grid-cols-3">
+		<div class="mb-12 grid grid-cols-1 gap-6 @3xl:grid-cols-3">
 			<ArtisanalCard
 				level="lowest"
 				class="group relative overflow-hidden border border-outline-variant/10 shadow-sm"
@@ -207,9 +207,9 @@
 		</div>
 
 		<!-- Main Layout -->
-		<div class="grid grid-cols-1 items-start gap-10 lg:grid-cols-12">
+		<div class="grid grid-cols-1 items-start gap-10 @3xl:grid-cols-5 @7xl:grid-cols-12">
 			<!-- Left Column: Controls & Analytics -->
-			<div class="space-y-8 lg:sticky lg:top-24 lg:col-span-4">
+			<div class="space-y-8 @3xl:col-span-2 @7xl:col-span-3">
 				<div class="space-y-6">
 					<h3
 						class="px-1 text-[10px] font-black tracking-[0.3em] text-on-surface-variant uppercase"
@@ -235,7 +235,7 @@
 									bind:value={newExpense.amount}
 									type="number"
 									step="0.01"
-									class="h-16 w-full rounded-2xl border-none bg-white px-6 text-2xl font-black text-primary shadow-inner transition-all outline-none focus:ring-4 focus:ring-primary/10"
+									class="h-16 w-full rounded-2xl border-none bg-primary-container/20 px-6 text-2xl font-black text-on-primary-container shadow-inner transition-all outline-none focus:ring-4 focus:ring-primary/50"
 									placeholder="0.00"
 								/>
 							</div>
@@ -245,7 +245,7 @@
 									class="px-1 text-[10px] font-black tracking-widest text-on-surface-variant uppercase"
 									>Category</label
 								>
-								<div class="grid grid-cols-2 gap-2">
+								<div class="flex flex-col gap-2">
 									{#each categories as cat}
 										<button
 											onclick={() => (newExpense.category = cat.id)}
@@ -271,7 +271,7 @@
 								<textarea
 									id="desc"
 									bind:value={newExpense.description}
-									class="h-32 w-full resize-none rounded-2xl border-none bg-white p-6 text-sm font-medium shadow-inner transition-all outline-none focus:ring-4 focus:ring-primary/10"
+									class="h-32 w-full resize-none rounded-2xl border-none bg-primary-container/20 p-6 text-sm font-medium shadow-inner transition-all outline-none focus:ring-4 focus:ring-primary/50"
 									placeholder="E.g. Electricity Bill, Weekly Payroll..."
 								></textarea>
 							</div>
@@ -334,7 +334,7 @@
 			</div>
 
 			<!-- Right Column: Ledger -->
-			<div class="space-y-6 lg:col-span-8">
+			<div class="space-y-6 @3xl:col-span-3 @7xl:col-span-9">
 				<div class="mb-6 flex items-center justify-between px-1">
 					<h3 class="text-[10px] font-black tracking-[0.3em] text-on-surface-variant uppercase">
 						General Ledger Register
