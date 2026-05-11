@@ -13,6 +13,9 @@ export enum Collections {
     Notifications = "notifications",
     OrderItems = "order_items",
     Orders = "orders",
+    ProductionLogs = "production_logs",
+    ProductionLogItems = "production_log_items",
+    ProductionLogSupplies = "production_log_supplies",
     Products = "products",
     PurchaseRequests = "purchase_requests",
     Suppliers = "suppliers",
@@ -78,6 +81,7 @@ export type BranchesRecord = {
 export type CategoriesRecord = {
     name: string
     type?: "product" | "supply"
+    production?: boolean
 }
 
 export type FinancesRecord = {
@@ -100,9 +104,33 @@ export type NotificationsRecord = {
 export type InventoryLogsRecord = {
     product?: string
     supply?: string
-    reason: "sale" | "waste" | "restock" | "adjustment"
+    reason: "sale" | "waste" | "restock" | "adjustment" | "production"
     quantity: number
     user?: string
+}
+
+export type ProductionLogsRecord = {
+    baker: string
+    branch: string
+    date: string
+    shift: "day" | "night"
+    notes?: string
+}
+
+export type ProductionLogItemsRecord = {
+    log: string
+    product: string
+    yield_qty: number
+    flour_kg?: number
+    margarine_kg?: number
+    lard_kg?: number
+}
+
+export type ProductionLogSuppliesRecord = {
+    log: string
+    supply: string
+    quantity: number
+    category?: string
 }
 
 export type OrderItemsRecord = {
@@ -166,6 +194,7 @@ export type UsersRecord = {
     email: string
     role?: "admin" | "staff" | "cashier" | "baker"
     branch?: string
+    active?: boolean
 }
 
 // Response types (Record + System Fields)
@@ -180,6 +209,9 @@ export type NotificationsResponse<Texpand = unknown> = Required<NotificationsRec
 export type InventoryLogsResponse<Texpand = unknown> = Required<InventoryLogsRecord> & BaseSystemFields<Texpand>
 export type OrderItemsResponse<Texpand = unknown> = Required<OrderItemsRecord> & BaseSystemFields<Texpand>
 export type OrdersResponse<Texpand = unknown> = Required<OrdersRecord> & BaseSystemFields<Texpand>
+export type ProductionLogsResponse<Texpand = unknown> = Required<ProductionLogsRecord> & BaseSystemFields<Texpand>
+export type ProductionLogItemsResponse<Texpand = unknown> = Required<ProductionLogItemsRecord> & BaseSystemFields<Texpand>
+export type ProductionLogSuppliesResponse<Texpand = unknown> = Required<ProductionLogSuppliesRecord> & BaseSystemFields<Texpand>
 export type ProductsResponse<Texpand = unknown> = Required<ProductsRecord> & BaseSystemFields<Texpand>
 export type PurchaseRequestsResponse<Texpand = unknown> = Required<PurchaseRequestsRecord> & BaseSystemFields<Texpand>
 export type SuppliersResponse<Texpand = unknown> = Required<SuppliersRecord> & BaseSystemFields<Texpand>

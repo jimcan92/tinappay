@@ -33,6 +33,15 @@
 		error = '';
 		try {
 			await pb.collection('users').authWithOAuth2({ provider: 'google' });
+			
+			// Check if account is active
+			if (pb.authStore.record && pb.authStore.record.active === false) {
+				pb.authStore.clear();
+				loading = false;
+				error = 'Your account has been deactivated. Please contact the administrator.';
+				return;
+			}
+
 			document.cookie = pb.authStore.exportToCookie({ httpOnly: false, path: '/' });
 			await autoClockIn();
 			window.location.href = '/';

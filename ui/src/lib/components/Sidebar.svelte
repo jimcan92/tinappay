@@ -4,6 +4,8 @@
 	import { onMount } from 'svelte';
 	import { fade, scale } from 'svelte/transition';
 
+	import { appLayout, type UserRole } from '$lib/states/app-layout.svelte';
+
 	interface Props {
 		isOpen?: boolean;
 		onClose?: () => void;
@@ -16,6 +18,9 @@
 	let showAppInfo = $state(false);
 	let showDev = $state(false);
 
+	const effectiveRole = $derived(appLayout.getEffectiveRole(user?.role as UserRole));
+	const filteredNavGroups = $derived(appLayout.getFilteredNav(user?.role as UserRole));
+
 	onMount(async () => {
 		try {
 			const info = await pb
@@ -26,29 +31,6 @@
 			// no bakery info set yet
 		}
 	});
-
-	const navGroups = [
-		{
-			label: 'Operations',
-			items: [
-				{ label: 'Dashboard', href: '/', icon: 'dashboard' },
-				{ label: 'POS', href: '/pos', icon: 'point_of_sale' }
-			]
-		},
-		{
-			label: 'Management',
-			items: [
-				{ label: 'Inventory', href: '/inventory', icon: 'inventory_2' },
-				{ label: 'Procurement', href: '/restock', icon: 'local_shipping' },
-				{ label: 'Finance', href: '/finance', icon: 'account_balance' },
-				{ label: 'Analytics', href: '/reports', icon: 'query_stats' }
-			]
-		},
-		{
-			label: 'System',
-			items: [{ label: 'Bakery Management', href: '/management', icon: 'admin_panel_settings' }]
-		}
-	];
 
 	const bottomLinks = [
 		{ label: 'Profile', href: '/profile', icon: 'person_outline' },
@@ -129,7 +111,12 @@
 					<p
 						class="text-[10px] leading-tight font-black tracking-widest text-on-surface-variant/50 uppercase"
 					>
-						{user?.role || 'staff'}
+						{effectiveRole || 'staff'}
+						{#if appLayout.isDemoModeActive && appLayout.simulatedRole}
+							<span class="ml-1 rounded-full bg-amber-500/20 px-1.5 py-0.5 text-[8px] text-amber-600"
+								>DEMO</span
+							>
+						{/if}
 					</p>
 				</div>
 			</div>
@@ -138,7 +125,7 @@
 
 	<!-- Navigation -->
 	<nav class="no-scrollbar flex-1 space-y-4 overflow-y-auto px-3 py-2">
-		{#each navGroups as group}
+		{#each filteredNavGroups as group}
 			<div>
 				<p
 					class="mb-1 px-4 text-[9px] font-bold tracking-[0.2em] text-on-surface-variant/50 uppercase"

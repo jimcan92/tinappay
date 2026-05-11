@@ -81,6 +81,17 @@
                             </div>
 						{:else}
 							<span class="flex-1 text-sm font-bold text-on-surface uppercase tracking-widest opacity-80">{cat.name}</span>
+							{#if group.type === 'product'}
+								<button
+									onclick={() => categoriesState.update(cat.id, { name: cat.name, type: cat.type, production: !cat.production })}
+									title={cat.production ? 'Remove from baker production form' : 'Include in baker production form'}
+									class="flex items-center gap-1.5 rounded-xl px-2.5 py-1.5 text-[9px] font-black uppercase tracking-widest transition-all
+										{cat.production ? 'bg-primary/10 text-primary' : 'bg-surface-container-lowest text-on-surface-variant/40 hover:text-on-surface-variant'}"
+								>
+									<span class="material-symbols-outlined text-sm" style="font-variation-settings:'FILL' {cat.production ? 1 : 0}">bakery_dining</span>
+									{cat.production ? 'Production' : ''}
+								</button>
+							{/if}
 							<div class="flex gap-1 opacity-0 transition-opacity group-hover:opacity-100">
 								<button
 									onclick={() => {

@@ -19,6 +19,7 @@
 	let searchQuery = $state('');
 	let selectedRole = $state<string | null>(null);
 	let selectedBranch = $state<string | null>(null); // '' = all, 'none' = unassigned, id = specific branch
+	let selectedStatus = $state<'active' | 'deactivated'>('active');
 	let dialogMode = $state<DialogMode>(null);
 	let saving = $state(false);
 	let editingUserId = $state<string | null>(null);
@@ -50,7 +51,8 @@
 			const matchesSearch = (u.name || u.email || '')
 				.toLowerCase()
 				.includes(searchQuery.toLowerCase());
-			return matchesRole && matchesBranch && matchesSearch;
+			const matchesStatus = selectedStatus === 'active' ? u.active !== false : u.active === false;
+			return matchesRole && matchesBranch && matchesSearch && matchesStatus;
 		})
 	);
 
@@ -125,15 +127,15 @@
 		}
 	}
 
-	async function handleDelete() {
-		if (!editingUserId) return;
+	async function toggleActive() {
+		if (!editingUserId || !editingUser) return;
 		saving = true;
 		try {
-			await usersState.delete(editingUserId);
-			toastState.success('Staff member removed.');
+			await usersState.update(editingUserId, { active: !editingUser.active });
+			toastState.success(`Staff member ${editingUser.active ? 'deactivated' : 'activated'}.`);
 			closeDialog();
 		} catch {
-			toastState.error('Failed to remove staff member.');
+			toastState.error('Failed to update status.');
 		} finally {
 			saving = false;
 		}
@@ -258,6 +260,17 @@
 				class="h-12 w-full rounded-full border-none bg-surface-container-low pr-4 pl-12 text-sm font-medium shadow-inner outline-none focus:ring-2 focus:ring-primary/20"
 			/>
 		</div>
+		<div class="flex h-12 w-full rounded-full bg-surface-container-low p-1 shadow-inner md:w-fit">
+			{#each [{ label: 'Active', value: 'active' }, { label: 'Inactive', value: 'deactivated' }] as tab}
+				<button
+					onclick={() => (selectedStatus = tab.value as 'active' | 'deactivated')}
+					class="flex-1 rounded-full px-6 text-[9px] font-black tracking-widest uppercase transition-all
+						{selectedStatus === tab.value
+							? 'bg-primary text-white shadow-lg'
+							: 'text-on-surface-variant hover:bg-surface-container'}"
+				>{tab.label}</button>
+			{/each}
+		</div>
 		<div class="flex w-full gap-3 md:w-auto">
 			<Select
 				value={selectedBranch ?? ''}
@@ -303,6 +316,7 @@
 						<th class="px-4 py-4">Email</th>
 						<th class="px-4 py-4">Role</th>
 						<th class="px-4 py-4">Branch</th>
+						<th class="px-4 py-4 text-center">Status</th>
 						<th class="px-4 py-4"></th>
 					</tr>
 				{/snippet}
@@ -356,6 +370,14 @@
 							<p class="text-sm font-medium text-on-surface-variant/60">
 								{branchesState.items.find((b) => b.id === user.branch)?.name || '—'}
 							</p>
+						</td>
+						<td class="px-4 py-4 text-center">
+							<div class="flex items-center justify-center gap-1.5">
+								<span class="h-2 w-2 rounded-full {user.active !== false ? 'bg-tertiary shadow-[0_0_6px_rgba(125,162,122,0.5)]' : 'bg-on-surface-variant/30'}"></span>
+								<span class="text-[10px] font-black uppercase tracking-widest {user.active !== false ? 'text-tertiary' : 'text-on-surface-variant/50'}">
+									{user.active !== false ? 'Active' : 'Inactive'}
+								</span>
+							</div>
 						</td>
 						<td class="px-4 py-4 text-right">
 							<button
@@ -456,11 +478,15 @@
 	{#snippet footer()}
 		<div class="flex gap-2">
 			<button
-				onclick={handleDelete}
+				onclick={toggleActive}
 				disabled={saving}
-				class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl text-on-surface-variant transition-all hover:bg-error/10 hover:text-error disabled:opacity-40"
+				class="flex h-12 shrink-0 items-center justify-center gap-2 rounded-2xl px-4 text-[9px] font-black uppercase tracking-widest transition-all disabled:opacity-40
+					{editingUser?.active !== false
+						? 'text-error hover:bg-error/10'
+						: 'text-tertiary hover:bg-tertiary/10'}"
 			>
-				<span class="material-symbols-outlined text-base">delete</span>
+				<span class="material-symbols-outlined text-base">{editingUser?.active !== false ? 'block' : 'check_circle'}</span>
+				{editingUser?.active !== false ? 'Deactivate' : 'Activate'}
 			</button>
 			<SignatureButton onclick={handleSave} disabled={saving} class="flex-1">
 				<span class="material-symbols-outlined">{saving ? 'hourglass_empty' : 'save'}</span>

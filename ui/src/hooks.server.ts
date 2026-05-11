@@ -10,6 +10,12 @@ export const handle: Handle = async ({ event, resolve }) => {
 	try {
 		if (pb.authStore.isValid) {
 			await pb.collection('users').authRefresh();
+			
+			// Kung ang user kay deactivated, i-clear ang auth ug i-logout
+			if (pb.authStore.record && pb.authStore.record.active === false) {
+				pb.authStore.clear();
+				event.locals.user = null;
+			}
 		}
 	} catch (_) {
 		pb.authStore.clear();

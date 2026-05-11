@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import ArtisanalCard from '$lib/components/artisanal/ArtisanalCard.svelte';
-	import { pb } from '$lib/pocketbase';
+	import { appLayout } from '$lib/states/app-layout.svelte';
 	import { performLogout } from '$lib/states/attendance.svelte';
 	import { branchesState } from '$lib/states/branches.svelte';
 	import { settingsState } from '$lib/states/settings.svelte';
@@ -9,6 +9,7 @@
 	import { toastState } from '$lib/states/toast.svelte';
 	import { onMount } from 'svelte';
 
+	let { data } = $props();
 	let logoPreview = $state<string | null>(null);
 	let newBranchName = $state('');
 	let editingBranchId = $state<string | null>(null);
@@ -85,6 +86,44 @@
 	</header>
 
 	<div class="mx-auto grid max-w-4xl grid-cols-1 items-start gap-10 lg:grid-cols-3">
+		<!-- Demo Mode Toggle (Admin only) -->
+		{#if data.user?.role === 'admin'}
+			<ArtisanalCard
+				level="high"
+				class="relative overflow-hidden border-2 border-primary/20 bg-primary/5 p-6 shadow-lg lg:col-span-3"
+			>
+				<div class="relative z-10 flex items-center justify-between">
+					<div class="flex items-center gap-4">
+						<div
+							class="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/20 text-primary"
+						>
+							<span class="material-symbols-outlined text-2xl">visibility</span>
+						</div>
+						<div>
+							<h3 class="font-serif text-lg font-black text-on-surface">Presentation Mode</h3>
+							<p class="text-xs font-medium text-on-surface-variant/70">
+								Enable Floating Action Button to switch roles during pitch.
+							</p>
+						</div>
+					</div>
+
+					<button
+						onclick={() => appLayout.toggleDemoMode()}
+						class="relative inline-flex h-7 w-12 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none {appLayout.isDemoModeActive
+							? 'bg-primary'
+							: 'bg-primary/20'}"
+						aria-label="Toggle Demo Mode"
+					>
+						<span
+							class="pointer-events-none inline-block h-6 w-6 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out {appLayout.isDemoModeActive
+								? 'translate-x-5'
+								: 'translate-x-0'}"
+						></span>
+					</button>
+				</div>
+			</ArtisanalCard>
+		{/if}
+
 		<!-- Right Side Section -->
 		<!-- Appearance -->
 		<ArtisanalCard level="high" class="border border-outline-variant/5 p-8 shadow-xl lg:col-span-2">
